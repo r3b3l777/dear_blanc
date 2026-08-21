@@ -372,16 +372,49 @@ a.disc:hover, .card:hover .disc { background: var(--oak); border-color: var(--oa
 .tx__card > p { margin-top: .9rem; }
 .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.35rem; }
 .chip { font-size: .75rem; padding: .35rem .7rem; border-radius: var(--r-sm); background: var(--paper-2); color: var(--ink-2); border: 1px solid var(--edge); }
+.tx__list { display: grid; gap: 1.1rem; margin-top: 1.6rem; }
+.tx__item h4 { font-size: 1rem; font-weight: 500; color: var(--ink); }
+.tx__item p { margin-top: .3rem; font-size: .875rem; color: var(--ink-2); }
+.tx__note { margin-top: 1.6rem; font-style: italic; color: var(--oak-ink); font-size: .9375rem; }
 .tx__card .btn { margin-top: 1.6rem; }
 
-/* ---------- El ritual (banda de acento) ---------- */
+/* ---------- No sabes qué necesitas (banda de acento) ---------- */
 .ritual { background: var(--oak); color: var(--on-oak); }
 .ritual h2, .ritual h3 { color: var(--on-oak); }
 .ritual .eyebrow { color: color-mix(in srgb, var(--on-oak) 82%, transparent); }
 .ritual .eyebrow::before { background: color-mix(in srgb, var(--on-oak) 60%, transparent); }
-.ritual__steps { display: grid; gap: 2rem; counter-reset: step; }
-.ritual__step { padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--on-oak) 32%, transparent); }
-.ritual__step p { margin-top: .5rem; color: color-mix(in srgb, var(--on-oak) 86%, transparent); font-size: .9375rem; max-width: 34ch; }
+.ritual__quote { max-width: 42rem; margin-inline: auto; text-align: center; }
+.ritual__line { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.35; }
+.ritual__answer { margin-top: 1.1rem; font-size: 1rem; color: color-mix(in srgb, var(--on-oak) 90%, transparent); }
+.ritual__promise { margin-top: 1rem; font-size: .9375rem; color: color-mix(in srgb, var(--on-oak) 78%, transparent); }
+.ritual__quote .btn { margin-top: 1.75rem; }
+
+/* ---------- ¿Qué quieres transformar? ---------- */
+.quiz { display: grid; gap: .75rem; }
+.quiz__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.15rem 1.35rem; border-radius: var(--r-box);
+  border: 1px solid var(--line); background: var(--surface);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.quiz__item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+.quiz__item:hover .disc { background: var(--oak); border-color: var(--oak); color: var(--on-oak); }
+.quiz__text { display: flex; flex-direction: column; gap: .3rem; }
+.quiz__text strong { font-weight: 500; font-size: .95rem; color: var(--ink); }
+.quiz__text small { font-size: .8125rem; color: var(--ink-2); }
+
+/* ---------- Valoración: checklist ---------- */
+.checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: .65rem; }
+.checklist li { display: flex; align-items: center; gap: .75rem; font-size: .9375rem; color: var(--ink-2); }
+.disc--sm { width: 28px; height: 28px; }
+.disc--sm svg { width: 12px; height: 12px; }
+
+/* ---------- Nuestra diferencia ---------- */
+.diff { display: grid; gap: 1.75rem; }
+.diff__item { padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.diff__num { display: block; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.6rem; color: var(--oak-ink); line-height: 1; margin-bottom: .6rem; }
+.diff__item h3 { margin-top: 0; }
+.diff__item p { margin-top: .4rem; font-size: .9375rem; color: var(--ink-2); }
 
 /* ---------- Agenda ---------- */
 .book { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
@@ -594,7 +627,9 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 @media (min-width: 40em) {
   :root { --gutter: 2rem; }
   .exp { grid-template-columns: repeat(2, 1fr); }
-  .ritual__steps { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .quiz { grid-template-columns: repeat(2, 1fr); }
+  .diff { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .tx__list { grid-template-columns: repeat(2, 1fr); }
   .studio { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .studio > :first-child { grid-row: span 2; }
   .slot--tall { aspect-ratio: auto; min-height: 260px; }
@@ -630,6 +665,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   .hero__frame { aspect-ratio: 4 / 5; }
 
   .exp { grid-template-columns: repeat(4, 1fr); }
+  .quiz { grid-template-columns: repeat(3, 1fr); }
+  .diff { grid-template-columns: repeat(3, 1fr); }
 
   /* Tratamientos: lista vertical + panel */
   .tx { grid-template-columns: minmax(240px, 320px) 1fr; gap: 2rem; align-items: start; }

@@ -206,6 +206,15 @@
     });
   });
 
+  /* Los enlaces de "¿Qué quieres transformar?" seleccionan la pestaña
+     correspondiente antes de que el navegador salte al ancla #tratamientos. */
+  $$("[data-tab]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      var tab = document.getElementById("tab-" + a.dataset.tab);
+      if (tab) activarTab(tab, false);
+    });
+  });
+
   /* ==========================================================================
      Agenda en 3 pasos
      ========================================================================== */

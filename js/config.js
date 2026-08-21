@@ -26,14 +26,13 @@ window.DB = {
     "Hola, me gustaría agendar una cita de valoración en Dear Blanc Dental Studio.",
 
   /* Tratamientos del paso 1 de la agenda. El id debe coincidir con las
-     pestañas de la sección Tratamientos. */
+     pestañas de la sección Tratamientos (tab-estetica, tab-rehabilitacion,
+     tab-salud) y con los atributos data-agenda repartidos por el sitio. */
   tratamientos: [
-    { id: "sonrisa",   nombre: "Diseño de sonrisa y carillas", nota: "3 a 4 sesiones" },
-    { id: "ortodoncia", nombre: "Ortodoncia invisible",        nota: "6 a 18 meses" },
-    { id: "blanqueamiento", nombre: "Blanqueamiento spa",      nota: "60 minutos" },
-    { id: "implantes", nombre: "Implantología avanzada",       nota: "Plan a medida" },
-    { id: "limpieza",  nombre: "Limpieza y profilaxis",        nota: "45 minutos" },
-    { id: "otro",      nombre: "Todavía no lo sé",             nota: "Lo vemos en la valoración" }
+    { id: "estetica",       nombre: "Estética dental",       nota: "Diseño de sonrisa, carillas, blanqueamiento" },
+    { id: "rehabilitacion", nombre: "Rehabilitación oral",   nota: "Implantes, coronas, puentes y prótesis" },
+    { id: "salud",          nombre: "Salud y prevención",    nota: "Limpieza, periodoncia, guardas oclusales" },
+    { id: "valoracion",     nombre: "Todavía no lo sé",      nota: "Empecemos con una valoración" }
   ],
 
   /* Franjas horarias que se ofrecen en el paso 2. */
