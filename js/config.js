@@ -4,10 +4,8 @@
    ========================================================================== */
 
 window.DB = {
-  /* Número de WhatsApp en formato internacional, sin +, espacios ni guiones.
-     Ejemplo Metepec: "527221234567"
-     >>> PENDIENTE: sustituir por el número real del consultorio. */
-  whatsapp: "52XXXXXXXXXX",
+  /* Número de WhatsApp en formato internacional, sin +, espacios ni guiones. */
+  whatsapp: "527223390539",
 
   /* Perfil de Doctoralia. Mientras esté vacío, los botones de Doctoralia
      se ocultan solos en lugar de apuntar a "#". */

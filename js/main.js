@@ -42,7 +42,7 @@
     })(h);
 
     $$(".word", h).forEach(function (w, i) {
-      setTimeout(function () { w.classList.add("is-in"); }, 120 + i * 80);
+      setTimeout(function () { w.classList.add("is-in"); }, 100 + i * 55);
     });
   }
 
@@ -126,7 +126,8 @@
      centinela; la dirección se mide con un listener pasivo throttleado a rAF.
      ========================================================================== */
   var nav = $(".nav");
-  if (nav && !reduce) {
+  var hero = $(".hero");
+  if (nav) {
     var centinela = document.createElement("div");
     centinela.setAttribute("aria-hidden", "true");
     centinela.style.cssText = "position:absolute;top:0;left:0;width:1px;height:130px;pointer-events:none";
@@ -136,13 +137,21 @@
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (e) {
         arriba = e[0].isIntersecting;
-        if (arriba) { nav.removeAttribute("data-stuck"); nav.removeAttribute("data-hidden"); }
-        else { nav.setAttribute("data-stuck", ""); }
+        if (arriba) {
+          nav.removeAttribute("data-stuck");
+          nav.removeAttribute("data-hidden");
+          // Sobre la portada la barra va sin fondo. Es un atributo y no la
+          // ausencia de "data-stuck" para que sin JS la barra sea opaca.
+          if (hero) nav.setAttribute("data-over", "");
+        } else {
+          nav.setAttribute("data-stuck", "");
+          nav.removeAttribute("data-over");
+        }
       }, { threshold: 0 }).observe(centinela);
     }
 
     var ultimo = window.scrollY, pendiente = false;
-    window.addEventListener("scroll", function () {
+    if (!reduce) window.addEventListener("scroll", function () {
       if (pendiente) return;
       pendiente = true;
       requestAnimationFrame(function () {
@@ -162,6 +171,48 @@
     nav.addEventListener("focusin", function () { nav.removeAttribute("data-hidden"); });
     if (burger) burger.addEventListener("click", function () { nav.removeAttribute("data-hidden"); });
   }
+
+  /* ---------- Sección actual en la barra ----------
+     "¿Dónde estoy?" La barra ya subraya en hover; el mismo subrayado marca
+     la sección en pantalla. Gana la última que cruzó la línea de la barra. */
+  (function () {
+    var enlaces = $$('.nav__links a[href^="#"], .menu__list a[href^="#"]');
+    if (!enlaces.length || !("IntersectionObserver" in window)) return;
+    var porId = {};
+    enlaces.forEach(function (a) {
+      var id = a.getAttribute("href").slice(1);
+      (porId[id] = porId[id] || []).push(a);
+    });
+    var orden = Object.keys(porId);
+    var visibles = [];
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var i = visibles.indexOf(e.target.id);
+        if (e.isIntersecting) { if (i < 0) visibles.push(e.target.id); }
+        else if (i >= 0) { visibles.splice(i, 1); }
+      });
+      // Por orden del documento, no por orden de llegada: al subir rápido
+      // las entradas llegan desordenadas y parpadearía la sección marcada.
+      visibles.sort(function (x, y) { return orden.indexOf(x) - orden.indexOf(y); });
+      enlaces.forEach(function (a) { a.removeAttribute("data-current"); });
+      var actual = visibles[0];
+      if (actual && porId[actual]) porId[actual].forEach(function (a) { a.setAttribute("data-current", ""); });
+    }, { rootMargin: "-" + (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 66) + "px 0px -55% 0px" });
+    Object.keys(porId).forEach(function (id) {
+      var sec = document.getElementById(id);
+      if (sec) obs.observe(sec);
+    });
+  })();
+
+  /* El pill de WhatsApp estorba sobre el formulario: se retira mientras la
+     agenda está en pantalla, que ahí el destino ya es el mismo. */
+  (function () {
+    var pill = $("#waFab"), agenda = $("#agenda");
+    if (!pill || !agenda || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (e) {
+      pill.toggleAttribute("data-oculto", e[0].isIntersecting);
+    }, { threshold: 0 }).observe(agenda);
+  })();
 
   /* ---------- Revelado al entrar en pantalla ---------- */
   var revelables = $$(".rv");
@@ -194,8 +245,12 @@
       tab.scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduce ? "auto" : "smooth" });
     }
   }
+  function recordarTab(tab) {
+    if (!history.replaceState) return;
+    history.replaceState(null, "", "?tx=" + tab.id.replace("tab-", "") + "#tratamientos");
+  }
   tabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { activarTab(tab, false); });
+    tab.addEventListener("click", function () { activarTab(tab, false); recordarTab(tab); });
     tab.addEventListener("keydown", function (e) {
       var k = e.key, n = null;
       if (k === "ArrowRight" || k === "ArrowDown") n = tabs[(i + 1) % tabs.length];
@@ -206,12 +261,19 @@
     });
   });
 
+  // Al cargar con ?tx=..., abre esa pestaña.
+  (function () {
+    var q = (location.search.match(/[?&]tx=([\w-]+)/) || [])[1];
+    var t = q && document.getElementById("tab-" + q);
+    if (t) activarTab(t, false);
+  })();
+
   /* Los enlaces de "¿Qué quieres transformar?" seleccionan la pestaña
      correspondiente antes de que el navegador salte al ancla #tratamientos. */
   $$("[data-tab]").forEach(function (a) {
     a.addEventListener("click", function () {
       var tab = document.getElementById("tab-" + a.dataset.tab);
-      if (tab) activarTab(tab, false);
+      if (tab) { activarTab(tab, false); recordarTab(tab); }
     });
   });
 
