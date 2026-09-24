@@ -22,6 +22,12 @@ const cat = {
   salud: 'Salud y prevención'
 };
 const primera = 'estetica';
+
+/* Ancho que ocupa la tarjeta, para que el navegador elija entre el archivo
+   de 440 px y el de 880 px. A partir de 64em las pestañas se van a un lado y
+   la rejilla queda a dos columnas dentro del panel; por debajo de 40em es
+   una sola columna a casi todo el ancho. */
+const SIZES = '(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw';
 const rutaFoto = n => path.join(raiz, 'assets/img/tratamientos', n + '.jpg');
 const hayFoto = n => fs.existsSync(rutaFoto(n));
 
@@ -51,10 +57,13 @@ for (const clave of Object.keys(cat)) {
   let tarjetas = '';
   g.items.forEach((it, i) => {
     const m = hayFoto(it.img) ? medidas(it.img) : null;
+    const dos = m && fs.existsSync(rutaFoto(it.img + '@2x'));
+    const base = '/assets/img/tratamientos/' + it.img;
+    const set = ext => dos ? `${base}.${ext} 440w, ${base}@2x.${ext} 880w` : `${base}.${ext} 440w`;
     const foto = m ? `
               <picture>
-                <source type="image/webp" srcset="/assets/img/tratamientos/${it.img}.webp">
-                <img src="/assets/img/tratamientos/${it.img}.jpg" alt="${it.nombre}" width="${m.w}" height="${m.h}" loading="lazy" decoding="async">
+                <source type="image/webp" srcset="${set('webp')}" sizes="${SIZES}">
+                <img src="${base}.jpg" srcset="${set('jpg')}" sizes="${SIZES}" alt="${it.nombre}" width="${m.w}" height="${m.h}" loading="lazy" decoding="async">
               </picture>` : '';
     tarjetas += `              <article class="svc" data-svc="${it.slug}" style="--i:${i}">
               <div class="svc__flip">

@@ -14,7 +14,9 @@ dear-blanc/
 │   ├── config.js         # ← lo único que hay que editar
 │   └── main.js           # intro, barra, pestañas, tarjetas y agenda
 ├── scripts/
-│   └── gen-tratamientos.js  # regenera el bloque de Tratamientos
+│   ├── gen-tratamientos.js  # regenera el bloque de Tratamientos
+│   ├── preparar-fotos.py    # reescala y enfoca las fotos, 440 y 880
+│   └── fotos-fuente/        # los originales de los que salen
 ├── assets/
 │   ├── img/              # foto del estudio y del sanatorio (jpg + webp)
 │   │   └── tratamientos/ # una por servicio (jpg + webp)
@@ -63,9 +65,16 @@ para las cajas actuales, pero se ven blandas en pantallas 2x. Conviene pedir
 los originales al estudio de diseño y regenerarlos con el mismo recorte.
 Los `.webp` se generan con `cwebp -q 80`, los `.jpg` con `sips -s formatOptions 82`.
 
-La foto de la portada es un recorte de la imagen original de la marca, por el
-mismo motivo: el encuadre completo lleva el texto del anuncio de apertura. El
-archivo entero sigue en `assets/img/estudio-arco.jpg`.
+La foto de la portada ya no es esa: ahora es el primer plano de una sonrisa
+que mandó el estudio (965x734). Se sirve en tres anchos, 640, 965 y 1930; el
+de 1930 es el mismo material ampliado y enfocado, para que en pantallas de
+densidad doble no lo estire el navegador con su escalador. Pesa 55 KB en
+webp porque casi toda la imagen está fuera de foco y comprime muy bien.
+
+Las seis fotos del estudio llevan la misma máscara de enfoque, más suave
+(radio 1.3, 85%), porque se muestran casi a tamaño nativo.
+
+El recorte anterior de la portada sigue en `assets/img/estudio-arco.jpg`.
 
 ## Correr en local
 
@@ -195,10 +204,26 @@ No miden todas lo mismo, por eso el generador lee el tamaño real de cada jpg
 | `ortodoncia-invisible` | 507x338 |
 | las otras seis | 440x248 |
 
-**Las de 440x248 son chicas.** Alcanzan para la tarjeta actual, pero se ven
-blandas en pantallas 2x. Si aparecen los originales, hay que regenerarlas con
-el mismo recorte: `sips -s formatOptions 86` para el jpg y `cwebp -q 82` para
-el webp, y volver a correr el generador para que actualice las medidas.
+**No se puede inventar detalle que no está**, pero sí recuperar el contraste
+de borde que se perdió en la cadena captura -> JPEG -> recorte. Eso hace
+`scripts/preparar-fotos.py`: reescala con Lanczos y aplica una máscara de
+enfoque moderada (radio 1.6, 110%, umbral 3). Con radio 2.2 y 190% aparecen
+halos en el borde de los dientes y la piel se vuelve granulosa; se probó y se
+descartó.
+
+De cada foto salen dos anchos, 440 y 880, y el `<picture>` los reparte con
+`srcset`. Comprobado: a dpr 1 el navegador se baja el de 440, a dpr 2 y 3 el
+de 880. Un teléfono en 1x no carga el grande.
+
+```bash
+python3 scripts/preparar-fotos.py      # regenera las ocho, en los dos anchos
+node scripts/gen-tratamientos.js       # actualiza el HTML con las medidas
+```
+
+Las fuentes viven en `scripts/fotos-fuente/` y son la copia buena. El script
+**nunca lee de la carpeta a la que escribe**: si lo hiciera, cada corrida
+reprocesaría su propia salida y las fotos se irían degradando sola tras otra.
+Ahí es donde hay que dejar los originales si algún día aparecen.
 
 Dos tratamientos siguen sin foto: **periodoncia** y **guardas oclusales**.
 No estaban en la lámina. Sus tarjetas se pintan con el fondo de la paleta y
