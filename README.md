@@ -182,14 +182,23 @@ cuenta los clics; si alguien vuelve a meter un "Continuar", se nota.
 
 ## Fotografía de los tratamientos
 
-Las ocho fotos salieron de la lámina de marca que mandó el estudio. Cada
+Las ocho fotos salieron de dos láminas de marca que mandó el estudio. Cada
 mosaico traía el nombre del tratamiento sobrepuesto: se recortó esa franja y
-de lo que quedó se tomó un 16:9 centrado, que es lo que menos sacrifica
-porque todas las tomas son bocas en horizontal. Quedan en 440x248.
+de lo que quedó se tomó un 3:2 centrado, la proporción de la tarjeta.
 
-**Son chicas.** Alcanzan para la tarjeta actual, pero se ven blandas en
-pantallas 2x. Si aparecen los originales, hay que regenerarlas con el mismo
-recorte: `sips -s formatOptions 86` para el jpg y `cwebp -q 82` para el webp.
+No miden todas lo mismo, por eso el generador lee el tamaño real de cada jpg
+(recorre los marcadores SOF de la cabecera) en lugar de escribir uno fijo:
+
+| Foto | Tamaño |
+|---|---|
+| `limpieza-prevencion` | 721x481 |
+| `ortodoncia-invisible` | 507x338 |
+| las otras seis | 440x248 |
+
+**Las de 440x248 son chicas.** Alcanzan para la tarjeta actual, pero se ven
+blandas en pantallas 2x. Si aparecen los originales, hay que regenerarlas con
+el mismo recorte: `sips -s formatOptions 86` para el jpg y `cwebp -q 82` para
+el webp, y volver a correr el generador para que actualice las medidas.
 
 Dos tratamientos siguen sin foto: **periodoncia** y **guardas oclusales**.
 No estaban en la lámina. Sus tarjetas se pintan con el fondo de la paleta y

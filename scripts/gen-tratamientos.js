@@ -22,7 +22,26 @@ const cat = {
   salud: 'Salud y prevención'
 };
 const primera = 'estetica';
-const hayFoto = n => fs.existsSync(path.join(raiz, 'assets/img/tratamientos', n + '.jpg'));
+const rutaFoto = n => path.join(raiz, 'assets/img/tratamientos', n + '.jpg');
+const hayFoto = n => fs.existsSync(rutaFoto(n));
+
+/* Lee el tamaño real del jpg recorriendo los marcadores SOF de la cabecera.
+   Las fotos no miden todas lo mismo y poner 440x248 a mano era mentira; con
+   el tamaño correcto el navegador reserva la caja antes de descargarla. */
+function medidas(n) {
+  const b = fs.readFileSync(rutaFoto(n));
+  let i = 2;                                  // saltamos el SOI (FFD8)
+  while (i < b.length - 9) {
+    if (b[i] !== 0xFF) { i++; continue; }
+    const marca = b[i + 1];
+    // SOF0..SOF15, menos DHT (C4), JPG (C8) y DAC (CC), que no son SOF.
+    if (marca >= 0xC0 && marca <= 0xCF && marca !== 0xC4 && marca !== 0xC8 && marca !== 0xCC) {
+      return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) };
+    }
+    i += 2 + b.readUInt16BE(i + 2);           // siguiente segmento
+  }
+  throw new Error('no pude leer el tamaño de ' + n + '.jpg');
+}
 
 let tabs = '', paneles = '';
 for (const clave of Object.keys(cat)) {
@@ -31,10 +50,11 @@ for (const clave of Object.keys(cat)) {
 
   let tarjetas = '';
   g.items.forEach((it, i) => {
-    const foto = hayFoto(it.img) ? `
+    const m = hayFoto(it.img) ? medidas(it.img) : null;
+    const foto = m ? `
               <picture>
                 <source type="image/webp" srcset="/assets/img/tratamientos/${it.img}.webp">
-                <img src="/assets/img/tratamientos/${it.img}.jpg" alt="${it.nombre}" width="440" height="248" loading="lazy" decoding="async">
+                <img src="/assets/img/tratamientos/${it.img}.jpg" alt="${it.nombre}" width="${m.w}" height="${m.h}" loading="lazy" decoding="async">
               </picture>` : '';
     tarjetas += `              <article class="svc" data-svc="${it.slug}" style="--i:${i}">
               <div class="svc__flip">
