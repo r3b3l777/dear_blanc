@@ -252,7 +252,24 @@
       tab.focus();
       tab.scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduce ? "auto" : "smooth" });
     }
+    moverInk();
   }
+  /* Subrayado que se desliza bajo la pestaña activa. Se mide después de
+     pintar, y se vuelve a medir al redimensionar porque las pestañas
+     cambian de ancho entre móvil y escritorio. */
+  var ink = $(".tx__ink");
+  function moverInk() {
+    var on = $('.tx__tab[aria-selected="true"]');
+    if (!ink || !on) return;
+    ink.style.width = on.offsetWidth + "px";
+    ink.style.transform = "translateX(" + on.offsetLeft + "px)";
+  }
+  if (ink) {
+    requestAnimationFrame(moverInk);
+    window.addEventListener("resize", moverInk);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(moverInk);
+  }
+
   function recordarTab(tab) {
     if (!history.replaceState) return;
     history.replaceState(null, "", "?tx=" + tab.id.replace("tab-", "") + "#tratamientos");
@@ -286,7 +303,109 @@
   });
 
   /* ==========================================================================
-     Agenda en 3 pasos
+     20. Fotos de los tratamientos
+     Si el archivo todavía no existe, se quita el <img> y queda el fondo de
+     la paleta con la inicial: nunca un icono de imagen rota.
+     ========================================================================== */
+  $$("[data-fallback]").forEach(function (img) {
+    var quitar = function () { if (img.parentNode) img.parentNode.removeAttribute("data-has-img"); img.remove(); };
+    if (img.complete) { if (img.naturalWidth) img.parentNode.setAttribute("data-has-img", ""); else quitar(); }
+    else {
+      img.addEventListener("load",  function () { img.parentNode.setAttribute("data-has-img", ""); });
+      img.addEventListener("error", quitar);
+    }
+  });
+
+  /* ---------- "Consultar precio": un solo toque abre WhatsApp ----------
+     En el sitio no se publican precios. El botón de cada tarjeta manda el
+     nombre del tratamiento ya escrito para que la respuesta sea directa. */
+  $$("[data-precio]").forEach(function (a) {
+    if (!numeroListo) return;
+    a.href = wa(
+      "Hola, vi " + a.dataset.nombre + " en el sitio de Dear Blanc Dental Studio. " +
+      "¿Me pueden compartir el precio y agendar una valoración?"
+    );
+    a.target = "_blank"; a.rel = "noopener";
+  });
+
+  /* Botones de WhatsApp directo repartidos por la página. */
+  $$("[data-wa-directo]").forEach(function (a) {
+    if (!numeroListo) return;
+    a.href = wa(a.dataset.motivo === "valoracion"
+      ? "Hola, quiero agendar mi valoración en Dear Blanc Dental Studio."
+      : C.mensajeCita);
+    a.target = "_blank"; a.rel = "noopener";
+  });
+
+  /* ==========================================================================
+     21. Equipo: tarjetas que rotan solas
+     Sin foto todavía, se dibuja un avatar con iniciales. La rotación se
+     detiene al pasar el cursor, al enfocar con teclado y con
+     prefers-reduced-motion.
+     ========================================================================== */
+  (function () {
+    var stage = $("#teamStage"), dots = $("#teamDots");
+    var gente = C.equipo || [];
+    if (!stage || !gente.length) { var t = $("#equipo"); if (t) t.remove(); return; }
+
+    var iniciales = function (n) {
+      return n.split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+    };
+
+    gente.forEach(function (p, i) {
+      var card = document.createElement("article");
+      card.className = "team__card";
+      card.setAttribute("aria-hidden", i ? "true" : "false");
+      if (!i) card.setAttribute("data-on", "");
+      card.innerHTML =
+        '<div class="team__shot">' +
+          (p.foto
+            ? '<img src="' + p.foto + '" alt="' + p.nombre + '" loading="lazy" decoding="async">'
+            : '<span class="team__ini" aria-hidden="true">' + iniciales(p.nombre) + '</span>') +
+        '</div>' +
+        '<div class="team__meta"><h3>' + p.nombre + '</h3><p>' + p.area + '</p></div>';
+      stage.appendChild(card);
+
+      var d = document.createElement("button");
+      d.type = "button"; d.className = "team__dot"; d.setAttribute("role", "tab");
+      d.setAttribute("aria-label", p.nombre);
+      d.setAttribute("aria-selected", i ? "false" : "true");
+      d.addEventListener("click", function () { ir(i); reiniciar(); });
+      dots.appendChild(d);
+    });
+
+    var cards = $$(".team__card", stage), puntos = $$(".team__dot", dots), n = 0, timer = null;
+
+    function ir(i) {
+      n = (i + cards.length) % cards.length;
+      cards.forEach(function (c, k) {
+        if (k === n) c.setAttribute("data-on", ""); else c.removeAttribute("data-on");
+        c.setAttribute("aria-hidden", k === n ? "false" : "true");
+      });
+      puntos.forEach(function (d, k) { d.setAttribute("aria-selected", k === n ? "true" : "false"); });
+    }
+    function reiniciar() {
+      clearInterval(timer);
+      if (reduce) return;
+      timer = setInterval(function () { ir(n + 1); }, 4200);
+    }
+
+    $$("[data-team]").forEach(function (b) {
+      b.addEventListener("click", function () { ir(n + (b.dataset.team === "next" ? 1 : -1)); reiniciar(); });
+    });
+    var box = $("#equipo");
+    box.addEventListener("mouseenter", function () { clearInterval(timer); });
+    box.addEventListener("mouseleave", reiniciar);
+    box.addEventListener("focusin",  function () { clearInterval(timer); });
+    box.addEventListener("focusout", reiniciar);
+    reiniciar();
+  })();
+
+  /* ==========================================================================
+     22. Agenda en dos pasos (tres clics hasta WhatsApp)
+     Tocas tratamiento -> avanza solo. Tocas horario -> se arma el resumen.
+     Tocas enviar -> se abre WhatsApp. No pedimos nombre: eso se resuelve en
+     la conversación y cada campo extra costaba un clic más.
      ========================================================================== */
   var form = $("#agendaForm");
   if (!form) return;
@@ -296,7 +415,7 @@
   var puntos = $$(".dots span", form);
   var actual = 1;
 
-  function pintarOpciones(contenedor, datos, campo) {
+  function pintarOpciones(contenedor, datos, campo, alElegir) {
     contenedor.innerHTML = "";
     datos.forEach(function (o) {
       var b = document.createElement("button");
@@ -311,13 +430,14 @@
         estado[campo] = o;
         var err = contenedor.parentNode.querySelector(".err");
         if (err) err.style.display = "none";
+        if (alElegir) alElegir();
       });
       contenedor.appendChild(b);
     });
   }
 
-  pintarOpciones($("#pickTratamiento"), C.tratamientos || [], "tratamiento");
-  pintarOpciones($("#pickHorario"), C.horarios || [], "horario");
+  pintarOpciones($("#pickTratamiento"), C.tratamientos || [], "tratamiento", function () { irA(2); });
+  pintarOpciones($("#pickHorario"), C.horarios || [], "horario", pintarResumen);
 
   function irA(n) {
     actual = n;
@@ -328,13 +448,14 @@
     puntos.forEach(function (d, i) {
       if (i < n) d.setAttribute("data-on", ""); else d.removeAttribute("data-on");
     });
-    if (n === 3) pintarResumen();
+    if (n === 2) pintarResumen();
     var foco = $(".step[data-active] h3", form);
     if (foco) { foco.setAttribute("tabindex", "-1"); foco.focus({ preventScroll: true }); }
   }
 
   function pintarResumen() {
     var r = $("#resumen");
+    if (!r) return;
     r.innerHTML =
       "<dl>" +
       "<dt>Tratamiento</dt><dd>" + (estado.tratamiento ? estado.tratamiento.nombre : "Por definir") + "</dd>" +
@@ -342,53 +463,35 @@
       "</dl>";
   }
 
-  function mostrarError(id) {
-    var e = document.getElementById(id);
-    if (e) { e.style.display = "block"; }
-  }
-
-  $$("[data-next]", form).forEach(function (b) {
-    b.addEventListener("click", function () {
-      if (actual === 1 && !estado.tratamiento) return mostrarError("errTratamiento");
-      if (actual === 2 && !estado.horario) return mostrarError("errHorario");
-      irA(actual + 1);
-    });
-  });
   $$("[data-prev]", form).forEach(function (b) {
     b.addEventListener("click", function () { irA(Math.max(1, actual - 1)); });
   });
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var nombre = $("#nombre").value.trim();
-    var campoNombre = $("#fNombre");
-    if (nombre.length < 2) {
-      campoNombre.setAttribute("data-invalid", "");
-      $("#nombre").focus();
+    if (!estado.horario) {
+      var err = $("#errHorario");
+      if (err) err.style.display = "block";
       return;
     }
-    campoNombre.removeAttribute("data-invalid");
-
-    var extra = $("#mensaje").value.trim();
     var texto =
-      "Hola, soy " + nombre + ". Me gustaría agendar una valoración en Dear Blanc Dental Studio.\n" +
+      "Hola, quiero agendar una valoración en Dear Blanc Dental Studio.\n" +
       "Tratamiento: " + (estado.tratamiento ? estado.tratamiento.nombre : "Por definir") + "\n" +
-      "Horario que me acomoda: " + (estado.horario ? estado.horario.nombre + " (" + estado.horario.nota + ")" : "Flexible") +
-      (extra ? "\nNota: " + extra : "");
+      "Horario que me acomoda: " + estado.horario.nombre + " (" + estado.horario.nota + ")";
 
     if (!numeroListo) {
-      alert("El número de WhatsApp todavía no está configurado en js/config.js.\n\nMensaje que se enviaría:\n\n" + texto);
+      console.warn("[Dear Blanc] Falta el número de WhatsApp. Mensaje:\n" + texto);
       return;
     }
     window.open(wa(texto), "_blank", "noopener");
   });
 
-  /* Los botones "Agendar este tratamiento" preseleccionan el paso 1. */
+  /* Los botones repartidos por el sitio preseleccionan el tratamiento y
+     dejan al visitante directo en el paso del horario. */
   $$("[data-agenda]").forEach(function (a) {
     a.addEventListener("click", function () {
       var b = $('#pickTratamiento .pick[data-id="' + a.dataset.agenda + '"]');
-      if (b) b.click();
-      irA(2);
+      if (b) b.click(); else irA(2);
     });
   });
 })();

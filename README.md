@@ -26,13 +26,13 @@ Abre `js/config.js` y llena:
 
 | Campo | Qué es | Estado |
 |---|---|---|
-| `whatsapp` | Número del consultorio, formato `52` + 10 dígitos, sin `+` ni espacios | **pendiente** |
+| `whatsapp` | Número del consultorio, formato `52` + 10 dígitos, sin `+` ni espacios | listo |
 | `doctoralia` | URL del perfil | **pendiente** |
 | `maps` | Enlace de Google Maps | listo |
 | `social` | Instagram, TikTok, Facebook | listo |
 
 Mientras `whatsapp` siga en `52XXXXXXXXXX`, el botón flotante se oculta solo y
-el formulario muestra el mensaje en pantalla en lugar de abrir un enlace roto.
+el formulario escribe el mensaje en consola en lugar de abrir un enlace roto.
 Lo mismo con Doctoralia: si está vacío, esos botones no se pintan. Nunca queda
 un `href="#"` a la vista.
 
@@ -120,7 +120,7 @@ desaparecen sobre los fondos oscuros.
 
 | Ancho | Qué cambia |
 |---|---|
-| < 640 | Una columna. Barra inferior fija con "Cómo llegar" y "Agendar cita". Tratamientos como píldoras deslizables. |
+| < 640 | Una columna. Barra inferior fija con "Cómo llegar" y "Agendar cita". Tratamientos como píldoras deslizables, tarjetas de servicio a 2 columnas. |
 | ≥ 640 | Rejillas a 2 columnas, ritual a 3. |
 | ≥ 768 | Hero y ubicación a dos columnas. Agenda al lado del texto. |
 | ≥ 1024 | Menú completo en la barra, tratamientos como lista vertical más panel, experiencia a 4 columnas, se quita la barra inferior. |
@@ -159,3 +159,58 @@ pegajosa no se han visto funcionar en iOS. Safari no se deja automatizar sin
 permiso (`safaridriver --enable`, que pide contraseña de administrador) y la
 captura de pantalla está bloqueada por permisos de Grabación de Pantalla.
 Alguien tiene que abrir el sitio en un iPhone y recorrerlo.
+
+## Precios, no en el sitio
+
+En la página no se publica ningún precio. Cada tarjeta de tratamiento lleva
+**Consultar precio**, que es un `wa.me` con el nombre del tratamiento ya
+escrito: un toque y la conversación empieza con el contexto puesto. Los
+enlaces los arma `js/main.js` a partir de `DB.servicios`; si algún día hace
+falta cambiar el texto del mensaje, está en un solo sitio.
+
+## Tres clics hasta WhatsApp
+
+La agenda pasó de tres pasos a dos y perdió el campo del nombre. Ahora cada
+elección avanza sola, así que el camino completo es: tocas tratamiento,
+tocas horario, tocas enviar. Tres clics y WhatsApp abierto con el mensaje
+armado; el nombre se resuelve en la conversación, que es donde ya estaba
+pasando de todos modos. Hay una prueba en `test.js` (fuera del repo) que
+cuenta los clics; si alguien vuelve a meter un "Continuar", se nota.
+
+## Fotografía de los tratamientos
+
+**Pendiente.** Las trece tarjetas apuntan a `/assets/img/tratamientos/<slug>.jpg`
+(los `slug` están en `DB.servicios`). Esos archivos todavía no existen, y el
+sitio está hecho para aguantarlo: `main.js` quita el `<img>` que falla y queda
+el fondo de la paleta con la inicial del tratamiento. No hay iconos de imagen
+rota ni huecos en blanco.
+
+En cuanto los archivos se copien a esa carpeta, las tarjetas se encienden
+solas: el velo de lectura aparece, el nombre pasa a crema y no hay que tocar
+ni el HTML ni el CSS. Hasta entonces cada carga pide trece imágenes que
+devuelven 404; van con `loading="lazy"`, así que solo se piden al llegar a la
+sección y no bloquean nada.
+
+Mismo trato para `DB.equipo`: mientras `foto` esté vacío se pinta un avatar
+con las iniciales, no una cara inventada.
+
+## Horario
+
+Lunes a viernes de 9:00 a 14:00 y de 16:00 a 20:00. Sábados de 9:00 a 14:00.
+Domingos cerrado. Está en cuatro sitios y los cuatro tienen que coincidir:
+`DB.atencion` en `config.js`, la ficha de Ubicación, la ficha de la agenda y
+el `openingHoursSpecification` del JSON-LD en `index.html`.
+
+## Los beige
+
+El sitio venía resuelto con vino en todas las superficies profundas (intro,
+ritual, cierre, pie) y se leía monótono. La sección 30 de `editorial.css`
+añade una escala de arena y arcilla (`--sand`, `--sand-2`, `--clay`,
+`--clay-deep`) y reparte el peso: las secciones tintadas se alternan con
+`section--sand` y `section--clay`, el bloque del ritual y el cierre pasan a
+greige, y el vino queda solo en la portada y el pie, donde vuelve a ser un
+remate en lugar del color de media página.
+
+Los beige siguen la misma regla que el resto de los tokens: `--sand` y
+compañía se invierten con `prefers-color-scheme`; `--c-sand` y `--c-clay-deep`
+no, porque son superficies oscuras también de día.

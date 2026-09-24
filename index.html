@@ -48,7 +48,10 @@
   },
   "areaServed": ["Metepec", "Toluca", "Zona metropolitana del Valle de Toluca"],
   "openingHoursSpecification": [
-    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" }
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "14:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "16:00", "closes": "20:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "14:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "00:00", "closes": "00:00" }
   ],
   "sameAs": [
     "https://www.instagram.com/dearblancdentalstudio",
@@ -181,22 +184,25 @@
   <!-- ===== 1. Portada a sangre ===== -->
   <section class="hero" id="inicio">
     <picture class="hero__bg">
-      <source type="image/webp" srcset="/assets/img/equipo-diente-800.webp 800w, /assets/img/equipo-diente.webp 1320w" sizes="100vw">
-      <img src="/assets/img/equipo-diente.jpg" width="1320" height="581" alt="Manos del equipo de Dear Blanc sosteniendo juntas una figura de diente" fetchpriority="high" decoding="async">
+      <source type="image/webp" srcset="/assets/img/sonrisa-portada-640.webp 640w, /assets/img/sonrisa-portada.webp 965w" sizes="100vw">
+      <img src="/assets/img/sonrisa-portada.jpg" width="965" height="734" alt="Primer plano de una sonrisa natural y luminosa" fetchpriority="high" decoding="async">
     </picture>
 
     <div class="wrap">
      <div class="hero__inner">
       <p class="hero__eyebrow">Sanatorio Venecia &middot; Metepec</p>
       <h1 class="hero__title" data-reveal>
-        <span class="hero__l1">Tu sonrisa.</span>
-        <span class="hero__l2">Tu historia.</span>
+        <span>Tu sonrisa.</span>
+        <span>Tu historia.</span>
+        <span>Tu tratamiento.</span>
       </h1>
-      <p class="hero__tag">Tu tratamiento, pensado solo para ti.</p>
-      <p class="hero__body">En Dear Blanc creemos que una sonrisa bonita no tiene que verse perfecta. Tiene que sentirse tuya.</p>
+      <p class="hero__body">Una sonrisa bonita no tiene que verse perfecta. Tiene que sentirse tuya.</p>
       <div class="hero__actions">
-        <a class="hero__link" href="#tratamientos">Ver tratamientos
-          <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        <a class="btn btn--primary" href="#tratamientos">
+          <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>Ver tratamientos
+        </a>
+        <a class="btn btn--ghost" data-wa-directo href="#agenda">
+          <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Agendar por WhatsApp
         </a>
       </div>
      </div>
@@ -233,7 +239,7 @@
       </div>
       <div class="presenta__note rv">
         <span class="presenta__note-k">Dónde estamos</span>
-        <p>Sanatorio Venecia Tecnológico, Av. Tecnológico, Metepec. De lunes a viernes, de 9:00 a 19:00.</p>
+        <p>Sanatorio Venecia Tecnológico, Av. Tecnológico, Metepec. Lunes a viernes de 9:00 a 14:00 y de 16:00 a 20:00; sábados de 9:00 a 14:00.</p>
       </div>
     </div>
   </section>
@@ -262,7 +268,7 @@
   </section>
 
   <!-- ===== 5. Paso 01: ¿Qué quieres transformar? ===== -->
-  <section class="section section--tint" id="transformar" data-slide="03 · ¿Qué quieres transformar?">
+  <section class="section section--sand" id="transformar" data-slide="03 · ¿Qué quieres transformar?">
     <div class="wrap">
       <div class="head rv">
         <p class="eyebrow">Empieza por ti</p>
@@ -320,6 +326,7 @@
           <button class="tx__tab" role="tab" id="tab-estetica" aria-controls="panel-estetica" aria-selected="true">Estética dental</button>
           <button class="tx__tab" role="tab" id="tab-rehabilitacion" aria-controls="panel-rehabilitacion" aria-selected="false" tabindex="-1">Rehabilitación oral</button>
           <button class="tx__tab" role="tab" id="tab-salud" aria-controls="panel-salud" aria-selected="false" tabindex="-1">Salud y prevención</button>
+          <span class="tx__ink" aria-hidden="true"></span>
         </div>
 
         <div class="tx__panels">
@@ -327,59 +334,203 @@
             <div class="tx__card">
               <p class="tx__kicker">Estética dental</p>
               <h3>Una sonrisa más bonita sin dejar de parecer tú</h3>
-              <p class="body">La estética dental no debería buscar una sonrisa idéntica para todos. Buscamos armonía, proporción y naturalidad.</p>
-              <div class="tx__list">
-                <div class="tx__item"><h4>Diseño de sonrisa</h4><p>Planeamos los cambios estéticos tomando en cuenta tus facciones, proporciones y expectativas.</p></div>
-                <div class="tx__item"><h4>Carillas dentales</h4><p>Una alternativa para transformar forma, proporción, color y armonía de determinados dientes, siempre después de valorar tu caso.</p></div>
-                <div class="tx__item"><h4>Blanqueamiento dental</h4><p>Para una sonrisa más luminosa y un tono más claro mediante un protocolo profesional.</p></div>
-                <div class="tx__item"><h4>Armonización estética</h4><p>Pequeños o grandes cambios que transforman la percepción de tu sonrisa cuando se planifican de manera integral.</p></div>
-                <div class="tx__item"><h4>Ortodoncia invisible</h4><p>Alinea tu sonrisa de forma discreta y removible, a tu propio ritmo.</p></div>
+              <p class="body">Armonía, proporción y naturalidad. No una sonrisa idéntica para todos.</p>
+              <div class="svcs">
+              <article class="svc" data-svc="diseno-de-sonrisa" style="--i:0">
+                <div class="svc__shot" data-ghost="D">
+                  <img src="/assets/img/tratamientos/diseno-de-sonrisa.jpg" alt="Diseño de sonrisa" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Diseño de sonrisa</h4>
+                  <p class="svc__line">Planeamos los cambios tomando en cuenta tus facciones y proporciones.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="diseno-de-sonrisa" data-nombre="Diseño de sonrisa">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="carillas" style="--i:1">
+                <div class="svc__shot" data-ghost="C">
+                  <img src="/assets/img/tratamientos/carillas.jpg" alt="Carillas dentales" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Carillas dentales</h4>
+                  <p class="svc__line">Transforman forma, color y armonía de determinados dientes.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="carillas" data-nombre="Carillas dentales">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="blanqueamiento" style="--i:2">
+                <div class="svc__shot" data-ghost="B">
+                  <img src="/assets/img/tratamientos/blanqueamiento.jpg" alt="Blanqueamiento" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Blanqueamiento</h4>
+                  <p class="svc__line">Un tono más claro con protocolo profesional.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="blanqueamiento" data-nombre="Blanqueamiento">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="armonizacion" style="--i:3">
+                <div class="svc__shot" data-ghost="A">
+                  <img src="/assets/img/tratamientos/armonizacion.jpg" alt="Armonización estética" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Armonización estética</h4>
+                  <p class="svc__line">Cambios que transforman la percepción de tu sonrisa.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="armonizacion" data-nombre="Armonización estética">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="ortodoncia-invisible" style="--i:4">
+                <div class="svc__shot" data-ghost="O">
+                  <img src="/assets/img/tratamientos/ortodoncia-invisible.jpg" alt="Ortodoncia invisible" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Ortodoncia invisible</h4>
+                  <p class="svc__line">Alinea tu sonrisa de forma discreta y removible.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="ortodoncia-invisible" data-nombre="Ortodoncia invisible">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
               </div>
               <p class="tx__note">No buscamos que todos tengan la misma sonrisa. Buscamos que la tuya se vea naturalmente tuya.</p>
-              <a class="btn btn--primary" href="#agenda" data-agenda="estetica">
-                <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Quiero diseñar mi sonrisa
-              </a>
             </div>
           </div>
-
           <div class="tx__panel" id="panel-rehabilitacion" role="tabpanel" aria-labelledby="tab-rehabilitacion" tabindex="0">
             <div class="tx__card">
               <p class="tx__kicker">Rehabilitación oral</p>
               <h3>Recuperar lo que una sonrisa ha perdido</h3>
-              <p class="body">Cuando existen dientes ausentes, desgastados, fracturados o dañados, no se trata únicamente de estética. Se trata de recuperar función, salud y confianza.</p>
-              <div class="tx__list">
-                <div class="tx__item"><h4>Implantes dentales</h4><p>Para reemplazar dientes ausentes mediante una solución planificada de acuerdo con las necesidades de cada paciente.</p></div>
-                <div class="tx__item"><h4>Coronas</h4><p>Para recuperar la estructura, función y apariencia de dientes que requieren protección o reconstrucción.</p></div>
-                <div class="tx__item"><h4>Puentes y prótesis</h4><p>Alternativas para recuperar dientes ausentes y devolver equilibrio a la función oral.</p></div>
-                <div class="tx__item"><h4>Restauraciones</h4><p>Para reparar dientes afectados y conservar la mayor cantidad posible de estructura dental saludable.</p></div>
+              <p class="body">Cuando hay dientes ausentes o dañados no se trata solo de estética: es función, salud y confianza.</p>
+              <div class="svcs">
+              <article class="svc" data-svc="implantes" style="--i:0">
+                <div class="svc__shot" data-ghost="I">
+                  <img src="/assets/img/tratamientos/implantes.jpg" alt="Implantes dentales" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Implantes dentales</h4>
+                  <p class="svc__line">Reemplazan dientes ausentes con una solución planificada.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="implantes" data-nombre="Implantes dentales">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="coronas" style="--i:1">
+                <div class="svc__shot" data-ghost="C">
+                  <img src="/assets/img/tratamientos/coronas.jpg" alt="Coronas" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Coronas</h4>
+                  <p class="svc__line">Devuelven estructura, función y apariencia.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="coronas" data-nombre="Coronas">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="protesis" style="--i:2">
+                <div class="svc__shot" data-ghost="P">
+                  <img src="/assets/img/tratamientos/protesis.jpg" alt="Puentes y prótesis" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Puentes y prótesis</h4>
+                  <p class="svc__line">Recuperan dientes ausentes y el equilibrio de la mordida.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="protesis" data-nombre="Puentes y prótesis">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="restauraciones" style="--i:3">
+                <div class="svc__shot" data-ghost="R">
+                  <img src="/assets/img/tratamientos/restauraciones.jpg" alt="Restauraciones" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Restauraciones</h4>
+                  <p class="svc__line">Reparan el diente conservando la estructura sana.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="restauraciones" data-nombre="Restauraciones">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
               </div>
               <p class="tx__note">Primero entendemos el problema. Después diseñamos la solución.</p>
-              <a class="btn btn--primary" href="#agenda" data-agenda="rehabilitacion">
-                <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Quiero recuperar mi sonrisa
-              </a>
             </div>
           </div>
-
           <div class="tx__panel" id="panel-salud" role="tabpanel" aria-labelledby="tab-salud" tabindex="0">
             <div class="tx__card">
               <p class="tx__kicker">Salud y prevención</p>
               <h3>La mejor transformación también es conservar lo que tienes</h3>
               <p class="body">Una sonrisa saludable necesita atención antes de que aparezcan los problemas.</p>
-              <div class="tx__list">
-                <div class="tx__item"><h4>Limpieza dental profesional</h4><p>Para mantener una adecuada higiene y prevenir la acumulación de placa y cálculo.</p></div>
-                <div class="tx__item"><h4>Prevención y mantenimiento</h4><p>Seguimiento personalizado para conservar los resultados de tus tratamientos y cuidar tu salud oral.</p></div>
-                <div class="tx__item"><h4>Periodoncia</h4><p>Atención especializada de las estructuras que sostienen tus dientes cuando existen necesidades periodontales.</p></div>
-                <div class="tx__item"><h4>Guardas oclusales</h4><p>Opciones personalizadas para proteger dientes y restauraciones frente a determinadas cargas o hábitos.</p></div>
+              <div class="svcs">
+              <article class="svc" data-svc="limpieza" style="--i:0">
+                <div class="svc__shot" data-ghost="L">
+                  <img src="/assets/img/tratamientos/limpieza.jpg" alt="Limpieza profesional" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Limpieza profesional</h4>
+                  <p class="svc__line">Previene la acumulación de placa y cálculo.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="limpieza" data-nombre="Limpieza profesional">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="prevencion" style="--i:1">
+                <div class="svc__shot" data-ghost="P">
+                  <img src="/assets/img/tratamientos/prevencion.jpg" alt="Prevención" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Prevención</h4>
+                  <p class="svc__line">Seguimiento para conservar los resultados.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="prevencion" data-nombre="Prevención">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="periodoncia" style="--i:2">
+                <div class="svc__shot" data-ghost="P">
+                  <img src="/assets/img/tratamientos/periodoncia.jpg" alt="Periodoncia" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Periodoncia</h4>
+                  <p class="svc__line">Atención de las estructuras que sostienen tus dientes.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="periodoncia" data-nombre="Periodoncia">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
+              <article class="svc" data-svc="guardas" style="--i:3">
+                <div class="svc__shot" data-ghost="G">
+                  <img src="/assets/img/tratamientos/guardas.jpg" alt="Guardas oclusales" width="600" height="750" loading="lazy" decoding="async" data-fallback>
+                </div>
+                <div class="svc__body">
+                  <h4 class="svc__name">Guardas oclusales</h4>
+                  <p class="svc__line">Protegen dientes y restauraciones del bruxismo.</p>
+                  <a class="svc__cta" href="#agenda" data-precio="guardas" data-nombre="Guardas oclusales">
+                    <span>Consultar precio</span>
+                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
+                  </a>
+                </div>
+              </article>
               </div>
               <p class="tx__note">Que tu sonrisa no solo se vea bien. Que esté bien.</p>
-              <a class="btn btn--primary" href="#agenda" data-agenda="salud">
-                <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Quiero cuidar mi sonrisa
-              </a>
             </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- ===== 7. No sabes qué necesitas ===== -->
@@ -400,25 +551,34 @@
   <!-- ===== 8. Paso 03: Valoración Dear Blanc ===== -->
   <section class="section section--tint" id="valoracion" data-slide="06 · Valoración Dear Blanc">
     <div class="wrap">
-      <div class="place" style="align-items:start">
-        <div class="rv">
+      <div class="val">
+        <div class="val__intro rv">
           <p class="eyebrow">Tu valoración</p>
           <h2>Todo comienza por escucharte</h2>
-          <p class="body" style="margin-top:1rem">Antes de hablar de tratamientos, queremos entenderte. En tu valoración realizamos un diagnóstico integral para conocer el estado actual de tu sonrisa y definir contigo el camino más adecuado.</p>
-          <p class="body" style="margin-top:1.25rem;font-style:italic;color:var(--oak-ink)">Tu sonrisa no necesita un tratamiento genérico. Necesita un plan pensado para ti.</p>
+          <!-- Lo primero que se lee: la valoración va incluida. Es la
+               objeción número uno antes de escribir por WhatsApp. -->
+          <p class="val__flag">
+            <span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>
+            <span><strong>Incluida en tu primera cita.</strong> No es un servicio aparte ni se cobra por separado.</span>
+          </p>
+          <p class="body">Antes de hablar de tratamientos, queremos entenderte. Hacemos un diagnóstico integral y definimos contigo el camino más adecuado.</p>
+          <p class="val__quote">Tu sonrisa no necesita un tratamiento genérico. Necesita un plan pensado para ti.</p>
+          <a class="btn btn--primary" data-wa-directo data-motivo="valoracion" href="#agenda">
+            <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Agendar mi valoración
+          </a>
         </div>
-        <div class="rv">
-          <ul class="checklist">
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Historia clínica y valoración</li>
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Fotografías clínicas</li>
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Diagnóstico digital</li>
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Escaneo intraoral, cuando está indicado</li>
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Análisis estético y funcional</li>
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Explicación de alternativas</li>
-            <li><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Plan personalizado</li>
-          </ul>
-          <p class="note" style="margin-top:1.25rem">Ideal para ti si no sabes por dónde empezar, tienes varias cosas que quieres mejorar o simplemente quieres conocer el estado real de tu sonrisa.</p>
-        </div>
+
+        <!-- Los siete puntos entran escalonados: el contador --i lo usa el CSS
+             para el retraso, así se lee como una lista que se va llenando. -->
+        <ul class="checklist checklist--stagger rv">
+          <li style="--i:0"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Historia clínica y valoración</li>
+          <li style="--i:1"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Fotografías clínicas</li>
+          <li style="--i:2"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Diagnóstico digital</li>
+          <li style="--i:3"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Escaneo intraoral, cuando está indicado</li>
+          <li style="--i:4"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Análisis estético y funcional</li>
+          <li style="--i:5"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Explicación de alternativas</li>
+          <li style="--i:6"><span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>Plan personalizado</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -428,31 +588,28 @@
     <div class="head rv">
       <p class="eyebrow">Tu experiencia</p>
       <h2>Tu tratamiento comienza desde que entras</h2>
-      <p class="body">La experiencia no inicia en el sillón, inicia en la puerta. Queremos cuidar cada parte de tu visita, de principio a fin.</p>
     </div>
 
-    <div class="exp">
-      <article class="card rv">
+    <!-- Sin descripciones a propósito: los cuatro pasos se leen de un vistazo.
+         La línea que los une se dibuja al entrar en pantalla (.exp--flow). -->
+    <ol class="exp exp--flow">
+      <li class="exp__step rv" style="--i:0">
         <span class="disc"><svg aria-hidden="true"><use href="#i-coffee"></use></svg></span>
         <h3>Te escuchamos</h3>
-        <p>Entendemos qué quieres cambiar y qué te preocupa, sin prisa y desde la bienvenida.</p>
-      </article>
-      <article class="card card--plaster rv">
+      </li>
+      <li class="exp__step rv" style="--i:1">
         <span class="disc"><svg aria-hidden="true"><use href="#i-wind"></use></svg></span>
         <h3>Te explicamos</h3>
-        <p>Con claridad, sin tecnicismos innecesarios, en un ambiente que invita a la calma.</p>
-      </article>
-      <article class="card rv">
+      </li>
+      <li class="exp__step rv" style="--i:2">
         <span class="disc"><svg aria-hidden="true"><use href="#i-chats-circle"></use></svg></span>
         <h3>Diseñamos contigo</h3>
-        <p>Construimos un plan de acuerdo con tus necesidades, tus facciones y tu esencia.</p>
-      </article>
-      <article class="card rv">
-        <span class="disc"><svg aria-hidden="true"><use href="#i-car-profile"></use></svg></span>
+      </li>
+      <li class="exp__step rv" style="--i:3">
+        <span class="disc"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>
         <h3>Te acompañamos</h3>
-        <p>Durante todo el proceso, y cuidamos el resultado cuando el tratamiento termina.</p>
-      </article>
-    </div>
+      </li>
+    </ol>
   </section>
 
   <!-- ===== 10. Nuestra diferencia ===== -->
@@ -480,15 +637,28 @@
     </picture>
   </figure>
 
-  <section class="section section--tint" id="atencion" data-slide="09 · Atención integral">
+  <section class="section section--clay" id="atencion" data-slide="09 · Atención integral">
     <div class="wrap">
       <div class="head rv" style="max-width:40rem">
         <p class="eyebrow">Un equipo, un plan</p>
         <h2>Una clínica. Un equipo. Un plan para ti.</h2>
         <p class="body">En Dear Blanc reunimos diferentes áreas de atención para acompañarte de manera integral. Dependiendo de tu diagnóstico, coordinamos las especialidades que tu tratamiento requiera, porque tu sonrisa no debería verse por partes: la estética, la función y la salud deben trabajar juntas para lograr un resultado armónico.</p>
-        <a class="btn btn--ghost" href="https://www.instagram.com/dearblancdentalstudio" target="_blank" rel="noopener" style="margin-top:1.5rem">
-          <svg aria-hidden="true"><use href="#i-instagram-logo"></use></svg>Conoce nuestro equipo
-        </a>
+      </div>
+
+      <!-- Equipo. Las tarjetas las pinta js/main.js desde DB.equipo y van
+           rotando solas; mientras un especialista no tenga foto se dibuja
+           un avatar con sus iniciales, no una cara inventada. -->
+      <div class="team rv" id="equipo">
+        <div class="team__stage" id="teamStage" aria-live="polite"></div>
+        <div class="team__nav">
+          <button type="button" class="team__arrow" data-team="prev" aria-label="Especialista anterior">
+            <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </button>
+          <div class="team__dots" id="teamDots" role="tablist" aria-label="Especialistas"></div>
+          <button type="button" class="team__arrow" data-team="next" aria-label="Siguiente especialista">
+            <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -528,7 +698,7 @@
 </section>
 
   <!-- ===== 13. Ubicación ===== -->
-  <section class="section section--tint" id="ubicacion" data-slide="11 · Ubicación">
+  <section class="section section--sand" id="ubicacion" data-slide="11 · Ubicación">
     <div class="wrap place">
       <div class="rv">
         <h2>Sanatorio Venecia, Metepec</h2>
@@ -541,7 +711,7 @@
           </div>
           <div class="fact">
             <span class="disc"><svg aria-hidden="true"><use href="#i-clock"></use></svg></span>
-            <div><dt>Horario</dt><dd>Lunes a viernes de 9:00 a 19:00. Sábados con cita previa</dd></div>
+            <div><dt>Horario</dt><dd>Lunes a viernes de 9:00 a 14:00 y de 16:00 a 20:00<br>Sábados de 9:00 a 14:00 · Domingos cerrado</dd></div>
           </div>
           <div class="fact">
             <span class="disc"><svg aria-hidden="true"><use href="#i-car-profile"></use></svg></span>
@@ -601,12 +771,12 @@
     <div class="book">
       <div class="rv">
         <p class="eyebrow">Agenda tu valoración</p>
-        <h2 style="margin-top:.9rem">Tres respuestas y listo</h2>
-        <p class="body" style="margin-top:.9rem">Arma tu solicitud aquí y se abre WhatsApp con todo escrito. Confirmamos tu horario el mismo día.</p>
+        <h2 style="margin-top:.9rem">Dos toques y listo</h2>
+        <p class="body" style="margin-top:.9rem">Elige qué y cuándo. Se abre WhatsApp con todo escrito y confirmamos el mismo día.</p>
         <dl class="facts" style="margin-bottom:0">
           <div class="fact">
             <span class="disc"><svg aria-hidden="true"><use href="#i-clock"></use></svg></span>
-            <div><dt>Respuesta</dt><dd>Lunes a viernes, de 9:00 a 19:00</dd></div>
+            <div><dt>Respuesta</dt><dd>Lun a Vie 9:00-14:00 y 16:00-20:00 · Sáb 9:00-14:00</dd></div>
           </div>
           <div class="fact">
             <span class="disc"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>
@@ -615,45 +785,24 @@
         </dl>
       </div>
 
-      <form class="book__form rv" id="agendaForm" novalidate>
-        <div class="dots" aria-hidden="true"><span data-on></span><span></span><span></span></div>
+      <!-- Tres clics: tocas tratamiento, tocas horario y mandas. Cada
+           elección avanza sola, por eso ya no hay botones "Continuar" ni
+           el paso del nombre: eso se resuelve en la conversación. -->
+      <form class="book__form rv" id="agendaForm" novalidate data-clicks="3">
+        <div class="dots" aria-hidden="true"><span data-on></span><span></span></div>
 
-        <!-- Paso 1 -->
         <fieldset class="step" data-step="1" data-active>
-          <legend class="step__label">Paso 1 de 3</legend>
+          <legend class="step__label">Paso 1 de 2</legend>
           <h3>¿Qué te gustaría atender?</h3>
           <div class="pickers" id="pickTratamiento" role="group" aria-label="Tratamiento de interés"></div>
           <p class="err" id="errTratamiento" role="alert" style="display:none">Elige una opción para continuar.</p>
-          <div class="step__nav">
-            <button type="button" class="btn btn--primary" data-next>Continuar</button>
-          </div>
         </fieldset>
 
-        <!-- Paso 2 -->
         <fieldset class="step" data-step="2">
-          <legend class="step__label">Paso 2 de 3</legend>
+          <legend class="step__label">Paso 2 de 2</legend>
           <h3>¿Cuándo te acomoda?</h3>
           <div class="pickers" id="pickHorario" role="group" aria-label="Horario preferido"></div>
           <p class="err" id="errHorario" role="alert" style="display:none">Elige un horario para continuar.</p>
-          <div class="step__nav">
-            <button type="button" class="btn btn--ghost" data-prev>Atrás</button>
-            <button type="button" class="btn btn--primary" data-next>Continuar</button>
-          </div>
-        </fieldset>
-
-        <!-- Paso 3 -->
-        <fieldset class="step" data-step="3">
-          <legend class="step__label">Paso 3 de 3</legend>
-          <h3>¿A nombre de quién?</h3>
-          <div class="field" id="fNombre">
-            <label for="nombre">Tu nombre</label>
-            <input id="nombre" name="nombre" type="text" autocomplete="name" placeholder="Ana Villagrán" required aria-describedby="errNombre">
-            <p class="err" id="errNombre" role="alert">Escribe tu nombre para que sepamos cómo dirigirnos a ti.</p>
-          </div>
-          <div class="field" id="fMensaje">
-            <label for="mensaje">Algo que debamos saber <span class="hint" style="font-weight:400">(opcional)</span></label>
-            <textarea id="mensaje" name="mensaje" rows="2" placeholder="Me da ansiedad el dentista, prefiero que me expliquen todo antes."></textarea>
-          </div>
           <div class="summary" id="resumen" aria-live="polite"></div>
           <div class="step__nav">
             <button type="button" class="btn btn--ghost" data-prev>Atrás</button>
@@ -673,8 +822,8 @@
       <p class="signature">Tiene que sentirse tuya.</p>
       <p class="lede" style="margin:1rem auto 0">Si hay algo de tu sonrisa que quieres recuperar, cuidar o transformar, comencemos por conocerte.</p>
       <div class="close__actions">
-        <a class="btn btn--primary" href="#agenda">
-          <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Quiero conocer mi plan
+        <a class="btn btn--primary" data-wa-directo href="#agenda">
+          <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Escríbenos por WhatsApp
         </a>
         <a class="btn btn--ghost" data-doctoralia href="#">Reservar en Doctoralia</a>
       </div>
@@ -713,7 +862,7 @@
         <address>
           <span>Sanatorio Venecia Tecnológico<br>Av. Tecnológico, Metepec, Estado de México</span>
           <a id="footWa" href="#">WhatsApp</a>
-          <span>Lunes a viernes, 9:00 a 19:00</span>
+          <span>Lun a Vie 9-14 y 16-20 · Sáb 9-14</span>
         </address>
       </div>
     </div>

@@ -639,3 +639,360 @@ h3 {
   .filo { grid-template-columns: minmax(0, 1fr) clamp(200px, 22vw, 260px); align-items: stretch; }
   .filo__shot { display: block; }
 }
+
+/* ==========================================================================
+   30. Paleta ampliada: los beige
+   El sitio venía resuelto con un solo acento (dorado) sobre crema y todas
+   las superficies profundas en vino. Se leía monótono. Aquí entra una
+   escala de beige/arena/arcilla para que cada sección tenga su propio piso
+   y el vino quede reservado al cierre y al pie, donde sí ancla.
+
+   Como los tokens de styles.css, hay dos familias: las que se invierten
+   con prefers-color-scheme (--sand…) y las constantes de marca (--c-…)
+   para superficies que son oscuras en día y en noche.
+   ========================================================================== */
+:root {
+  --sand:      #F1E7DA;   /* arena clara: alterna con --paper-2 */
+  --sand-2:    #E7D9C7;   /* arena media: bandas y fichas */
+  --clay:      #D9C7B4;   /* arcilla: bordes y rellenos suaves */
+  --clay-deep: #6B5647;   /* greige profundo: sustituye al vino en .ritual */
+  --clay-ink:  #574538;   /* texto sobre arena, AA sobre --sand */
+
+  /* Constantes: no se invierten. */
+  --c-sand:      #F1E7DA;
+  --c-clay-deep: #6B5647;
+  --c-clay-2:    #574538;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sand:      #2E1821;
+    --sand-2:    #3A1F29;
+    --clay:      #4A2A34;
+    --clay-deep: #D9C7B4;
+    --clay-ink:  #E3D5C4;
+  }
+}
+
+/* Ritmo de superficies. Las secciones tintadas ya no son todas el mismo
+   crema: se alternan para que al hacer scroll se note el cambio de bloque. */
+.section--sand { background: var(--sand); }
+.section--clay { background: var(--sand-2); }
+
+/* El cierre deja de ser vino y pasa a arena profunda; el pie se queda con
+   el vino, que así vuelve a ser un remate y no el color de media página. */
+.close { background: var(--c-clay-deep); color: var(--c-cream); }
+.close .btn--primary { background: var(--c-cream); color: var(--c-clay-2); }
+.close .btn--primary:hover { background: var(--c-gold-lt); color: var(--c-clay-2); }
+
+/* El bloque "No sabes qué necesitas" pasa de vino a greige. */
+.ritual { background: var(--c-clay-deep); color: var(--c-cream); }
+.ritual .btn--primary { background: var(--c-cream); color: var(--c-clay-2); }
+
+/* ==========================================================================
+   31. Portada: las tres líneas al mismo tamaño
+   Antes el titular iba a dos pesos y "Tu tratamiento" caía como pie de
+   foto, más chico. Ahora las tres pesan igual y entran escalonadas.
+   ========================================================================== */
+.hero__title { display: grid; gap: .04em; }
+.hero__title > span {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1em; font-style: normal;
+  color: var(--c-cream);
+  opacity: 0; transform: translateY(.35em);
+  animation: heroLinea .75s var(--ease) forwards;
+}
+.hero__title > span:nth-child(1) { animation-delay: .10s; }
+.hero__title > span:nth-child(2) { animation-delay: .22s; }
+.hero__title > span:nth-child(3) { animation-delay: .34s; color: var(--c-gold-lt); }
+
+@keyframes heroLinea { to { opacity: 1; transform: none; } }
+
+/* Con la foto de la sonrisa el velo puede aligerarse del lado derecho:
+   la boca queda a la vista y el texto sigue sobre la zona más oscura. */
+.hero::after {
+  background:
+    linear-gradient(90deg, rgba(26, 10, 14, .90) 0%, rgba(26, 10, 14, .58) 52%, rgba(26, 10, 14, .14) 100%),
+    linear-gradient(0deg,  rgba(26, 10, 14, .78) 0%, rgba(26, 10, 14, .08) 54%, rgba(26, 10, 14, .30) 100%);
+}
+.hero__bg img { object-position: 60% 42%; }
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.hero__actions .btn--ghost { color: var(--c-cream); border-color: rgba(250, 243, 236, .5); }
+.hero__actions .btn--ghost:hover { background: rgba(250, 243, 236, .12); border-color: var(--c-cream); }
+
+/* Respiración lenta de la foto: 20s, casi imperceptible, solo para que la
+   portada no se sienta una imagen congelada. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__bg img { animation: heroAire 20s var(--ease) infinite alternate; }
+  @keyframes heroAire { from { transform: scale(1); } to { transform: scale(1.06); } }
+}
+
+/* ==========================================================================
+   32. Tarjetas de tratamiento
+   La foto manda y el texto es una sola línea. En puntero, la línea y el
+   botón suben desde abajo; en táctil van siempre visibles, porque ahí no
+   hay hover y esconder el precio detrás de un gesto que no existe sería
+   esconderlo y ya.
+   ========================================================================== */
+.svcs {
+  display: grid; gap: clamp(.65rem, 1.6vw, 1rem);
+  /* min() para que en 390px entren dos columnas: el panel deja unos 292px
+     útiles y con 160 de mínimo solo cabía una tarjeta a lo ancho. */
+  grid-template-columns: repeat(auto-fill, minmax(min(136px, 100%), 1fr));
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+@media (min-width: 40em) { .svcs { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); } }
+
+/* La tarjeta ES la foto. El nombre va encima, sobre un degradado, y la
+   línea de apoyo con el botón suben desde abajo al pasar el cursor. Nada
+   de caja de texto debajo: reservaba alto para algo invisible y dejaba un
+   hueco muerto bajo cada título. */
+.svc {
+  position: relative; overflow: hidden; isolation: isolate;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  background: var(--sand);
+  opacity: 0; transform: translateY(14px);
+  animation: svcEntra .55s var(--ease) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+@keyframes svcEntra { to { opacity: 1; transform: none; } }
+.svc:hover, .svc:focus-within { border-color: var(--oak); transform: translateY(-3px); }
+
+.svc__shot {
+  position: absolute; inset: 0; display: block; overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 30% 20%, var(--c-sand) 0%, transparent 60%),
+    linear-gradient(155deg, var(--clay) 0%, var(--sand-2) 55%, var(--sand) 100%);
+}
+/* Mientras no haya fotografía, la inicial hace de marca de agua. En cuanto
+   el <img> carga, main.js pone data-has-img y la inicial se retira. */
+.svc__shot::before {
+  content: attr(data-ghost);
+  position: absolute; inset: 0 0 38% 0; display: grid; place-items: center;
+  font-family: "Cormorant Garamond", serif; font-size: clamp(3rem, 9vw, 4.5rem); line-height: 1;
+  color: color-mix(in srgb, var(--clay-ink) 22%, transparent);
+}
+.svc__shot[data-has-img]::before { display: none; }
+.svc__shot img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .6s var(--ease);
+}
+.svc:hover .svc__shot img, .svc:focus-within .svc__shot img { transform: scale(1.07); }
+
+/* Velo de lectura. Sin foto casi no se nota; con foto es lo que sostiene
+   el nombre en blanco. */
+.svc__shot::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(42, 17, 25, .78) 0%, rgba(42, 17, 25, .22) 42%, transparent 68%);
+  opacity: 0; transition: opacity var(--dur) var(--ease);
+}
+.svc__shot[data-has-img]::after { opacity: 1; }
+
+.svc__body {
+  position: absolute; inset: auto 0 0 0; z-index: 2;
+  padding: .85rem .9rem .95rem;
+  display: grid; gap: .3rem;
+}
+.svc__name {
+  margin: 0; font-family: "Cormorant Garamond", serif;
+  font-size: 1.0625rem; line-height: 1.2; color: var(--ink);
+}
+.svc__shot[data-has-img] ~ .svc__body .svc__name,
+.svc__shot[data-has-img] ~ .svc__body .svc__line { color: var(--c-cream); }
+
+.svc__line { margin: 0; font-size: .8125rem; line-height: 1.4; color: var(--ink-3); }
+
+.svc__cta {
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin-top: .35rem; min-height: 44px;
+  /* nowrap: en tarjeta angosta "CONSULTAR PRECIO" partía en dos renglones
+     y el icono quedaba colgando al final del segundo. */
+  font-size: clamp(.625rem, 2.6vw, .75rem); letter-spacing: .07em;
+  text-transform: uppercase; white-space: nowrap;
+  color: var(--oak-ink); text-decoration: none; font-weight: 500;
+}
+.svc__shot[data-has-img] ~ .svc__body .svc__cta { color: var(--c-gold-lt); }
+.svc__cta svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.svc__cta::after { content: ""; position: absolute; inset: 0; }  /* toda la tarjeta es el enlace */
+.svc__cta span { border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+
+/* "Consultar precio" nunca se esconde: es la acción de la tarjeta y el
+   sitio no publica precios, así que ese botón es la única vía. Lo que sí
+   se pliega, y solo donde hay cursor, es la línea descriptiva: en táctil
+   no existe el hover y esconderla ahí sería esconderla y ya.
+   grid-template-rows 0fr -> 1fr pliega el alto sin saltos de layout. */
+@media (hover: hover) and (pointer: fine) {
+  .svc__line {
+    opacity: 0; transform: translateY(8px); overflow: hidden; min-height: 0;
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .svc__body { grid-template-rows: auto 0fr auto; transition: grid-template-rows var(--dur) var(--ease); }
+  .svc:hover .svc__body, .svc:focus-within .svc__body { grid-template-rows: auto 1fr auto; }
+  .svc:hover .svc__line, .svc:focus-within .svc__line { opacity: 1; transform: none; }
+}
+
+/* ==========================================================================
+   33. Pestañas con subrayado que se desliza
+   ========================================================================== */
+.tx__tabs { position: relative; }
+.tx__ink {
+  position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  background: var(--oak); pointer-events: none;
+  transition: transform .34s var(--ease), width .34s var(--ease);
+}
+
+/* ==========================================================================
+   34. Valoración
+   ========================================================================== */
+.val { display: grid; gap: clamp(1.75rem, 4vw, 3rem); }
+.val__flag {
+  display: flex; align-items: flex-start; gap: .75rem;
+  margin: 1.25rem 0 0; padding: .9rem 1rem;
+  background: var(--surface); border-left: 2px solid var(--oak);
+  font-size: .9375rem; line-height: 1.5; color: var(--ink-2);
+}
+.val__flag strong { color: var(--ink); }
+.val__flag .disc--sm { flex: 0 0 auto; }
+.val .body { margin-top: 1.1rem; }
+.val__quote {
+  margin: 1.25rem 0 1.75rem;
+  font-family: "Cormorant Garamond", serif; font-style: italic;
+  font-size: 1.25rem; line-height: 1.35; color: var(--oak-ink);
+}
+
+/* La lista se llena de arriba abajo cuando entra en pantalla. */
+.checklist--stagger li {
+  opacity: 0; transform: translateX(-8px);
+  transition: opacity .45s var(--ease), transform .45s var(--ease);
+  transition-delay: calc(var(--i, 0) * 65ms);
+}
+.checklist--stagger.is-in li { opacity: 1; transform: none; }
+
+@media (min-width: 48em) {
+  .val { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: start; }
+}
+
+/* ==========================================================================
+   35. Experiencia: cuatro pasos, sin descripciones
+   La línea que une los pasos se dibuja con scaleX cuando la fila entra.
+   ========================================================================== */
+.exp--flow {
+  position: relative; list-style: none; padding: 0; margin: 2rem 0 0;
+  display: grid; gap: 1.5rem; grid-template-columns: 1fr;
+  counter-reset: paso;
+}
+.exp__step { position: relative; text-align: center; counter-increment: paso; }
+.exp__step .disc {
+  margin: 0 auto; transition: transform var(--dur) var(--ease-pop), background-color var(--dur) var(--ease);
+}
+.exp__step h3 {
+  margin-top: .85rem; font-size: 1rem;
+  font-family: "Cormorant Garamond", serif; font-weight: 400;
+}
+.exp__step::before {
+  content: counter(paso, decimal-leading-zero);
+  display: block; margin-bottom: .5rem;
+  font-size: .6875rem; letter-spacing: var(--track-label, .18em);
+  color: var(--oak-ink);
+}
+.exp__step:hover .disc { transform: translateY(-4px) scale(1.06); }
+
+@media (min-width: 48em) {
+  .exp--flow { grid-template-columns: repeat(4, 1fr); gap: var(--exp-gap, 1rem); }
+  /* Hilo de un disco al siguiente. Se dibuja por tramos, desde el centro de
+     cada paso hasta el centro del que sigue: así cruza el hueco de la
+     rejilla sin depender de porcentajes que el gap desalinea. */
+  .exp__step::after {
+    content: ""; position: absolute; z-index: 0;
+    left: 50%; width: calc(100% + var(--exp-gap, 1rem));
+    top: 3.55rem; height: 1px;
+    background: var(--line-strong);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .55s var(--ease);
+    transition-delay: calc(var(--i, 0) * 140ms + .2s);
+  }
+  .exp__step:last-child::after { display: none; }
+  .exp__step.is-in::after { transform: scaleX(1); }
+  .exp__step .disc { position: relative; z-index: 1; }
+}
+
+/* ==========================================================================
+   36. Equipo
+   Las tarjetas se apilan en la misma celda y se cruzan con un fundido
+   corto. Sin foto se pinta el avatar con iniciales.
+   ========================================================================== */
+.team { margin-top: clamp(2rem, 5vw, 3rem); }
+.team__stage { display: grid; min-height: 19rem; }
+.team__card {
+  grid-area: 1 / 1;
+  display: grid; gap: 1rem; justify-items: center; text-align: center;
+  opacity: 0; transform: translateY(10px) scale(.98);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+  pointer-events: none;
+}
+.team__card[data-on] { opacity: 1; transform: none; pointer-events: auto; }
+
+.team__shot {
+  width: clamp(9rem, 26vw, 12rem); aspect-ratio: 1; overflow: hidden;
+  border-radius: 999px; display: grid; place-items: center;
+  background: linear-gradient(155deg, var(--clay) 0%, var(--sand) 70%);
+  border: 1px solid var(--line);
+}
+.team__shot img { width: 100%; height: 100%; object-fit: cover; }
+.team__ini {
+  font-family: "Cormorant Garamond", serif; font-size: 2.5rem;
+  color: var(--clay-ink); letter-spacing: .04em;
+}
+.team__meta h3 { margin: 0; font-size: 1.125rem; }
+.team__meta p { margin: .3rem 0 0; font-size: .875rem; color: var(--ink-3); }
+
+.team__nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+.team__arrow {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border: 1px solid var(--edge); background: transparent; color: var(--ink);
+  cursor: pointer; transition: background-color var(--dur) var(--ease);
+}
+.team__arrow:hover { background: var(--sand); }
+.team__arrow svg { width: 16px; height: 16px; }
+.team__arrow[data-team="prev"] svg { transform: rotate(180deg); }
+
+.team__dots { display: flex; gap: .5rem; }
+/* El punto se ve de 7px pero el botón mide 44: el área táctil es todo el
+   cuadro, el círculo solo es lo que se pinta. */
+.team__dot {
+  width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.team__dot::before {
+  content: ""; width: 7px; height: 7px; border-radius: 999px;
+  background: var(--line-strong); transition: background-color var(--dur) var(--ease), width var(--dur) var(--ease);
+}
+.team__dot[aria-selected="true"]::before { background: var(--oak); width: 18px; }
+
+/* ==========================================================================
+   37. Sin movimiento
+   Todo lo de arriba que se mueve solo se apaga aquí. Las animaciones de
+   entrada terminan en su estado final, no en el inicial: apagarlas sin
+   más dejaría la portada y las tarjetas invisibles.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero__title > span,
+  .svc { animation: none; opacity: 1; transform: none; }
+  .hero__bg img { animation: none; }
+  .checklist--stagger li { opacity: 1; transform: none; transition: none; }
+  .exp__step::after { transform: scaleX(1); transition: none; }
+  .svc__line { opacity: 1; transform: none; }
+  .team__card { transition: none; }
+  .svc:hover .svc__shot img { transform: none; }
+}
+
+/* A partir de 64em las pestañas se acomodan en vertical (una lista al lado
+   del panel). Ahí un subrayado horizontal no significa nada: la pestaña
+   activa ya se distingue por su fondo, así que el filete se retira. */
+@media (min-width: 64em) {
+  .tx__ink { display: none; }
+}
