@@ -738,101 +738,122 @@ h3 {
    ========================================================================== */
 .svcs {
   display: grid; gap: clamp(.65rem, 1.6vw, 1rem);
-  /* min() para que en 390px entren dos columnas: el panel deja unos 292px
-     útiles y con 160 de mínimo solo cabía una tarjeta a lo ancho. */
-  grid-template-columns: repeat(auto-fill, minmax(min(136px, 100%), 1fr));
+  /* Dos columnas anchas, no tres angostas: el reverso tiene que caber con
+     su descripción y el botón sin recortar. A 210px de ancho el texto se
+     cortaba a media frase y "Consultar precio" quedaba fuera. */
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
   margin-top: clamp(1.5rem, 4vw, 2.25rem);
+  perspective: 1200px;      /* la fuga vive en la rejilla: todas las
+                               tarjetas giran hacia el mismo punto */
 }
-@media (min-width: 40em) { .svcs { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); } }
 
-/* La tarjeta ES la foto. El nombre va encima, sobre un degradado, y la
-   línea de apoyo con el botón suben desde abajo al pasar el cursor. Nada
-   de caja de texto debajo: reservaba alto para algo invisible y dejaba un
-   hueco muerto bajo cada título. */
+/* --------------------------------------------------------------------------
+   La tarjeta se voltea. Delante, la fotografía y el nombre; detrás, la
+   descripción y el botón. Al entrar en pantalla el bloque hace una pasada:
+   las tarjetas giran una tras otra, enseñan el reverso y vuelven. Después
+   manda quien mira: el cursor en escritorio, el toque en móvil.
+
+   Es la forma de que el servicio se explique sin escribir el texto en la
+   página: la descripción existe, pero solo cuando se pide.
+   -------------------------------------------------------------------------- */
 .svc {
-  position: relative; overflow: hidden; isolation: isolate;
-  aspect-ratio: 4 / 5;
-  border: 1px solid var(--line);
-  background: var(--sand);
+  /* 3:2 y no 16:9: la foto se recorta un poco por arriba y abajo, y a
+     cambio el reverso gana el alto que necesita el botón. */
+  position: relative; aspect-ratio: 3 / 2;
   opacity: 0; transform: translateY(14px);
   animation: svcEntra .55s var(--ease) forwards;
   animation-delay: calc(var(--i, 0) * 70ms);
-  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 @keyframes svcEntra { to { opacity: 1; transform: none; } }
-.svc:hover, .svc:focus-within { border-color: var(--oak); transform: translateY(-3px); }
 
-.svc__shot {
-  position: absolute; inset: 0; display: block; overflow: hidden;
+.svc__flip {
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .62s var(--ease);
+}
+.svc[data-flip] .svc__flip { transform: rotateY(180deg); }
+@media (hover: hover) and (pointer: fine) {
+  .svc:hover .svc__flip, .svc:focus-within .svc__flip { transform: rotateY(180deg); }
+}
+
+.svc__face {
+  position: absolute; inset: 0; overflow: hidden;
+  border: 1px solid var(--line);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+
+/* ---------- Cara delantera ---------- */
+.svc__front {
   background:
     radial-gradient(120% 90% at 30% 20%, var(--c-sand) 0%, transparent 60%),
     linear-gradient(155deg, var(--clay) 0%, var(--sand-2) 55%, var(--sand) 100%);
+  display: grid; align-items: end;
 }
-/* Mientras no haya fotografía, la inicial hace de marca de agua. En cuanto
-   el <img> carga, main.js pone data-has-img y la inicial se retira. */
-.svc__shot::before {
+/* Sin fotografía, la inicial hace de marca de agua: la tarjeta se sostiene
+   igual y no queda un hueco ni un icono de imagen rota. */
+.svc__front:not([data-foto])::before {
   content: attr(data-ghost);
-  position: absolute; inset: 0 0 38% 0; display: grid; place-items: center;
-  font-family: "Cormorant Garamond", serif; font-size: clamp(3rem, 9vw, 4.5rem); line-height: 1;
-  color: color-mix(in srgb, var(--clay-ink) 22%, transparent);
+  position: absolute; inset: 0 0 34% 0; display: grid; place-items: center;
+  font-family: "Cormorant Garamond", serif; font-size: clamp(2.5rem, 7vw, 3.75rem);
+  line-height: 1; color: color-mix(in srgb, var(--clay-ink) 22%, transparent);
 }
-.svc__shot[data-has-img]::before { display: none; }
-.svc__shot img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .6s var(--ease);
-}
-.svc:hover .svc__shot img, .svc:focus-within .svc__shot img { transform: scale(1.07); }
-
-/* Velo de lectura. Sin foto casi no se nota; con foto es lo que sostiene
-   el nombre en blanco. */
-.svc__shot::after {
+.svc__front picture { position: absolute; inset: 0; }
+.svc__front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Velo de lectura bajo el nombre. Solo donde hay foto. */
+.svc__front[data-foto]::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(0deg, rgba(42, 17, 25, .78) 0%, rgba(42, 17, 25, .22) 42%, transparent 68%);
-  opacity: 0; transition: opacity var(--dur) var(--ease);
+  background: linear-gradient(0deg, rgba(20, 8, 12, .86) 0%, rgba(20, 8, 12, .30) 36%, transparent 62%);
 }
-.svc__shot[data-has-img]::after { opacity: 1; }
+.svc__front .svc__name { position: relative; z-index: 1; padding: .8rem .85rem .85rem; }
+.svc__front[data-foto] .svc__name { color: var(--c-cream); }
 
-.svc__body {
-  position: absolute; inset: auto 0 0 0; z-index: 2;
-  padding: .85rem .9rem .95rem;
-  display: grid; gap: .3rem;
+/* ---------- Cara trasera ---------- */
+.svc__back {
+  transform: rotateY(180deg);
+  background: var(--surface);
+  border-color: var(--oak-soft);
+  padding: .85rem .9rem;
+  display: grid; align-content: space-between; gap: .4rem;
 }
+.svc__back .svc__name { color: var(--oak-ink); }
+.svc__desc {
+  margin: 0; font-size: .8125rem; line-height: 1.45; color: var(--ink-2);
+}
+
 .svc__name {
   margin: 0; font-family: "Cormorant Garamond", serif;
-  font-size: 1.0625rem; line-height: 1.2; color: var(--ink);
+  font-size: clamp(.9375rem, 2.2vw, 1.0625rem); line-height: 1.2; color: var(--ink);
 }
-.svc__shot[data-has-img] ~ .svc__body .svc__name,
-.svc__shot[data-has-img] ~ .svc__body .svc__line { color: var(--c-cream); }
-
-.svc__line { margin: 0; font-size: .8125rem; line-height: 1.4; color: var(--ink-3); }
 
 .svc__cta {
-  display: inline-flex; align-items: center; gap: .4rem;
-  margin-top: .35rem; min-height: 44px;
-  /* nowrap: en tarjeta angosta "CONSULTAR PRECIO" partía en dos renglones
-     y el icono quedaba colgando al final del segundo. */
-  font-size: clamp(.625rem, 2.6vw, .75rem); letter-spacing: .07em;
+  display: inline-flex; align-items: center; gap: .4rem; align-self: end;
+  min-height: 44px;
+  font-size: clamp(.625rem, 2.4vw, .6875rem); letter-spacing: .07em;
   text-transform: uppercase; white-space: nowrap;
   color: var(--oak-ink); text-decoration: none; font-weight: 500;
 }
-.svc__shot[data-has-img] ~ .svc__body .svc__cta { color: var(--c-gold-lt); }
 .svc__cta svg { width: 14px; height: 14px; flex: 0 0 auto; }
-.svc__cta::after { content: ""; position: absolute; inset: 0; }  /* toda la tarjeta es el enlace */
 .svc__cta span { border-bottom: 1px solid currentColor; padding-bottom: 1px; }
 
-/* "Consultar precio" nunca se esconde: es la acción de la tarjeta y el
-   sitio no publica precios, así que ese botón es la única vía. Lo que sí
-   se pliega, y solo donde hay cursor, es la línea descriptiva: en táctil
-   no existe el hover y esconderla ahí sería esconderla y ya.
-   grid-template-rows 0fr -> 1fr pliega el alto sin saltos de layout. */
+/* El botón invisible cubre la tarjeta y es lo que se toca para voltearla.
+   Se retira cuando el reverso está a la vista, para que ahí el toque caiga
+   sobre "Consultar precio" y no vuelva a girar la tarjeta. */
+.svc__girar {
+  position: absolute; inset: 0; z-index: 2;
+  border: 0; background: none; cursor: pointer; padding: 0;
+}
+/* Con el reverso a la vista el botón baja por debajo de "Consultar precio"
+   pero sigue cubriendo el resto: tocar el texto devuelve la tarjeta al
+   frente y tocar el botón abre WhatsApp. Sin esto, en móvil la tarjeta se
+   quedaba volteada sin forma de regresarla. */
+.svc[data-flip] .svc__girar { z-index: 1; }
+.svc__flip { z-index: 0; }
+.svc__cta { position: relative; z-index: 3; }
 @media (hover: hover) and (pointer: fine) {
-  .svc__line {
-    opacity: 0; transform: translateY(8px); overflow: hidden; min-height: 0;
-    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-  }
-  .svc__body { grid-template-rows: auto 0fr auto; transition: grid-template-rows var(--dur) var(--ease); }
-  .svc:hover .svc__body, .svc:focus-within .svc__body { grid-template-rows: auto 1fr auto; }
-  .svc:hover .svc__line, .svc:focus-within .svc__line { opacity: 1; transform: none; }
+  /* Con cursor el giro ya lo hace el hover; el botón solo estorbaría al
+     enlace del reverso. Queda para el teclado, que sí lo necesita. */
+  .svc__girar { pointer-events: none; }
+  .svc__girar:focus-visible { pointer-events: auto; }
 }
 
 /* ==========================================================================
@@ -985,9 +1006,10 @@ h3 {
   .hero__bg img { animation: none; }
   .checklist--stagger li { opacity: 1; transform: none; transition: none; }
   .exp__step::after { transform: scaleX(1); transition: none; }
-  .svc__line { opacity: 1; transform: none; }
   .team__card { transition: none; }
-  .svc:hover .svc__shot img { transform: none; }
+  /* La tarjeta sigue teniendo dos caras, pero el giro es instantáneo: la
+     descripción tiene que seguir siendo alcanzable sin animación. */
+  .svc__flip { transition: none; }
 }
 
 /* A partir de 64em las pestañas se acomodan en vertical (una lista al lado

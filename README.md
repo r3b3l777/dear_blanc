@@ -12,9 +12,12 @@ dear-blanc/
 │   └── fonts.css         # @font-face de las tipografías locales
 ├── js/
 │   ├── config.js         # ← lo único que hay que editar
-│   └── main.js           # intro, barra, pestañas y agenda
+│   └── main.js           # intro, barra, pestañas, tarjetas y agenda
+├── scripts/
+│   └── gen-tratamientos.js  # regenera el bloque de Tratamientos
 ├── assets/
 │   ├── img/              # foto del estudio y del sanatorio (jpg + webp)
+│   │   └── tratamientos/ # una por servicio (jpg + webp)
 │   ├── fonts/            # Cormorant Garamond e Instrument Sans (woff2)
 │   └── favicon.svg, icon-192.png, icon-512.png, apple-touch-icon.png
 ├── robots.txt, sitemap.xml, site.webmanifest, vercel.json
@@ -179,20 +182,62 @@ cuenta los clics; si alguien vuelve a meter un "Continuar", se nota.
 
 ## Fotografía de los tratamientos
 
-**Pendiente.** Las trece tarjetas apuntan a `/assets/img/tratamientos/<slug>.jpg`
-(los `slug` están en `DB.servicios`). Esos archivos todavía no existen, y el
-sitio está hecho para aguantarlo: `main.js` quita el `<img>` que falla y queda
-el fondo de la paleta con la inicial del tratamiento. No hay iconos de imagen
-rota ni huecos en blanco.
+Las ocho fotos salieron de la lámina de marca que mandó el estudio. Cada
+mosaico traía el nombre del tratamiento sobrepuesto: se recortó esa franja y
+de lo que quedó se tomó un 16:9 centrado, que es lo que menos sacrifica
+porque todas las tomas son bocas en horizontal. Quedan en 440x248.
 
-En cuanto los archivos se copien a esa carpeta, las tarjetas se encienden
-solas: el velo de lectura aparece, el nombre pasa a crema y no hay que tocar
-ni el HTML ni el CSS. Hasta entonces cada carga pide trece imágenes que
-devuelven 404; van con `loading="lazy"`, así que solo se piden al llegar a la
-sección y no bloquean nada.
+**Son chicas.** Alcanzan para la tarjeta actual, pero se ven blandas en
+pantallas 2x. Si aparecen los originales, hay que regenerarlas con el mismo
+recorte: `sips -s formatOptions 86` para el jpg y `cwebp -q 82` para el webp.
+
+Dos tratamientos siguen sin foto: **periodoncia** y **guardas oclusales**.
+No estaban en la lámina. Sus tarjetas se pintan con el fondo de la paleta y
+la inicial del tratamiento, que es una cara válida de la baraja y no un
+hueco. En cuanto existan `periodoncia.jpg` y `guardas.jpg` en
+`assets/img/tratamientos/`, hay que volver a generar el bloque (ver abajo) y
+las tarjetas se encienden solas.
+
+El HTML de la sección **se genera**. Al cambiar el catálogo o al añadir una
+foto hay que correr:
+
+```bash
+node scripts/gen-tratamientos.js
+```
+
+Lee `DB.servicios` y la carpeta de imágenes, y reescribe el bloque dentro de
+`index.html`. Solo emite el `<picture>` si el archivo existe en disco, así
+que ningún tratamiento sin foto pide una imagen que devuelve 404. Es lo
+único del proyecto que se genera; el resto del HTML se edita a mano.
 
 Mismo trato para `DB.equipo`: mientras `foto` esté vacío se pinta un avatar
 con las iniciales, no una cara inventada.
+
+## Las tarjetas que se voltean
+
+Delante va la fotografía y el nombre; detrás, la descripción y "Consultar
+precio". Es la forma de que el servicio se explique sin llenar la página de
+texto: la descripción existe, pero solo cuando se pide.
+
+Al entrar la rejilla en pantalla hace **una pasada**: las tarjetas giran una
+tras otra con 230 ms de diferencia, enseñan el reverso y vuelven. Una, no un
+bucle; repetirla sin parar convierte la sección en un letrero luminoso. Si
+alguien toca una tarjeta a media pasada, se cancelan sus temporizadores y el
+control pasa a quien mira.
+
+Después el giro lo manda el cursor (hover, en CSS) o el dedo. En táctil hay
+un botón invisible que cubre la tarjeta; cuando el reverso está a la vista
+ese botón baja por debajo de "Consultar precio", de modo que tocar el texto
+devuelve la tarjeta al frente y tocar el botón abre WhatsApp. Sin eso la
+tarjeta se quedaba volteada sin forma de regresarla.
+
+La proporción es 3:2 y no 16:9 como las fotos: el reverso necesita ese alto
+extra para que quepan la descripción y el botón. A 210 px de ancho el texto
+se cortaba a media frase y el botón quedaba fuera de la tarjeta, por eso la
+rejilla va a dos columnas anchas y no a tres angostas.
+
+Con `prefers-reduced-motion` no hay pasada automática y el giro es
+instantáneo: la descripción tiene que seguir siendo alcanzable.
 
 ## Horario
 

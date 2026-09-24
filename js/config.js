@@ -63,36 +63,40 @@ window.DB = {
   servicios: {
     estetica: {
       titulo: "Una sonrisa más bonita sin dejar de parecer tú",
-      intro: "Armonía, proporción y naturalidad. No una sonrisa idéntica para todos.",
       cierre: "No buscamos que todos tengan la misma sonrisa. Buscamos que la tuya se vea naturalmente tuya.",
       items: [
-        { slug: "diseno-de-sonrisa",   nombre: "Diseño de sonrisa",    img: "diseno-de-sonrisa",   linea: "Planeamos los cambios tomando en cuenta tus facciones y proporciones." },
-        { slug: "carillas",            nombre: "Carillas dentales",    img: "carillas",            linea: "Transforman forma, color y armonía de determinados dientes." },
-        { slug: "blanqueamiento",      nombre: "Blanqueamiento",       img: "blanqueamiento",      linea: "Un tono más claro con protocolo profesional." },
-        { slug: "armonizacion",        nombre: "Armonización estética",img: "armonizacion",        linea: "Cambios que transforman la percepción de tu sonrisa." },
-        { slug: "ortodoncia-invisible",nombre: "Ortodoncia invisible", img: "ortodoncia-invisible",linea: "Alinea tu sonrisa de forma discreta y removible." }
+        { slug: "diseno-de-sonrisa",    nombre: "Diseño de sonrisa",     img: "diseno-de-sonrisa",
+          desc: "Planeamos los cambios tomando en cuenta tus facciones, tus proporciones y lo que esperas ver." },
+        { slug: "carillas",             nombre: "Carillas dentales",     img: "carillas",
+          desc: "Transforman forma, color y armonía de ciertos dientes, siempre después de valorar tu caso." },
+        { slug: "blanqueamiento",       nombre: "Blanqueamiento dental", img: "blanqueamiento",
+          desc: "Un tono más claro y una sonrisa más luminosa con protocolo profesional, cuidando el esmalte." },
+        { slug: "armonizacion",         nombre: "Armonización estética", img: "armonizacion",
+          desc: "Ajustes que cambian la percepción de tu sonrisa cuando se planifican de manera integral." },
+        { slug: "ortodoncia-invisible", nombre: "Ortodoncia invisible",  img: "ortodoncia-invisible",
+          desc: "Alinea tu sonrisa de forma discreta y removible, a tu propio ritmo y sin brackets a la vista." }
       ]
     },
     rehabilitacion: {
       titulo: "Recuperar lo que una sonrisa ha perdido",
-      intro: "Cuando hay dientes ausentes o dañados no se trata solo de estética: es función, salud y confianza.",
       cierre: "Primero entendemos el problema. Después diseñamos la solución.",
       items: [
-        { slug: "implantes",     nombre: "Implantes dentales",  img: "implantes",     linea: "Reemplazan dientes ausentes con una solución planificada." },
-        { slug: "coronas",       nombre: "Coronas",             img: "coronas",       linea: "Devuelven estructura, función y apariencia." },
-        { slug: "protesis",      nombre: "Puentes y prótesis",  img: "protesis",      linea: "Recuperan dientes ausentes y el equilibrio de la mordida." },
-        { slug: "restauraciones",nombre: "Restauraciones",      img: "restauraciones",linea: "Reparan el diente conservando la estructura sana." }
+        { slug: "coronas-restauraciones", nombre: "Coronas y restauraciones", img: "coronas-restauraciones",
+          desc: "Devuelven estructura, función y apariencia al diente, conservando el tejido sano." },
+        { slug: "implantes-protesis",     nombre: "Puentes y prótesis con implantes", img: "implantes-protesis",
+          desc: "Reemplazan dientes ausentes con una solución planificada que devuelve el equilibrio de la mordida." }
       ]
     },
     salud: {
       titulo: "La mejor transformación también es conservar lo que tienes",
-      intro: "Una sonrisa saludable necesita atención antes de que aparezcan los problemas.",
       cierre: "Que tu sonrisa no solo se vea bien. Que esté bien.",
       items: [
-        { slug: "limpieza",    nombre: "Limpieza profesional",  img: "limpieza",    linea: "Previene la acumulación de placa y cálculo." },
-        { slug: "prevencion",  nombre: "Prevención",            img: "prevencion",  linea: "Seguimiento para conservar los resultados." },
-        { slug: "periodoncia", nombre: "Periodoncia",           img: "periodoncia", linea: "Atención de las estructuras que sostienen tus dientes." },
-        { slug: "guardas",     nombre: "Guardas oclusales",     img: "guardas",     linea: "Protegen dientes y restauraciones del bruxismo." }
+        { slug: "limpieza-prevencion", nombre: "Limpieza dental y prevención", img: "limpieza-prevencion",
+          desc: "Previene placa y cálculo, y da seguimiento para conservar tus resultados." },
+        { slug: "periodoncia",         nombre: "Periodoncia",                 img: "periodoncia",
+          desc: "Atención especializada de las encías y las estructuras que sostienen tus dientes." },
+        { slug: "guardas",             nombre: "Guardas oclusales",           img: "guardas",
+          desc: "Protegen dientes y restauraciones frente al bruxismo y a las cargas de la mordida." }
       ]
     }
   },

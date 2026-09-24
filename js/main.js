@@ -303,18 +303,54 @@
   });
 
   /* ==========================================================================
-     20. Fotos de los tratamientos
-     Si el archivo todavía no existe, se quita el <img> y queda el fondo de
-     la paleta con la inicial: nunca un icono de imagen rota.
+     20. Tarjetas de tratamiento que se voltean
+     Al entrar el bloque en pantalla, las tarjetas giran una tras otra,
+     enseñan el reverso y vuelven. Es una pasada, no un bucle: repetirla
+     sin parar convierte la sección en un letrero luminoso.
+
+     Después el control es de quien mira. Con cursor manda el hover (CSS);
+     con el dedo, el botón que cubre la tarjeta.
      ========================================================================== */
-  $$("[data-fallback]").forEach(function (img) {
-    var quitar = function () { if (img.parentNode) img.parentNode.removeAttribute("data-has-img"); img.remove(); };
-    if (img.complete) { if (img.naturalWidth) img.parentNode.setAttribute("data-has-img", ""); else quitar(); }
-    else {
-      img.addEventListener("load",  function () { img.parentNode.setAttribute("data-has-img", ""); });
-      img.addEventListener("error", quitar);
-    }
-  });
+  (function () {
+    var rejillas = $$(".svcs");
+    if (!rejillas.length) return;
+
+    // Toque y teclado: voltear y desvoltear.
+    $$(".svc__girar").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var card = b.closest(".svc");
+        if (card.hasAttribute("data-flip")) card.removeAttribute("data-flip");
+        else card.setAttribute("data-flip", "");
+      });
+    });
+    // Con el reverso a la vista el botón desaparece; se vuelve con Escape
+    // o al salir el foco de la tarjeta.
+    $$(".svc").forEach(function (card) {
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") card.removeAttribute("data-flip");
+      });
+    });
+
+    if (reduce) return;   // sin pasada automática si se pidió menos movimiento
+
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);   // una sola vez por rejilla
+        $$(".svc", e.target).forEach(function (card, i) {
+          var t1 = setTimeout(function () { card.setAttribute("data-flip", ""); }, 320 + i * 230);
+          var t2 = setTimeout(function () { card.removeAttribute("data-flip"); }, 1900 + i * 230);
+          // Si alguien toca la tarjeta a media pasada, la pasada se retira
+          // y no le arrebata el control.
+          card.addEventListener("pointerdown", function () {
+            clearTimeout(t1); clearTimeout(t2);
+          }, { once: true });
+        });
+      });
+    }, { threshold: .35 });
+
+    rejillas.forEach(function (r) { io.observe(r); });
+  })();
 
   /* ---------- "Consultar precio": un solo toque abre WhatsApp ----------
      En el sitio no se publican precios. El botón de cada tarjeta manda el
@@ -486,12 +522,4 @@
     window.open(wa(texto), "_blank", "noopener");
   });
 
-  /* Los botones repartidos por el sitio preseleccionan el tratamiento y
-     dejan al visitante directo en el paso del horario. */
-  $$("[data-agenda]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      var b = $('#pickTratamiento .pick[data-id="' + a.dataset.agenda + '"]');
-      if (b) b.click(); else irA(2);
-    });
-  });
 })();
