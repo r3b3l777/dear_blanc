@@ -27,6 +27,7 @@
 <link rel="preload" href="/assets/fonts/CormorantGaramond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/InstrumentSans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/styles.css?v=2">
+<link rel="stylesheet" href="/css/editorial.css?v=1">
 <noscript><style>.intro{display:none}.rv{opacity:1;transform:none}</style></noscript>
 
 <script type="application/ld+json">
@@ -215,7 +216,7 @@
   </div>
 
   <!-- ===== 3. Presentación ===== -->
-  <section class="section wrap presenta" id="presentacion">
+  <section class="section wrap presenta" id="presentacion" data-slide="01 · Un estudio distinto">
     <div class="presenta__intro rv">
       <h2>Un estudio dental que se siente distinto</h2>
       <p class="lede presenta__lede">Salud, rehabilitación y estética en un mismo plan. Esto es lo que necesitas saber antes de tu primera visita.</p>
@@ -238,20 +239,30 @@
   </section>
 
   <!-- ===== 4. Filosofía ===== -->
-  <section class="section wrap" id="filosofia">
-    <div class="head head--center rv" style="max-width:42rem">
-      <h2>No se trata solo de cambiar una sonrisa</h2>
-      <p class="body" style="margin-inline:auto">Se trata de recuperar la confianza para mostrarla. En Dear Blanc combinamos salud, rehabilitación y estética dental para crear tratamientos personalizados que respeten tus facciones, tus necesidades y tu esencia.</p>
-      <p class="body" style="margin-inline:auto;margin-top:.75rem">Con más de 10 años de experiencia, te acompañamos desde el diagnóstico hasta el resultado final, cuidando cada detalle de tu experiencia.</p>
+  <section class="section wrap" id="filosofia" data-slide="02 · Nuestra filosofía">
+    <div class="filo">
+      <div class="filo__text rv">
+        <div class="head" style="margin-bottom:0">
+          <h2>No se trata solo de cambiar una sonrisa</h2>
+          <p class="body">Se trata de recuperar la confianza para mostrarla. En Dear Blanc combinamos salud, rehabilitación y estética dental para crear tratamientos personalizados que respeten tus facciones, tus necesidades y tu esencia.</p>
+          <p class="body" style="margin-top:.75rem">Con más de 10 años de experiencia, te acompañamos desde el diagnóstico hasta el resultado final, cuidando cada detalle de tu experiencia.</p>
+        </div>
+        <p class="claim">
+          <span>Diseñamos experiencias.</span>
+          <span>Transformamos sonrisas.</span>
+        </p>
+      </div>
+      <figure class="filo__shot rv">
+        <picture>
+          <source type="image/webp" srcset="/assets/img/filosofia-arco.webp">
+          <img src="/assets/img/filosofia-arco.jpg" width="215" height="540" loading="lazy" decoding="async" alt="Arco de yeso y muro de listones de roble en el interior del estudio">
+        </picture>
+      </figure>
     </div>
-    <p class="claim rv">
-      <span>Diseñamos experiencias.</span>
-      <span>Transformamos sonrisas.</span>
-    </p>
   </section>
 
   <!-- ===== 5. Paso 01: ¿Qué quieres transformar? ===== -->
-  <section class="section section--tint" id="transformar">
+  <section class="section section--tint" id="transformar" data-slide="03 · ¿Qué quieres transformar?">
     <div class="wrap">
       <div class="head rv">
         <p class="eyebrow">Empieza por ti</p>
@@ -288,7 +299,16 @@
   </section>
 
   <!-- ===== 6. Paso 02: Tratamientos ===== -->
-  <section class="section" id="tratamientos">
+  <!-- Banda de imagen: las láminas 05-07 del deck abren con una foto a
+       sangre antes del titular. -->
+  <figure class="band rv">
+    <picture>
+      <source type="image/webp" srcset="/assets/img/instrumental.webp">
+      <img src="/assets/img/instrumental.jpg" width="432" height="260" loading="lazy" decoding="async" alt="Charola dorada con espejo e instrumental dental ordenado">
+    </picture>
+  </figure>
+
+  <section class="section" id="tratamientos" data-slide="04 · Tratamientos">
     <div class="wrap">
       <div class="head rv">
         <p class="eyebrow">Conoce tus opciones</p>
@@ -363,7 +383,7 @@
   </section>
 
   <!-- ===== 7. No sabes qué necesitas ===== -->
-  <section class="section ritual">
+  <section class="section ritual" data-slide="05 · No sabes qué necesitas">
     <div class="wrap">
       <div class="head head--center rv">
         <p class="eyebrow">¿No sabes qué tratamiento necesitas?</p>
@@ -378,7 +398,7 @@
   </section>
 
   <!-- ===== 8. Paso 03: Valoración Dear Blanc ===== -->
-  <section class="section section--tint" id="valoracion">
+  <section class="section section--tint" id="valoracion" data-slide="06 · Valoración Dear Blanc">
     <div class="wrap">
       <div class="place" style="align-items:start">
         <div class="rv">
@@ -404,7 +424,7 @@
   </section>
 
   <!-- ===== 9. Paso 04: La experiencia ===== -->
-  <section class="section wrap" id="experiencia">
+  <section class="section wrap" id="experiencia" data-slide="07 · La experiencia">
     <div class="head rv">
       <p class="eyebrow">Tu experiencia</p>
       <h2>Tu tratamiento comienza desde que entras</h2>
@@ -436,7 +456,7 @@
   </section>
 
   <!-- ===== 10. Nuestra diferencia ===== -->
-  <section class="section section--tint" id="diferencia">
+  <section class="section section--tint" id="diferencia" data-slide="08 · Nuestra diferencia">
     <div class="wrap">
       <div class="head head--center rv">
         <h2>¿Qué hace diferente a Dear Blanc?</h2>
@@ -453,7 +473,14 @@
   </section>
 
   <!-- ===== 11. Atención integral ===== -->
-  <section class="section section--tint" id="atencion">
+  <figure class="band band--tint rv">
+    <picture>
+      <source type="image/webp" srcset="/assets/img/unidad-dental.webp">
+      <img src="/assets/img/unidad-dental.jpg" width="250" height="540" loading="lazy" decoding="async" alt="Pantalla con radiografía panorámica junto a la unidad dental, sobre muro de listones de roble">
+    </picture>
+  </figure>
+
+  <section class="section section--tint" id="atencion" data-slide="09 · Atención integral">
     <div class="wrap">
       <div class="head rv" style="max-width:40rem">
         <p class="eyebrow">Un equipo, un plan</p>
@@ -467,32 +494,41 @@
   </section>
 
   <!-- ===== 12. El estudio ===== -->
-  <section class="section" id="estudio">
+  <section class="section" id="estudio" data-slide="10 · El estudio">
     <div class="wrap">
       <div class="head rv" style="max-width:38rem">
         <h2>El espacio habla antes que nosotros</h2>
         <p class="body">Roble claro, yeso cálido y luz suave. Así es por dentro.</p>
       </div>
 
-      <!-- Sin fotografía todavía: en cuanto haya tomas del consultorio, cada
-           .slot se sustituye por <img> conservando las mismas proporciones. -->
       <ul class="studio">
-        <li class="slot slot--tall rv"><span>La bienvenida</span></li>
-        <li class="slot slot--wide rv"><span>La sala de espera</span></li>
-        <li class="slot slot--wide slot--dark rv"><span>El consultorio</span></li>
+        <li class="studio__shot studio__shot--tall rv">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/estudio-bienvenida.webp">
+            <img src="/assets/img/estudio-bienvenida.jpg" width="215" height="540" loading="lazy" decoding="async" alt="Arco de acceso al estudio, con luz cálida y muro de listones de roble">
+          </picture>
+          <span>La bienvenida</span>
+        </li>
+        <li class="studio__shot studio__shot--wide rv">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/estudio-espera.webp">
+            <img src="/assets/img/estudio-espera.jpg" width="432" height="250" loading="lazy" decoding="async" alt="Sala del estudio en tonos cálidos, con cuadros y repisas desenfocadas">
+          </picture>
+          <span>La sala de espera</span>
+        </li>
+        <li class="studio__shot studio__shot--wide rv">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/estudio-consultorio.webp">
+            <img src="/assets/img/estudio-consultorio.jpg" width="432" height="250" loading="lazy" decoding="async" alt="Cubierta de roble del consultorio con lavabo, instrumental ordenado y grifería dorada">
+          </picture>
+          <span>El consultorio</span>
+        </li>
       </ul>
 
-      <div class="studio__cta rv">
-        <p class="note">Estamos preparando la sesión de fotos del estudio. Mientras tanto, el día a día se publica en Instagram.</p>
-        <a class="btn btn--ghost" href="https://www.instagram.com/dearblancdentalstudio" target="_blank" rel="noopener">
-          <svg aria-hidden="true"><use href="#i-instagram-logo"></use></svg>Ver el estudio en Instagram
-        </a>
-      </div>
-    </div>
-  </section>
+</section>
 
   <!-- ===== 13. Ubicación ===== -->
-  <section class="section section--tint" id="ubicacion">
+  <section class="section section--tint" id="ubicacion" data-slide="11 · Ubicación">
     <div class="wrap place">
       <div class="rv">
         <h2>Sanatorio Venecia, Metepec</h2>
@@ -532,7 +568,7 @@
   </section>
 
   <!-- ===== 14. Preguntas ===== -->
-  <section class="section" id="preguntas">
+  <section class="section" id="preguntas" data-slide="12 · Antes de agendar">
     <div class="wrap">
       <div class="head rv"><h2>Antes de agendar</h2></div>
       <div class="faq rv">
@@ -561,7 +597,7 @@
   </section>
 
   <!-- ===== 15. Último paso: agenda ===== -->
-  <section class="section wrap" id="agenda">
+  <section class="section wrap" id="agenda" data-slide="13 · Agenda tu valoración">
     <div class="book">
       <div class="rv">
         <p class="eyebrow">Agenda tu valoración</p>
@@ -631,20 +667,21 @@
   </section>
 
   <!-- ===== 16. Cierre ===== -->
-  <section class="section close" id="contacto">
+  <section class="section close" id="contacto" data-slide="14 · Cierre">
     <div class="wrap close__box rv">
       <h2>Tu mejor sonrisa no tiene que parecerse a la de alguien más</h2>
-      <p class="lede" style="margin:1rem auto 0">Tiene que sentirse tuya. Si hay algo de tu sonrisa que quieres recuperar, cuidar o transformar, comencemos por conocerte.</p>
+      <p class="signature">Tiene que sentirse tuya.</p>
+      <p class="lede" style="margin:1rem auto 0">Si hay algo de tu sonrisa que quieres recuperar, cuidar o transformar, comencemos por conocerte.</p>
       <div class="close__actions">
         <a class="btn btn--primary" href="#agenda">
           <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Quiero conocer mi plan
         </a>
         <a class="btn btn--ghost" data-doctoralia href="#">Reservar en Doctoralia</a>
       </div>
-      <div class="social">
-        <a href="https://www.instagram.com/dearblancdentalstudio" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram-logo"></use></svg></a>
-        <a href="https://www.tiktok.com/@dearblancdentalstudio" target="_blank" rel="noopener" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tiktok-logo"></use></svg></a>
-        <a href="https://www.facebook.com/share/1HZznwknC2/" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook-logo"></use></svg></a>
+      <div class="close__facts">
+        <p><svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg><a id="closeWa" href="#">722 339 0539</a></p>
+        <p><svg aria-hidden="true"><use href="#i-instagram-logo"></use></svg><a href="https://www.instagram.com/dearblancdentalstudio" target="_blank" rel="noopener">@dearblancdentalstudio</a></p>
+        <p><svg aria-hidden="true"><use href="#i-map-pin"></use></svg><span>Metepec, Estado de México</span></p>
       </div>
     </div>
   </section>

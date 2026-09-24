@@ -79,11 +79,19 @@
     var base = wa(C.mensajeCita);
     var fab = $("#waFab");   if (fab) fab.href = base;
     var fw  = $("#footWa");  if (fw)  { fw.href = base; fw.target = "_blank"; fw.rel = "noopener"; }
+    // Ficha de contacto del cierre (lámina 12): muestra el número real.
+    var cw  = $("#closeWa");
+    if (cw) {
+      cw.href = base; cw.target = "_blank"; cw.rel = "noopener";
+      cw.textContent = String(C.whatsapp).replace(/^52/, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
+    }
   } else {
     // Sin número real configurado: no dejamos enlaces rotos a la vista.
     var fab2 = $("#waFab"); if (fab2) fab2.remove();
     var fw2 = $("#footWa");
     if (fw2) { fw2.replaceWith(Object.assign(document.createElement("span"), { textContent: "WhatsApp por confirmar" })); }
+    var cw2 = $("#closeWa");
+    if (cw2 && cw2.parentElement) { cw2.parentElement.remove(); }
     console.warn("[Dear Blanc] Falta el número de WhatsApp en js/config.js");
   }
 

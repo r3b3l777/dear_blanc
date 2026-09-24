@@ -1,0 +1,641 @@
+/* ==========================================================================
+   Dear Blanc · Capa editorial
+   Traduce el deck de 12 láminas al sitio. Se carga DESPUÉS de styles.css y
+   solo reescribe geometría, ritmo tipográfico y jerarquía: ningún token de
+   color nuevo, ningún cambio de marcado estructural.
+
+   Las cuatro decisiones que definen el deck y que aquí se replican:
+   1. Esquina recta. Las láminas son papel cortado, no tarjetas de software.
+   2. Filete de 1px en vez de sombra. La profundidad viene del aire, no del blur.
+   3. Cintillo numerado por lámina ("05 · Estética dental") sobre una regla.
+   4. Serif grande y muy apretada contra sans diminuta y muy espaciada.
+   ========================================================================== */
+
+:root {
+  /* El deck no tiene una sola esquina redondeada. Los radios se conservan
+     como variables para no romper nada que los use, pero valen casi cero. */
+  --r-box: 2px;
+  --r-sm:  2px;
+
+  /* Altura del cintillo de lámina. */
+  --slide-h: 2.75rem;
+
+  /* Tracking de las etiquetas versalitas: el deck las abre muchísimo. */
+  --track-label: .24em;
+}
+
+/* --------------------------------------------------------------------------
+   1. Cintillo de lámina
+   El deck rotula cada página con un número y un nombre sobre una regla fina.
+   Se genera desde el atributo data-slide para no ensuciar el marcado con un
+   <div> decorativo por sección. La regla mide exactamente la columna de
+   contenido, en secciones .wrap y en las de ancho completo por igual.
+   -------------------------------------------------------------------------- */
+.section[data-slide] {
+  position: relative;
+  padding-top: calc(clamp(2.5rem, 6vw, 4.5rem) + var(--slide-h));
+}
+.section[data-slide]::before {
+  content: attr(data-slide);
+  position: absolute;
+  top: 0;
+  /* Alinea con la columna de 1200px sin importar el ancho de la ventana. */
+  inset-inline: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+  height: var(--slide-h);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  font-size: .625rem;
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+/* En las secciones que ya son la columna, el inset es solo el gutter. */
+.section.wrap[data-slide]::before { inset-inline: var(--gutter); }
+
+/* Sobre fondos oscuros el cintillo se aclara. */
+.ritual[data-slide]::before { color: color-mix(in srgb, var(--on-oak) 70%, transparent); border-bottom-color: color-mix(in srgb, var(--on-oak) 22%, transparent); }
+.close[data-slide]::before  { color: color-mix(in srgb, var(--c-cream) 62%, transparent); border-bottom-color: color-mix(in srgb, var(--c-cream) 20%, transparent); }
+
+/* --------------------------------------------------------------------------
+   2. Escala tipográfica
+   El deck sube el display y baja el cuerpo: el contraste de tamaño hace casi
+   todo el trabajo de jerarquía, así que no hace falta negrita en ningún lado.
+   Tracking negativo en display, positivo en versalitas (regla de Apple: el
+   tracking es específico del tamaño, nunca un valor único).
+   -------------------------------------------------------------------------- */
+h2 {
+  font-size: clamp(2.05rem, 5vw, 3.35rem);
+  line-height: 1.045;
+  letter-spacing: -.021em;
+}
+h3 {
+  font-size: clamp(1.15rem, 2.1vw, 1.35rem);
+  line-height: 1.22;
+  letter-spacing: -.006em;
+}
+
+/* La segunda línea del titular en tono menor: el deck la usa en casi todas
+   las láminas ("Función + salud + estética", "Empieza por lo que buscas"). */
+.head > .body,
+.head > .lede { margin-top: 1.05rem; }
+.head { margin-bottom: clamp(2.25rem, 4.5vw, 3.25rem); }
+
+.eyebrow {
+  font-size: .625rem;
+  letter-spacing: var(--track-label);
+  color: var(--ink-3);
+}
+/* El eyebrow dorado se reserva para los pasos del recorrido, no para todo. */
+.head--center .eyebrow { color: var(--oak-ink); }
+
+/* --------------------------------------------------------------------------
+   3. Geometría: filete en vez de sombra
+   Las tarjetas del deck son rectángulos de papel con un borde de un pelo.
+   Quitar la sombra es lo que más acerca el sitio a la referencia.
+   -------------------------------------------------------------------------- */
+.card,
+.quiz__item,
+.tx__card,
+.btn--primary {
+  box-shadow: none;
+}
+.card:hover,
+.quiz__item:hover {
+  box-shadow: none;
+  transform: none;              /* el deck es papel: no levita */
+  border-color: var(--ink);     /* el filete se oscurece, eso basta */
+  background: var(--surface);
+}
+.card, .quiz__item, .tx__card {
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Botones
+   El deck usa rectángulos vino con versalitas muy abiertas. La píldora
+   dorada del sitio original era el elemento más "web app" que quedaba.
+   -------------------------------------------------------------------------- */
+.btn {
+  border-radius: 2px;
+  padding: 1rem 1.6rem;
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.btn--primary {
+  background: var(--c-wine);
+  color: var(--c-cream);
+}
+.btn--primary:hover {
+  background: var(--c-wine-2);
+  color: var(--c-cream);
+}
+.btn--ghost {
+  border-color: var(--edge);
+  background: transparent;
+}
+.btn--ghost:hover { background: transparent; border-color: var(--ink); }
+/* El pie y el cierre son vino: ahí el botón sólido se invierte a crema. */
+.close .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
+.close .btn--primary:hover { background: var(--c-cream); }
+/* Sobre el bloque dorado (.ritual) el vino sigue siendo el que contrasta. */
+.ritual .btn--primary { background: var(--c-wine); color: var(--c-cream); }
+
+/* --------------------------------------------------------------------------
+   5. Rejilla de "¿Qué quieres transformar?"
+   El deck la arma como mosaico de dos columnas: una viñeta cuadrada a la
+   izquierda, el texto al centro, la flecha alineada al margen derecho.
+   No hay fotografía por tratamiento en /assets, así que la viñeta es un
+   recuadro con filete y el ícono de línea de la sección, con la misma
+   proporción que el thumbnail del deck. Cuando existan fotos reales, se
+   sustituye .quiz__thumb por un <img> de 1/1 y no cambia nada más.
+   -------------------------------------------------------------------------- */
+.quiz { gap: 0; border-top: 1px solid var(--line); }
+.quiz__item {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 1.15rem var(--gutter) 1.15rem 0;
+  background: transparent;
+  align-items: center;
+  gap: 1.1rem;
+}
+.quiz__item:hover { background: transparent; border-bottom-color: var(--ink); }
+.quiz__text strong {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+.quiz__text small { font-size: .78rem; letter-spacing: .01em; }
+/* La flecha del deck es un trazo suelto, sin disco. */
+.quiz__item .disc {
+  border: 0;
+  background: transparent;
+  width: auto; height: auto;
+  color: var(--ink-3);
+  transition: transform .35s var(--ease), color .35s var(--ease);
+}
+.quiz__item .disc svg { width: 18px; height: 18px; }
+.quiz__item:hover .disc {
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  transform: translateX(5px);
+}
+
+/* --------------------------------------------------------------------------
+   6. "Nuestra diferencia" 01–06
+   El deck la pone a dos columnas con el número en serif grande arriba de
+   cada entrada y sin filete entre ellas: la numeración ya ordena.
+   -------------------------------------------------------------------------- */
+.diff { gap: clamp(1.75rem, 3.5vw, 2.75rem) clamp(2rem, 5vw, 4rem); }
+.diff__item { border-top: 0; padding-top: 0; }
+.diff__num {
+  font-style: normal;
+  font-size: clamp(2.1rem, 4vw, 2.9rem);
+  /* --oak sobre --paper-2 da 2.80:1 y no alcanza ni el mínimo de texto
+     grande (3:1). --oak-ink es el tono de la misma familia pensado para
+     texto y sí pasa. */
+  color: var(--oak-ink);
+  margin-bottom: .35rem;
+  letter-spacing: -.02em;
+}
+.diff__item h3 { font-size: 1.05rem; }
+
+/* --------------------------------------------------------------------------
+   7. Tarjetas de experiencia
+   El deck las reduce a una fila de íconos de línea con una etiqueta corta:
+   sin caja, sin relleno, sin fondo. Es la lámina 11.
+   -------------------------------------------------------------------------- */
+.exp { gap: clamp(1.5rem, 3vw, 2.5rem); }
+.card {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 1.15rem;
+}
+.card:hover { border-color: transparent; border-top-color: var(--ink); background: transparent; }
+.card .disc {
+  border-color: var(--line-strong);
+  background: transparent;
+  border-radius: 2px;
+}
+.card h3 { margin-top: .85rem; font-size: 1.05rem; }
+.card p { font-size: .875rem; }
+/* La tarjeta "yeso" pierde su fondo: en el deck todas pesan igual. */
+.card--plaster { background: transparent; }
+.card--plaster::after { display: none; }
+
+/* --------------------------------------------------------------------------
+   8. Panel de tratamientos
+   Las láminas 05–07 son una lámina por familia, con el titular grande a la
+   izquierda y la lista de procedimientos en dos columnas debajo.
+   -------------------------------------------------------------------------- */
+.tx__card {
+  background: var(--surface);
+  border-radius: 2px;
+  padding: clamp(1.75rem, 4.5vw, 3.25rem);
+}
+.tx__tab {
+  border-radius: 2px;
+  font-size: .6875rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: .75rem 1.1rem;
+}
+.tx__kicker { letter-spacing: var(--track-label); font-size: .625rem; }
+.tx__card h3 { font-size: clamp(1.75rem, 3.8vw, 2.4rem); line-height: 1.08; }
+.tx__item h4 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: -.008em;
+}
+
+/* --------------------------------------------------------------------------
+   9. Portada
+   La lámina 01 pone el rótulo abajo a la izquierda, en bloque, sobre la
+   foto a sangre. El sitio ya trae la estructura; aquí solo se aprieta la
+   tipografía y se añade la firma de plaza que lleva la lámina.
+   -------------------------------------------------------------------------- */
+.hero__title { letter-spacing: -.028em; line-height: 1.02; }
+.hero__eyebrow { font-size: .625rem; letter-spacing: var(--track-label); }
+.hero__tag {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+}
+.hero__link {
+  font-size: .6875rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   10. Claim y firma manuscrita
+   "Tiene que sentirse tuya" es la única línea del deck en trazo suelto.
+   No se añade una fuente manuscrita: traerla de un CDN rompería la regla de
+   tipografías auto-hospedadas del proyecto y sumaría una petición bloqueante.
+   La itálica de Cormorant a tamaño grande es la aproximación honesta.
+   -------------------------------------------------------------------------- */
+.claim { letter-spacing: -.02em; line-height: 1.08; }
+.signature {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--c-gold-lt);
+  margin-top: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. Ficha de contacto del cierre
+   La lámina 12 cierra con WhatsApp, Instagram y plaza en una columna de
+   versalitas con ícono. Sustituye a la fila suelta de logos sociales.
+   -------------------------------------------------------------------------- */
+.close__facts {
+  display: grid;
+  gap: .7rem;
+  justify-content: start;   /* el cierre cuelga del margen izquierdo, la ficha también */
+  margin-top: 1.9rem;
+  font-size: .8125rem;
+  color: color-mix(in srgb, var(--c-cream) 82%, transparent);
+}
+.close__facts > * {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  justify-content: flex-start;
+}
+.close__facts svg { width: 15px; height: 15px; flex: none; color: var(--c-gold-lt); }
+.close__facts a:hover { color: var(--c-cream); text-decoration: underline; text-underline-offset: 3px; }
+
+/* --------------------------------------------------------------------------
+   12. Marquesina
+   El deck no tiene banda en movimiento. Se conserva porque es el único
+   respiro entre la portada y el cuerpo, pero baja a filete y versalitas
+   para que no compita con los cintillos numerados.
+   -------------------------------------------------------------------------- */
+.marquee { padding-block: .7rem; }
+.marquee i { font-style: normal; font-family: "Instrument Sans", system-ui, sans-serif; font-size: .6875rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-3); padding-inline: 1.1rem; }
+.marquee b { font-size: .5rem; }
+
+/* --------------------------------------------------------------------------
+   13. Reglas de dos columnas
+   El deck es una rejilla de dos columnas en casi todas sus láminas.
+   -------------------------------------------------------------------------- */
+@media (min-width: 640px) {
+  .quiz { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4vw, 3.5rem); }
+  /* Con dos columnas, el filete de cada fila no debe llegar al canal. */
+  .quiz__item { padding-right: 0; }
+}
+@media (min-width: 1024px) {
+  .diff { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   14. Movimiento
+   El deck es papel: la única animación que le corresponde es la aparición.
+   Se respeta prefers-reduced-motion desde styles.css; aquí solo se acorta
+   el recorrido para que el revelado se lea como un cambio de lámina y no
+   como un deslizamiento largo.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .rv { transition-duration: .55s; }
+}
+
+/* --------------------------------------------------------------------------
+   15. Eje izquierdo
+   Corrección sobre la referencia: en las doce láminas del deck no hay un solo
+   bloque centrado. Todo cuelga del margen izquierdo y la columna de texto se
+   corta antes de la mitad. El centrado del sitio original era lo que más lo
+   alejaba del deck, por encima incluso de la paleta.
+   -------------------------------------------------------------------------- */
+.head--center {
+  margin-inline: 0;
+  text-align: left;
+  max-width: 34rem;
+}
+.head--center .eyebrow { justify-content: flex-start; }
+.head--center .body,
+.head--center p { margin-inline: 0; }
+
+.presenta__intro { text-align: left; margin-inline: 0; }
+.presenta__lede  { margin-inline: 0; }
+
+.claim { text-align: left; }
+
+.ritual__quote { text-align: left; margin-inline: 0; max-width: 46rem; }
+.close__box    { text-align: left; margin-inline: 0; max-width: 46rem; }
+.close__box .lede { margin-inline: 0 !important; }
+.close__actions { justify-content: flex-start; }
+
+/* --------------------------------------------------------------------------
+   16. La lámina 09 es vino, no dorada
+   "No tienes que saber qué tratamiento necesitas" es la única página a color
+   pleno del deck, y ese color es el vino de marca. En dorado leía como un
+   aviso publicitario en medio de un documento de papel.
+   -------------------------------------------------------------------------- */
+.ritual { background: var(--c-wine); color: var(--c-cream); }
+.ritual h2, .ritual h3 { color: var(--c-cream); }
+.ritual .eyebrow { color: color-mix(in srgb, var(--c-gold-lt) 88%, transparent); }
+.ritual__line   { color: var(--c-cream); }
+.ritual__answer { color: color-mix(in srgb, var(--c-cream) 88%, transparent); }
+.ritual__promise{ color: color-mix(in srgb, var(--c-cream) 72%, transparent); }
+.ritual[data-slide]::before {
+  color: color-mix(in srgb, var(--c-cream) 62%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--c-cream) 20%, transparent);
+}
+/* Sobre vino, el botón sólido se invierte a crema para conservar contraste. */
+.ritual .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
+.ritual .btn--primary:hover { background: var(--c-cream); color: var(--c-ink); }
+.ritual .btn--ghost { border-color: color-mix(in srgb, var(--c-cream) 55%, transparent); color: var(--c-cream); }
+.ritual .btn--ghost:hover { border-color: var(--c-cream); background: color-mix(in srgb, var(--c-cream) 12%, transparent); }
+
+/* La curva fina que cierra la lámina 09 del deck. */
+.ritual { position: relative; overflow: hidden; }
+.ritual::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -14rem;
+  width: min(120%, 60rem); aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--c-gold-lt) 42%, transparent);
+  pointer-events: none;
+}
+.ritual > .wrap { position: relative; z-index: 1; }
+
+/* --------------------------------------------------------------------------
+   17. Lista de la valoración
+   La lámina 04 lista el contenido de la valoración con íconos de línea
+   cuadrados, sin disco relleno.
+   -------------------------------------------------------------------------- */
+.checklist .disc--sm {
+  border-radius: 2px;
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--oak-ink);
+}
+.checklist li { align-items: flex-start; }
+
+/* --------------------------------------------------------------------------
+   18. Contención del bloque de tratamientos a 320px
+   Las pestañas en versalitas son más anchas que las originales y, al ser
+   hijas de una rejilla, su min-content arrastraba a todo el bloque por
+   encima del ancho de la ventana: 36px de scroll horizontal a 320px.
+   min-width:0 devuelve la contención; el desplazamiento lateral sigue
+   viviendo donde debe, dentro de .tx__tabs.
+   -------------------------------------------------------------------------- */
+.tx, .tx > *, .tx__panels, .tx__panel, .tx__card { min-width: 0; }
+.tx__tabs { min-width: 0; max-width: 100%; }
+
+/* En pantallas muy angostas el botón en versalitas con tracking abierto no
+   cabe en una línea dentro de la tarjeta. Se le permite partir: preferimos
+   dos renglones a 7px de scroll horizontal. */
+@media (max-width: 400px) {
+  .btn {
+    white-space: normal;
+    padding-inline: 1.15rem;
+    letter-spacing: .12em;
+    line-height: 1.35;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   19. Modo noche
+   En claro el botón sólido es vino sobre papel y contrasta de sobra. En
+   noche el fondo de la página YA es vino, así que un botón vino sobre vino
+   desaparece aunque su texto siga siendo legible. El relleno se invierte al
+   dorado claro, que es lo que hace de "tinta" en las superficies oscuras.
+   Se usan los tokens --c-* a propósito: son los que NO se invierten con el
+   esquema, y son los únicos correctos sobre superficies siempre oscuras.
+   -------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
+  .btn--primary:hover { background: var(--c-cream); color: var(--c-ink); }
+  /* El cintillo de lámina sobre papel oscuro necesita más luz que --ink-3. */
+  .section[data-slide]::before { color: var(--ink-2); }
+}
+
+/* ==========================================================================
+   20. PLATAFORMA · Safari y Chrome en iOS, Android, macOS y Windows
+   Va en este archivo y no en uno nuevo a propósito: el sitio no tiene paso
+   de compilación, así que cada hoja extra es una petición bloqueante más en
+   la primera pintura, y eso se paga justo en el móvil que queremos cuidar.
+   ========================================================================== */
+
+/* --- 20.1 Controles nativos de Safari -------------------------------------
+   Safari (iOS y macOS) pinta input y textarea con su propio relleno,
+   sombra interior y esquina redondeada, y eso gana sobre el diseño: el
+   campo se ve "de sistema" junto a los demás controles del sitio.
+   appearance:none es la única forma de recuperarlos. Sin esto el
+   formulario se ve correcto en Chrome y mal en iPhone.
+   -------------------------------------------------------------------------- */
+.field input,
+.field textarea,
+.field select {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: var(--r-sm);   /* Safari impone el suyo si no se repite */
+}
+.field textarea {
+  resize: vertical;             /* el horizontal rompe la rejilla en escritorio */
+  min-height: 4.5rem;
+}
+
+/* Safari iOS hace zoom automático al enfocar un campo cuyo texto mida
+   menos de 16px, y al salir deja la página desplazada y más grande. Hoy
+   heredan 1rem y están bien; se fija de forma explícita para que un cambio
+   futuro de tipografía no lo rompa sin que nadie se dé cuenta. */
+.field input,
+.field textarea,
+.field select { font-size: max(1rem, 16px); }
+
+/* --- 20.2 Objetivos táctiles ----------------------------------------------
+   Apple pide 44x44 puntos y Android 48dp. Siete controles quedaban por
+   debajo, dos de ellos introducidos por la ficha de contacto del cierre
+   (21px de alto: una línea de texto suelta). Se agranda el área sin mover
+   la posición visual, con min-height y centrado, no con margen.
+   -------------------------------------------------------------------------- */
+.close__facts > * { min-height: 44px; }
+.close__facts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.nav__burger { width: 44px; height: 44px; }
+.brand { display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; }
+.hero__link { min-height: 44px; align-items: center; }
+.foot address a,
+.foot__links a { display: inline-flex; align-items: center; min-height: 44px; }
+.skip { min-height: 44px; display: inline-flex; align-items: center; }
+
+/* --- 20.3 Windows: alto contraste -----------------------------------------
+   En modo de contraste forzado el sistema reemplaza los colores. Todo el
+   diseño descansa en filetes de 1px con color propio, y ahí desaparecen:
+   las tarjetas y los campos quedan sin borde y el lienzo se vuelve ilegible.
+   -------------------------------------------------------------------------- */
+@media (forced-colors: active) {
+  .card, .quiz__item, .tx__card, .field input, .field textarea, .pick {
+    border: 1px solid CanvasText;
+  }
+  .btn { border: 1px solid ButtonText; }
+  /* Los íconos del sprite heredan currentColor y el sistema sí lo respeta. */
+  .section[data-slide]::before { border-bottom: 1px solid CanvasText; }
+  /* La curva decorativa de la lámina 09 no aporta nada sin color. */
+  .ritual::after { display: none; }
+}
+
+/* --- 20.4 Transparencia y contraste reducidos -----------------------------
+   iOS y macOS exponen estas preferencias y Safari las respeta. La barra
+   traslúcida se vuelve sólida en vez de perder legibilidad.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-transparency: reduce) {
+  .nav { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .card, .quiz__item, .tx__card { border-color: var(--ink); }
+  .section[data-slide]::before { color: var(--ink); border-bottom-color: var(--ink); }
+  .eyebrow { color: var(--ink-2); }
+}
+
+/* Los enlaces del menú de escritorio miden 32px de alto. Con ratón es de
+   sobra (el puntero es preciso), pero una tableta o un portátil táctil
+   ancho los recibe con el dedo. Se agrandan solo donde el puntero es
+   grueso, para no engordar la barra de escritorio sin motivo. */
+@media (pointer: coarse) {
+  .nav__links a { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* ==========================================================================
+   21. FOTOGRAFÍA REAL DEL ESTUDIO
+   Las fotos salieron del PDF de marca (ADN CREATIVO & DEAR BLANC): son del
+   consultorio real, recortadas para dejar fuera el texto de la campaña de
+   apertura ("COMING SOON", "GRAN APERTURA"), que no puede ir en un sitio en
+   vivo. Vienen a 432px de ancho porque el PDF las trae reducidas: alcanzan
+   para estas cajas, pero conviene sustituirlas por los originales.
+   ========================================================================== */
+
+/* --- 21.1 Rejilla del estudio --------------------------------------------
+   Sustituye a los .slot de relleno conservando exactamente sus proporciones,
+   que es lo que pedía el README para cuando llegara la fotografía.
+   -------------------------------------------------------------------------- */
+.studio__shot {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+  max-width: 100%;
+}
+.studio__shot--tall { aspect-ratio: 3 / 4; }
+.studio__shot--wide { aspect-ratio: 16 / 9; }
+.studio__shot picture,
+.studio__shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+/* Velo inferior: el rótulo va sobre la foto y necesita fondo propio, si no
+   depende del azar de lo que haya en esa zona de la imagen. */
+.studio__shot::after {
+  content: "";
+  position: absolute; inset-inline: 0; bottom: 0; height: 55%;
+  background: linear-gradient(to top, rgba(30, 13, 19, .68), transparent);
+  pointer-events: none;
+}
+.studio__shot span {
+  position: relative; z-index: 1;
+  margin: 1.1rem 1.25rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--c-cream);          /* token que NO se invierte: el velo es
+                                     oscuro en claro y en noche por igual */
+}
+
+/* --- 21.2 Bandas de imagen ------------------------------------------------
+   El deck abre varias láminas con una foto a sangre antes del titular.
+   Se reproduce como una banda de ancho completo y altura contenida.
+   -------------------------------------------------------------------------- */
+.band {
+  margin: 0;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.band img {
+  width: 100%;
+  height: clamp(190px, 30vw, 360px);
+  object-fit: cover;
+  object-position: center;
+}
+.band--tint { background: var(--paper-3); }
+.band--tint img { height: clamp(220px, 34vw, 420px); object-position: center 35%; }
+
+/* --- 21.3 Filosofía a dos columnas ----------------------------------------
+   La lámina 02 del deck pone el texto a la izquierda y un panel vertical de
+   imagen a la derecha, más angosto. En una columna (móvil) el panel iría
+   antes del texto y robaría la entrada, así que ahí se oculta: la lámina
+   funciona sin él y la foto ya aparece más abajo, en El estudio.
+   -------------------------------------------------------------------------- */
+.filo { display: grid; gap: clamp(1.5rem, 4vw, 3rem); }
+.filo__shot { margin: 0; display: none; }
+.filo__shot img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+.filo .claim { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+
+@media (min-width: 900px) {
+  .filo { grid-template-columns: minmax(0, 1fr) clamp(200px, 22vw, 260px); align-items: stretch; }
+  .filo__shot { display: block; }
+}

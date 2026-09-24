@@ -7,7 +7,8 @@ nativos: sin build, sin dependencias, sin CDN. Se sube tal cual.
 dear-blanc/
 ├── index.html
 ├── css/
-│   ├── styles.css        # todo el diseño, con tokens en :root
+│   ├── styles.css        # base: tokens en :root, layout y componentes
+│   ├── editorial.css     # capa del deck + plataforma (se carga después)
 │   └── fonts.css         # @font-face de las tipografías locales
 ├── js/
 │   ├── config.js         # ← lo único que hay que editar
@@ -38,17 +39,30 @@ un `href="#"` a la vista.
 También hay que cambiar `dearblanc.mx` por el dominio real en `index.html`
 (canonical, Open Graph y los dos bloques JSON-LD) y en `sitemap.xml`.
 
-## Lo que falta de contenido
+## Fotografía
 
-- **Fotografía del estudio.** La sección "El espacio habla antes que nosotros"
-  tiene tres huecos marcados con la clase `.slot`. Cuando haya fotos, cada
-  `<li class="slot ...">` se cambia por un `<img>` con las mismas proporciones
-  (`3/4` la vertical, `16/9` las dos horizontales) y se borra el bloque
-  `.studio__cta`. No se inventaron imágenes.
-- La foto del hero es un recorte de la imagen original de la marca. Se recortó
-  porque el encuadre completo lleva el texto "Something beautiful is coming",
-  que era del anuncio de apertura y no puede ir en un sitio en vivo. El archivo
-  completo sigue en `assets/img/estudio-arco.jpg` por si se quiere recuperar.
+Las fotos del estudio salieron del PDF de marca `ADN CREATIVO & DEAR BLANC.pdf`
+y son del consultorio real. Vienen recortadas para dejar fuera el texto de la
+campaña de apertura ("COMING SOON", "SOMETHING BEAUTIFUL IS COMING",
+"GRAN APERTURA · 28 agosto"), que no puede aparecer en un sitio en vivo.
+
+| Archivo | Dónde se usa | Origen |
+|---|---|---|
+| `estudio-bienvenida` | El estudio, hueco vertical 3/4 | arco de acceso |
+| `estudio-espera` | El estudio, hueco 16/9 | sala en desenfoque |
+| `estudio-consultorio` | El estudio, hueco 16/9 | cubierta de roble y lavabo |
+| `instrumental` | Banda sobre Tratamientos | charola dorada |
+| `unidad-dental` | Banda en Atención integral | radiografía y unidad |
+| `filosofia-arco` | Filosofía, panel vertical (≥900px) | arco de yeso y roble |
+
+**Pendiente:** el PDF trae las imágenes reducidas a 432 px de ancho. Alcanzan
+para las cajas actuales, pero se ven blandas en pantallas 2x. Conviene pedir
+los originales al estudio de diseño y regenerarlos con el mismo recorte.
+Los `.webp` se generan con `cwebp -q 80`, los `.jpg` con `sips -s formatOptions 82`.
+
+La foto de la portada es un recorte de la imagen original de la marca, por el
+mismo motivo: el encuadre completo lleva el texto del anuncio de apertura. El
+archivo entero sigue en `assets/img/estudio-arco.jpg`.
 
 ## Correr en local
 
@@ -112,4 +126,36 @@ desaparecen sobre los fondos oscuros.
 | ≥ 1024 | Menú completo en la barra, tratamientos como lista vertical más panel, experiencia a 4 columnas, se quita la barra inferior. |
 
 Probado con Chrome sin cabeza de 320 a 1440 px, en claro y oscuro, sin
-desbordes horizontales y sin errores de consola.
+desbordes horizontales, sin imágenes rotas y sin errores de consola.
+
+## La capa editorial
+
+`css/editorial.css` se carga después de `styles.css` y hace dos cosas.
+
+**Traduce el deck de 12 láminas.** Esquina recta en vez de radio, filete de 1px
+en vez de sombra, cintillo numerado por sección (atributo `data-slide`), eje
+izquierdo en todos los bloques y botones vino en versalitas. No define ningún
+color nuevo: usa los tokens de `styles.css`.
+
+**Compatibilidad de plataforma** (sección 20). `appearance:none` en los campos,
+porque Safari en iOS y macOS impone su propio relleno y sombra; tamaño de texto
+fijado en 16px en los campos, porque por debajo Safari iOS hace zoom al enfocar;
+objetivos táctiles de 44px; bloques para `forced-colors` (alto contraste de
+Windows), `prefers-reduced-transparency` y `prefers-contrast`.
+
+Va todo en un archivo y no en varios a propósito: el sitio no tiene paso de
+compilación y cada hoja extra es una petición bloqueante más en móvil.
+
+**Verificado en WebKit, no en Safari.** Lo medido (desbordes, objetivos
+táctiles, errores) se hizo con Chrome sin cabeza. Además se renderizó con
+QuickLook (`qlmanage -t`), que usa WebKit, para comprobar en el motor de
+Safari los componentes nuevos: el cintillo `data-slide` con `attr()`, la
+rejilla de fotos con `aspect-ratio` y `object-fit`, el botón sólido en modo
+noche y, sobre todo, los campos con `appearance:none`. Todo correcto.
+
+Lo que sigue sin probar es **Safari real en un dispositivo**: QuickLook no
+ejecuta JavaScript, así que las pestañas, la agenda, el menú y la barra
+pegajosa no se han visto funcionar en iOS. Safari no se deja automatizar sin
+permiso (`safaridriver --enable`, que pide contraseña de administrador) y la
+captura de pantalla está bloqueada por permisos de Grabación de Pantalla.
+Alguien tiene que abrir el sitio en un iPhone y recorrerlo.
