@@ -8,6 +8,15 @@
 <link rel="canonical" href="https://dearblanc.mx/">
 <meta name="theme-color" content="#FDF9F4">
 
+<!-- El navegador guarda dónde te quedaste y al volver a abrir el enlace te
+     devuelve ahí, a media página. Para un sitio de una sola página eso se
+     lee como "me manda a otro lado". Va aquí arriba y no en main.js porque
+     el navegador restaura el scroll antes de que main.js llegue a ejecutarse. -->
+<script>
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  if (!location.hash) addEventListener("load", function () { scrollTo(0, 0); });
+</script>
+
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="Dear Blanc Dental Studio">

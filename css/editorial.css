@@ -775,8 +775,14 @@ h3 {
 /* En móvil la foto sube y se mete bajo la bajada: mismo principio de
    solape. Antes eran dos carteles pegados con cinta. */
 @media (max-width: 56.24em) {
-  .hero__bg { aspect-ratio: 4 / 5; margin-top: clamp(-3.5rem, -9vw, -2rem); }
-  .hero__bg img { object-position: 76% top; }   /* encuadrada sobre ella, sin fondo muerto a la derecha */
+  /* El margen negativo mete la foto bajo el texto, pero con -6vw se comía
+     la coronilla: en vertical el encuadre ya entra justo, así que lo único
+     que recortaba la cabeza era este margen. */
+  .hero__bg { aspect-ratio: 5 / 6; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
+  /* 90% y no 76%: ella está a dos tercios del encuadre original, así que
+     con menos el recorte la dejaba a la izquierda y sobraba fondo a la
+     derecha. Medido sobre la imagen escalada, 90% la centra. */
+  .hero__bg img { object-position: 90% top; }
   .hero__inner { position: relative; z-index: 2; }
   .hero__title { font-size: clamp(2.75rem, 11.5vw, 4rem); }
 }
@@ -1316,9 +1322,9 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 :root {
   /* Medido: con 7vw las secciones dejaban huecos de 164 a 226px entre una
      y otra. Bajado a 4.6vw quedan en ~118, y las tres anclas en ~140. */
-  --sp-sec:       clamp(2.5rem, 4.6vw, 4.25rem);
-  --sp-sec-tight: clamp(1.75rem, 3vw, 2.5rem);
-  --sp-sec-loose: clamp(3.5rem, 6.4vw, 5.5rem);
+  --sp-sec:       clamp(1.75rem, 3vw, 2.75rem);
+  --sp-sec-tight: clamp(1.25rem, 2vw, 1.75rem);
+  --sp-sec-loose: clamp(2.5rem, 4.2vw, 3.5rem);
 }
 .section       { padding-block: var(--sp-sec); }
 .section--hito { padding-block: var(--sp-sec-loose); }

@@ -370,8 +370,22 @@ Medición antes y después, con `medir.js` (fuera del repo), a 1280 px:
 | `#contacto` | 584 px | 80 px |
 | `#atencion` | 560 px | 40 px |
 
-El objetivo es que ninguna sección pase de 140 px. Si alguien vuelve a
-limitar `.head`, esto se rompe y se nota.
+El objetivo es que ninguna sección pase de 140 px de hueco a la derecha. Si
+alguien vuelve a limitar `.head`, esto se rompe y se nota.
+
+**El hueco vertical** entre secciones se midió aparte, con `gaps.js`. Iba de
+164 a 226 px y ahora está entre 77 y 96. El ritmo base bajó de 7vw a 3vw en
+dos pasadas: la primera no bastó.
+
+## Al abrir el enlace, arriba
+
+El navegador guarda dónde te quedaste y al volver te devuelve ahí. En un
+sitio de una sola página eso se lee como "me manda a otro lado". Se apaga
+con `history.scrollRestoration = "manual"`, y va **en el `<head>`** del
+`index.html`, no en `main.js`: el navegador restaura el scroll antes de que
+`main.js` llegue a ejecutarse.
+
+Comprobado con `scroll.js`: bajar a 4200, recargar y reabrir devuelven 0.
 
 También había trece `h2` **del mismo tamaño exacto** (53.6 px) y un `h1`
 solo un 10% mayor. Una página sin escala de tamaños se lee como una lista,
