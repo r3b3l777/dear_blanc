@@ -6,7 +6,12 @@
    Un solo acento (roble) en todo el sitio. Un solo sistema de radios.
    ========================================================================== */
 
+/* La paleta de Dear Blanc es una sola: beige de papel y vino de tinta. No
+   hay tema oscuro. Invertirla con el ajuste del sistema convertía el sitio
+   en un muro vino y peleaba con la identidad de la marca, así que se
+   declara color-scheme: light y el navegador deja de proponer el suyo. */
 :root {
+  color-scheme: light;
   /* Paleta original de Dear Blanc: crema, vino y dorado.
      Los tonos de texto se ajustaron al mínimo necesario para pasar WCAG AA. */
 
@@ -70,33 +75,7 @@
   --nav-h: 66px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:      #241017;
-    --paper-2:    #2A1119;
-    --paper-3:    #3B1A24;
-    --surface:    #33161F;
-    --ink:        #FAF3EC;
-    --ink-2:      #C0B4B1;
-    --ink-3:      #A39493;
-    --oak:        #D8C5A6;
-    --oak-ink:    #D8C5A6;
-    --oak-soft:   #AB8657;
-    --oak-wash:   #3B1A24;
-    --line:       rgba(250, 243, 236, .14);
-    --line-strong:rgba(250, 243, 236, .24);
-    --edge:       rgba(250, 243, 236, .45);
-    --on-oak:     #2A1119;
-    --wine:       #1E0D13;
-    --wine-2:     #2A1119;
-    --c-wine:     #1E0D13;
-    --c-wine-2:   #2A1119;
-    --c-ink:      #15080D;
-    --wa:         #1DA85B;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px -12px rgba(0,0,0,.6);
-    --shadow-md: 0 2px 6px rgba(0,0,0,.35), 0 22px 44px -26px rgba(0,0,0,.75);
-  }
-}
+/* (tema oscuro retirado: la paleta de la marca es una sola) */
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -370,22 +349,22 @@ header { display: contents; }
 .hero__link:hover { color: var(--c-gold-lt); }
 .hero__link:hover svg { transform: translateX(4px); }
 
-/* Barra sobre la portada: sin fondo y en crema, porque debajo el velo
-   siempre es oscuro, dé igual el tema del sistema. */
+/* Barra sobre la portada: sin fondo. La portada es beige, así que los
+   enlaces van en la tinta normal. */
 .nav[data-over]:not(:has(.menu[data-open="true"])) {
   background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;
   border-bottom-color: transparent; box-shadow: none;
 }
 .nav[data-over]:not(:has(.menu[data-open="true"])) .brand,
 .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a,
-.nav[data-over]:not(:has(.menu[data-open="true"])) .nav__burger { color: var(--c-cream); }
-.nav[data-over]:not(:has(.menu[data-open="true"])) .brand__sub { color: var(--c-gold-lt); }
-.nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a::after { background: var(--c-gold-lt); }
+.nav[data-over]:not(:has(.menu[data-open="true"])) .nav__burger { color: var(--ink); }
+.nav[data-over]:not(:has(.menu[data-open="true"])) .brand__sub { color: var(--oak-ink); }
+.nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a::after { background: var(--oak); }
 /* El panel cerrado mide 0 px de alto pero su fondo se pinta bajo el borde
    de 1 px: sobre la foto eso se veía como una raya. */
 .nav[data-over]:not(:has(.menu[data-open="true"])) .menu { background: transparent; }
 .nav[data-over]:not(:has(.menu[data-open="true"])) .btn--ghost {
-  color: var(--c-cream); border-color: color-mix(in srgb, var(--c-cream) 38%, transparent);
+  color: var(--ink); border-color: var(--edge);
 }
 
 /* Cierre de filosofía: dos líneas apiladas, no una frase corrida. */
@@ -554,7 +533,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 }
 .field .hint { font-size: .75rem; color: var(--ink-3); }
 .field .err { font-size: .75rem; color: #A32E22; display: none; }
-@media (prefers-color-scheme: dark) { .field .err { color: #F0917F; } }
+/* (tema oscuro retirado: la paleta de la marca es una sola) */
 .field[data-invalid] .err { display: block; }
 .field[data-invalid] input, .field[data-invalid] textarea { border-color: #A32E22; }
 
@@ -659,10 +638,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .close .btn--ghost:hover { background: color-mix(in srgb, var(--c-cream) 14%, transparent); border-color: var(--c-cream); }
 .close .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
 .close .btn--primary:hover { background: var(--c-cream); color: var(--c-ink); }
-@media (prefers-color-scheme: dark) {
-  .close { background: #1E0D13; }
-  .close .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
-}
+/* (tema oscuro retirado: la paleta de la marca es una sola) */
 
 .social { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
 .social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-pill); color: var(--c-gold-lt); border: 1px solid color-mix(in srgb, var(--c-gold-lt) 62%, transparent); background: color-mix(in srgb, var(--c-cream) 9%, transparent); transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease); }
@@ -863,13 +839,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     --edge:        rgba(30, 13, 19, .75);
     --ink-2: var(--ink);
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --line:        rgba(250, 243, 236, .35);
-      --line-strong: rgba(250, 243, 236, .55);
-      --edge:        rgba(250, 243, 236, .8);
-    }
-  }
+  /* (tema oscuro retirado: la paleta de la marca es una sola) */
   .nav { background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 

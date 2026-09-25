@@ -333,25 +333,41 @@
 
     if (reduce) return;   // sin pasada automática si se pidió menos movimiento
 
-    /* Antes giraban las diez a la vez en cuanto la rejilla asomaba, y en
-       menos de tres segundos ya había terminado todo. Ahora cada tarjeta se
-       voltea cuando le toca a ella entrar en pantalla: el que baja marca el
-       ritmo, y el reverso se queda el tiempo suficiente para leerlo. */
+    /* Una tarjeta a la vez y en orden. Antes se disparaba un temporizador
+       por tarjeta en cuanto cada una entraba en pantalla, y como todas
+       entran casi juntas, giraban todas a la vez: parecía un parpadeo.
+
+       Ahora la rejilla monta una cola: la primera se voltea, enseña el
+       reverso, vuelve, y solo entonces empieza la siguiente. En ningún
+       momento hay dos volteadas. */
     var io = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (e) {
         if (!e.isIntersecting) return;
-        var card = e.target;
-        io.unobserve(card);                       // una sola vez por tarjeta
-        var t1 = setTimeout(function () { card.setAttribute("data-flip", ""); }, 420);
-        var t2 = setTimeout(function () { card.removeAttribute("data-flip"); }, 3600);
-        // Si alguien la toca a media pasada, se cancela y el control es suyo.
-        card.addEventListener("pointerdown", function () {
-          clearTimeout(t1); clearTimeout(t2);
-        }, { once: true });
+        io.unobserve(e.target);
+        encolar($$(".svc", e.target));
       });
-    }, { threshold: .55 });
+    }, { threshold: .4 });
 
-    $$(".svc").forEach(function (c) { io.observe(c); });
+    function encolar(cartas) {
+      var i = 0, cancelada = false;
+      // Tocar cualquiera de la rejilla detiene la cola: a partir de ahí
+      // manda quien mira.
+      cartas.forEach(function (c) {
+        c.addEventListener("pointerdown", function () { cancelada = true; }, { once: true });
+      });
+
+      (function siguiente() {
+        if (cancelada || i >= cartas.length) return;
+        var carta = cartas[i++];
+        carta.setAttribute("data-flip", "");
+        setTimeout(function () {
+          if (!cancelada) carta.removeAttribute("data-flip");
+          setTimeout(siguiente, 420);          // respiro antes de la próxima
+        }, 2400);                              // el reverso se queda, da tiempo a leerlo
+      })();
+    }
+
+    rejillas.forEach(function (r) { io.observe(r); });
   })();
 
   /* ---------- "Consultar precio": un solo toque abre WhatsApp ----------

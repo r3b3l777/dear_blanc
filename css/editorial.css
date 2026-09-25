@@ -55,8 +55,6 @@
 .section.wrap[data-slide]::before { inset-inline: var(--gutter); }
 
 /* Sobre fondos oscuros el cintillo se aclara. */
-.ritual[data-slide]::before { color: color-mix(in srgb, var(--on-oak) 70%, transparent); border-bottom-color: color-mix(in srgb, var(--on-oak) 22%, transparent); }
-.close[data-slide]::before  { color: color-mix(in srgb, var(--c-cream) 62%, transparent); border-bottom-color: color-mix(in srgb, var(--c-cream) 20%, transparent); }
 
 /* --------------------------------------------------------------------------
    2. Escala tipográfica
@@ -382,34 +380,20 @@ h3 {
    pleno del deck, y ese color es el vino de marca. En dorado leía como un
    aviso publicitario en medio de un documento de papel.
    -------------------------------------------------------------------------- */
-.ritual { background: var(--c-wine); color: var(--c-cream); }
-.ritual h2, .ritual h3 { color: var(--c-cream); }
-.ritual .eyebrow { color: color-mix(in srgb, var(--c-gold-lt) 88%, transparent); }
-.ritual__line   { color: var(--c-cream); }
-.ritual__answer { color: color-mix(in srgb, var(--c-cream) 88%, transparent); }
-.ritual__promise{ color: color-mix(in srgb, var(--c-cream) 72%, transparent); }
-.ritual[data-slide]::before {
-  color: color-mix(in srgb, var(--c-cream) 62%, transparent);
-  border-bottom-color: color-mix(in srgb, var(--c-cream) 20%, transparent);
-}
-/* Sobre vino, el botón sólido se invierte a crema para conservar contraste. */
-.ritual .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
-.ritual .btn--primary:hover { background: var(--c-cream); color: var(--c-ink); }
-.ritual .btn--ghost { border-color: color-mix(in srgb, var(--c-cream) 55%, transparent); color: var(--c-cream); }
-.ritual .btn--ghost:hover { border-color: var(--c-cream); background: color-mix(in srgb, var(--c-cream) 12%, transparent); }
+/* La sección dejó de tener fondo vino (sección 30): el texto vuelve a la
+   tinta normal. Se quedó crema cuando cambió el fondo, así que durante un
+   rato fue texto claro sobre arcilla clara, es decir, invisible. */
+.ritual h2, .ritual h3 { color: var(--ink); }
+.ritual .eyebrow { color: var(--oak-ink); }
+.ritual__line   { color: var(--ink); }
+.ritual__promise{ color: var(--ink-2); }
 
-/* La curva fina que cierra la lámina 09 del deck. */
-.ritual { position: relative; overflow: hidden; }
-.ritual::after {
-  content: "";
-  position: absolute;
-  left: 50%; bottom: -14rem;
-  width: min(120%, 60rem); aspect-ratio: 1;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--c-gold-lt) 42%, transparent);
-  pointer-events: none;
-}
+/* Aquí había un aro dorado de 60rem, dibujado cuando la sección tenía
+   fondo vino: sobre el vino era una curva fina y elegante. Con la sección
+   en arcilla clara quedaba un círculo a medio ver que no significaba nada.
+   Fuera. Las reglas de botón en crema que venían con aquel fondo también
+   sobran: aquí ya no hay ningún botón claro sobre oscuro. */
+.ritual { position: relative; }
 .ritual > .wrap { position: relative; z-index: 1; }
 
 /* --------------------------------------------------------------------------
@@ -457,12 +441,7 @@ h3 {
    Se usan los tokens --c-* a propósito: son los que NO se invierten con el
    esquema, y son los únicos correctos sobre superficies siempre oscuras.
    -------------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  .btn--primary { background: var(--c-gold-lt); color: var(--c-ink); }
-  .btn--primary:hover { background: var(--c-cream); color: var(--c-ink); }
-  /* El cintillo de lámina sobre papel oscuro necesita más luz que --ink-3. */
-  .section[data-slide]::before { color: var(--ink-2); }
-}
+/* (tema oscuro retirado: la paleta de la marca es una sola) */
 
 /* ==========================================================================
    20. PLATAFORMA · Safari y Chrome en iOS, Android, macOS y Windows
@@ -661,13 +640,7 @@ h3 {
   --c-clay-2:    #574538;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bone:      #2E1821;
-    --clay:      #4A2A34;
-    --clay-ink:  #E3D5C4;
-  }
-}
+/* (tema oscuro retirado: la paleta de la marca es una sola) */
 
 .section--sand { background: var(--bone); }      /* sube */
 .section--tint { background: var(--paper-2); }   /* baja */
@@ -844,7 +817,7 @@ h3 {
   position: absolute; inset: 0;
   transform-style: preserve-3d;
   /* .62s se sentía un golpe. A .95s el giro se lee como un gesto. */
-  transition: transform .95s var(--ease);
+  transition: transform 1.05s var(--ease);
 }
 .svc[data-flip] .svc__flip { transform: rotateY(180deg); }
 @media (hover: hover) and (pointer: fine) {
@@ -1164,23 +1137,6 @@ h3 {
   .filo__shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 12%; }
 }
 
-/* ==========================================================================
-   39. La barra sobre la portada
-   styles.css la pinta en crema porque ahí abajo el velo era vino. Ahora la
-   portada es beige, así que en modo día la barra vuelve a la tinta normal.
-   En modo noche el velo sigue siendo oscuro y la regla original vale, por
-   eso esto va dentro de una consulta de esquema claro y no la borra.
-   ========================================================================== */
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-  .nav[data-over]:not(:has(.menu[data-open="true"])) .brand,
-  .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a,
-  .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__burger { color: var(--ink); }
-  .nav[data-over]:not(:has(.menu[data-open="true"])) .brand__sub { color: var(--oak-ink); }
-  .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a::after { background: var(--oak); }
-  .nav[data-over]:not(:has(.menu[data-open="true"])) .btn--ghost {
-    color: var(--ink); border-color: var(--edge);
-  }
-}
 
 /* ==========================================================================
    40. Las preguntas, con fotografía
