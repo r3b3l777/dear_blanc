@@ -316,11 +316,16 @@
     if (!rejillas.length) return;
 
     // Toque y teclado: voltear y desvoltear.
+    /* Solo una tarjeta volteada a la vez: al abrir una, la que estuviera
+       abierta se cierra sola. Con varias abiertas la rejilla se convertía
+       en un muro de texto, que es justo lo que las tarjetas evitan. */
     $$(".svc__girar").forEach(function (b) {
       b.addEventListener("click", function () {
-        var card = b.closest(".svc");
-        if (card.hasAttribute("data-flip")) card.removeAttribute("data-flip");
-        else card.setAttribute("data-flip", "");
+        var card = b.closest(".svc"), abierta = card.hasAttribute("data-flip");
+        $$(".svc[data-flip]", card.closest(".svcs")).forEach(function (o) {
+          o.removeAttribute("data-flip");
+        });
+        if (!abierta) card.setAttribute("data-flip", "");
       });
     });
     // Con el reverso a la vista el botón desaparece; se vuelve con Escape

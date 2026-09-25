@@ -718,51 +718,47 @@ h3 {
 
 @media (min-width: 56.25em) {
   .hero {
-    min-height: min(94svh, 870px);
+    min-height: min(94svh, 880px);
     display: grid; align-content: stretch;
     padding-block: 0;
   }
   .hero__grid { grid-template-columns: minmax(0, 1fr); min-height: inherit; gap: 0; }
 
-  /* Aquí había un degradado de papel sobre el 18% izquierdo de la foto,
-     puesto para fundir el canto. Sobre 742px de caja eso son 133px de
-     imagen tapados: el titular terminaba en x=415 y la fotografía no
-     empezaba de verdad hasta x=671. Esos 256px de papel en medio eran
-     exactamente la sensación de "la imagen está separada de las letras".
-     Fuera el velo de la imagen; ahora pertenece al texto. */
+  /* La fotografía ocupa la portada entera. Antes iba al 66% y su canto
+     izquierdo era una costura que había que disimular con un degradado; ese
+     degradado se comía 133px de imagen y abría el hueco entre texto y foto.
+     A sangre completa no hay canto, y el titular cae sobre la mitad vacía
+     del propio encuadre, que es donde la fotógrafa dejó el aire. */
   .hero__bg {
-    position: absolute; inset: 0 0 0 auto;
-    width: min(66%, 1040px); margin: 0; aspect-ratio: auto;
+    position: absolute; inset: 0; width: 100%; margin: 0; aspect-ratio: auto;
   }
-  /* Un fundido estrecho, del 7%, solo para que no se vea el canto: el
-     degradado anterior era del 18% sobre 742px, o sea 133px de foto
-     tapados, y ese era el hueco que separaba texto e imagen. */
-  .hero__bg::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(90deg, var(--paper) 0%, transparent 7%);
-  }
-  .hero__bg::before { height: 18%; }
-  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 56% bottom; }
+  .hero__bg::after  { content: none; }
+  .hero__bg::before { height: 16%; }
+  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 72% bottom; }
 
-  /* El texto se ancla abajo y pisa la foto: ahí se cosen las dos mitades. */
   .hero__inner {
     position: relative; z-index: 2;
-    max-width: none; width: min(100%, 60ch);
+    max-width: none; width: min(100%, 62ch);
     align-self: end;
     padding-bottom: clamp(3rem, 8vh, 6rem);
   }
-  /* El velo viaja con el texto, así se lee como texto sobre fotografía y
-     no como un canto vacío entre dos bloques. */
+  /* Un velo suave bajo el texto, del ancho del texto. No tapa a la chica:
+     cae sobre la zona lisa del estudio. */
+  /* Velo radial y no lineal: un degradado lineal dentro de una caja tan
+     ancha deja los cantos del rectángulo a la vista, y se veían dos bloques
+     fantasma sobre la fotografía. Una elipse se apaga sola por todos lados. */
   .hero__inner::before {
     content: ""; position: absolute; z-index: -1;
-    inset: -3rem -9rem -3rem calc(-1 * var(--gutter) - 50vw);
-    background: linear-gradient(100deg,
-      var(--paper) 0%, var(--paper) 58%,
-      color-mix(in srgb, var(--paper) 74%, transparent) 78%, transparent 100%);
+    inset: -8rem -20rem -6rem calc(-1 * var(--gutter) - 60vw);
+    background: radial-gradient(
+      ellipse 62% 78% at 28% 62%,
+      color-mix(in srgb, var(--paper) 94%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 82%, transparent) 42%,
+      color-mix(in srgb, var(--paper) 38%, transparent) 72%,
+      transparent 92%);
     pointer-events: none;
   }
 
-  /* Libre del nowrap dentro de 608px, el titular por fin manda. */
   .hero__title { font-size: clamp(3.4rem, 6.4vw, 6rem); }
   .hero__title > span { white-space: nowrap; }
   .hero__title > span:nth-child(2) { padding-left: .55em; }
@@ -772,8 +768,7 @@ h3 {
 }
 
 @media (min-width: 75em) {
-  .hero__bg { width: min(62%, 1160px); }
-  .hero__inner { width: min(100%, 64ch); }
+  .hero__inner { width: min(100%, 66ch); }
   .hero__title { font-size: clamp(4rem, 5.8vw, 6.5rem); }
 }
 
@@ -781,7 +776,7 @@ h3 {
    solape. Antes eran dos carteles pegados con cinta. */
 @media (max-width: 56.24em) {
   .hero__bg { aspect-ratio: 4 / 5; margin-top: clamp(-3.5rem, -9vw, -2rem); }
-  .hero__bg img { object-position: 64% top; }
+  .hero__bg img { object-position: 76% top; }   /* encuadrada sobre ella, sin fondo muerto a la derecha */
   .hero__inner { position: relative; z-index: 2; }
   .hero__title { font-size: clamp(2.75rem, 11.5vw, 4rem); }
 }
@@ -1288,8 +1283,10 @@ h3 {
     column-gap: clamp(2.5rem, 5vw, 5rem);
     align-items: end;
   }
-  .section > .wrap > .head:not(.head--center) > .eyebrow,
   .section > .wrap > .head:not(.head--center) > h2 { grid-column: 1; max-width: 18ch; }
+  /* El cintillo no se limita: con el filete delante, 18ch lo partía en dos
+     renglones ("EMPIEZA / POR TI"). */
+  .section > .wrap > .head:not(.head--center) > .eyebrow { grid-column: 1; max-width: none; }
   .section > .wrap > .head:not(.head--center) > .body,
   .section > .wrap > .head:not(.head--center) > .lede {
     grid-column: 2; grid-row: 1 / span 3;
@@ -1317,9 +1314,11 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 /* Ritmo vertical en tres pasos. Antes las dieciséis secciones respiraban
    72px idénticos, sin una sola excepción. */
 :root {
-  --sp-sec:       clamp(3.5rem, 7vw, 6rem);
-  --sp-sec-tight: clamp(2.25rem, 4vw, 3.25rem);
-  --sp-sec-loose: clamp(5rem, 9.5vw, 8.5rem);
+  /* Medido: con 7vw las secciones dejaban huecos de 164 a 226px entre una
+     y otra. Bajado a 4.6vw quedan en ~118, y las tres anclas en ~140. */
+  --sp-sec:       clamp(2.5rem, 4.6vw, 4.25rem);
+  --sp-sec-tight: clamp(1.75rem, 3vw, 2.5rem);
+  --sp-sec-loose: clamp(3.5rem, 6.4vw, 5.5rem);
 }
 .section       { padding-block: var(--sp-sec); }
 .section--hito { padding-block: var(--sp-sec-loose); }
@@ -1394,3 +1393,63 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
   #preguntas .faq { grid-column: 2; max-width: none; }
   #preguntas .faq summary { font-size: 1.0625rem; padding-block: 1.15rem; }
 }
+
+/* ==========================================================================
+   45. Acentos de vino
+   El vino es la tinta de toda la página, pero como tinta no se "ve": se
+   lee. Faltaban momentos donde el color aparezca como color. Estos son, y
+   son pocos a propósito: el manual dice paleta neutra, así que el vino
+   marca, no decora.
+   ========================================================================== */
+
+/* Filete delante del cintillo de cada sección. Es lo primero que se ve al
+   entrar en un bloque y da entrada con el color de la marca. */
+.eyebrow::before {
+  content: ""; flex: 0 0 auto;
+  width: clamp(1.5rem, 3vw, 2.25rem); height: 1px;
+  margin-right: .75rem; background: var(--ink);
+}
+.head--center .eyebrow { justify-content: center; }
+.close .eyebrow::before { background: var(--c-cream); }
+
+/* Los discos pasan de contorno tenue a vino sólido con el icono en crema.
+   Son los puntos de la ficha de ubicación, la agenda y la experiencia. */
+.disc {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--c-cream);
+}
+.disc--sm { background: transparent; color: var(--ink); }
+.exp__step:hover .disc { background: var(--c-wine-2); }
+
+/* La pestaña activa de tratamientos se marca con una barra de vino. */
+.tx__tab[aria-selected="true"] { position: relative; }
+@media (min-width: 64em) {
+  .tx__tab[aria-selected="true"]::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--ink);
+  }
+}
+
+/* Los números de los pilares, en vino en vez de arena: se ven. */
+.pilar__num { -webkit-text-stroke-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+.pilar:hover .pilar__num { -webkit-text-stroke-color: var(--ink); }
+
+/* El rótulo de categoría de cada pregunta y el botón de cada tratamiento. */
+.quiz__nota { color: var(--ink); }
+.svc__cta { color: var(--ink); }
+
+/* Los rombos de la marquesina. */
+.marquee b { color: var(--ink); }
+
+/* El título de las secciones ancla lleva un filete de vino encima. */
+.section--hito .head h2 { position: relative; }
+.section--hito:not(.close) .head::before {
+  content: ""; display: block; width: 3.5rem; height: 2px;
+  background: var(--ink); margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  grid-column: 1;
+}
+
+/* La cita del ritual, entre comillas de vino grandes. */
+.ritual__line { position: relative; }
+.ritual__promise { border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); padding-top: 1.25rem; }
