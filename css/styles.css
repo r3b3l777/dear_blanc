@@ -15,36 +15,44 @@
   /* Paleta original de Dear Blanc: crema, vino y dorado.
      Los tonos de texto se ajustaron al mínimo necesario para pasar WCAG AA. */
 
-  /* Superficies. El fondo es beige, no crema casi blanco: la marca vive en
-     el papel, no en un bloque oscuro. Las tarjetas suben a --surface para
-     despegarse de él. */
-  --paper:      #EFE5D9;   /* beige base   */
-  --paper-2:    #E5D8C9;   /* beige medio  */
-  --paper-3:    #D9C9B6;   /* beige hondo  */
-  --surface:    #FDF9F4;   /* crema de marca, exacto */
+  /* Paleta oficial, muestreada de la p.10 del manual de marca
+     (ADN CREATIVO & DEAR BLANC.pdf). Son cinco colores neutros y ninguno
+     es un acento cálido: el manual dice literalmente "blanco, negro y
+     tonos neutros (beige, arena o gris)". El dorado que usaba el sitio no
+     existe en la marca; se inventó y de él colgaba todo el acento. */
+  --blanco:     #FDF9F4;   /* "limpieza, simplicidad, transparencia" */
+  --nude:       #E8DAD4;   /* neutro nude/rosado */
+  --arena:      #D0C7BD;   /* neutro arena/gris */
+  --vino:       #2F1116;
+  --negro:      #000000;   /* "elegancia, fuerza, carácter" */
 
-  /* Tinta. El vino dejó de ser fondo y pasó a ser el color del texto: así
-     está en toda la página sin pintar media pantalla de oscuro. */
-  --ink:        #2F1116;   /* vino de marca, exacto */
+  /* Superficies, de los neutros de arriba. El papel es el crema de marca;
+     las tarjetas suben a blanco puro para despegarse de él. */
+  --paper:      #FDF9F4;
+  --paper-2:    #E8DAD4;
+  --paper-3:    #D0C7BD;
+  --surface:    #FFFFFF;
+
+  /* Tinta: el vino de la marca. */
+  --ink:        #2F1116;
   --ink-2:      #573941;
-  --ink-3:      #73555D;
+  --ink-3:      #6E5158;
 
-  /* Acento secundario: dorado */
-  --oak:        #9A754A;   /* algo más oscuro que antes: sobre beige, el
-                              #AB8657 anterior se quedaba corto de contraste */
-  --oak-ink:    #6F5230;
-  --oak-soft:   #C9B291;
-  --oak-wash:   #E8DBC6;
+  /* No hay acento de color. Los tokens --oak se conservan porque de ellos
+     cuelgan 79 reglas, pero apuntan a colores de la marca: el vino hace de
+     acento y los dos neutros de apoyo. */
+  --oak:        #2F1116;
+  --oak-ink:    #2F1116;
+  --oak-soft:   #D0C7BD;
+  --oak-wash:   #E8DAD4;
 
-  /* Constantes de marca: superficies siempre oscuras (cierre, pie) y su
-     texto. No cambian con prefers-color-scheme, si no el texto claro se
-     volvería oscuro sobre un fondo que sigue siendo oscuro. */
+  /* Constantes de marca: no cambian nunca. */
   --c-wine:     #2F1116;
   --c-wine-2:   #3F1A21;
-  --c-ink:      #1E0D13;
+  --c-ink:      #000000;
   --c-cream:    #FDF9F4;
-  --c-gold:     #AB8657;
-  --c-gold-lt:  #D8C5A6;
+  --c-gold:     #D0C7BD;
+  --c-gold-lt:  #E8DAD4;
 
   --wine:       #2F1116;
   --wine-2:     #3F1A21;

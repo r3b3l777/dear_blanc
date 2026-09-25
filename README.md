@@ -280,16 +280,85 @@ Domingos cerrado. Está en cuatro sitios y los cuatro tienen que coincidir:
 `DB.atencion` en `config.js`, la ficha de Ubicación, la ficha de la agenda y
 el `openingHoursSpecification` del JSON-LD en `index.html`.
 
-## Los beige
+## La paleta es la del manual, no una aproximación
 
-El sitio venía resuelto con vino en todas las superficies profundas (intro,
-ritual, cierre, pie) y se leía monótono. La sección 30 de `editorial.css`
-añade una escala de arena y arcilla (`--sand`, `--sand-2`, `--clay`,
-`--clay-deep`) y reparte el peso: las secciones tintadas se alternan con
-`section--sand` y `section--clay`, el bloque del ritual y el cierre pasan a
-greige, y el vino queda solo en la portada y el pie, donde vuelve a ser un
-remate en lugar del color de media página.
+Los colores salen de la p.10 de `ADN CREATIVO & DEAR BLANC.pdf`, que es el
+manual de marca real. Son cinco neutros y **ninguno es un acento cálido**;
+el manual dice literalmente "blanco, negro y tonos neutros (beige, arena o
+gris)".
 
-Los beige siguen la misma regla que el resto de los tokens: `--sand` y
-compañía se invierten con `prefers-color-scheme`; `--c-sand` y `--c-clay-deep`
-no, porque son superficies oscuras también de día.
+| Token | Valor | En el manual |
+|---|---|---|
+| `--blanco` / `--paper` | `#FDF9F4` | "limpieza, simplicidad, transparencia" |
+| `--nude` / `--paper-2` | `#E8DAD4` | neutro nude |
+| `--arena` / `--paper-3` | `#D0C7BD` | neutro arena/gris |
+| `--vino` / `--ink` | `#2F1116` | el color del logotipo |
+| `--negro` | `#000000` | "elegancia, fuerza, carácter" |
+
+El sitio venía con un dorado `#AB8657` como acento único, y de él colgaban
+79 reglas. **Ese dorado no existe en la marca**: se inventó. Los tokens
+`--oak` se conservan porque están por todo el CSS, pero ahora apuntan al
+vino y a los dos neutros. Si alguna vez aparece un dorado en el sitio, es un
+error.
+
+**No hay tema oscuro.** Se declara `color-scheme: light` y se quitaron los
+seis bloques de `prefers-color-scheme: dark`. Invertir la paleta con el
+ajuste del sistema convertía la página en un muro vino y peleaba con la
+identidad; además dejó rotos, durante un tiempo, el texto del ritual y los
+enlaces de la barra, que se quedaron en crema sobre fondo claro.
+
+## El logotipo es el de verdad
+
+`assets/logo-dear-blanc.svg` es el trazado vectorial extraído de la p.3 del
+manual con `pdftocairo -svg`, reducido a 21 `<path>` limpios (de 47 KB a 15).
+Va inline en el sprite del `index.html` como `#i-logo`, así hereda el color
+con `currentColor` y sirve igual en la barra, en el pie y en la cortina.
+
+Antes el lockup se dibujaba con Cormorant Garamond **en cursiva**. El
+logotipo real es vertical y de otra tipografía (TAN St Canard, p.9 del
+manual): no se parecía.
+
+**Pendiente de tipografía.** El manual usa tres fuentes y el sitio ninguna:
+
+| Rol | Marca | Sitio |
+|---|---|---|
+| Logotipo | TAN St Canard Display | resuelto con el SVG |
+| Titulares | CMU Serif | Cormorant Garamond |
+| Texto | Codec Pro | Instrument Sans |
+
+CMU Serif es libre (OFL) y se puede auto-hospedar sin coste. **Codec Pro es
+comercial** (Zetafonts) y necesita licencia web: hay que comprarla o pedirla
+al cliente. Hasta entonces Instrument Sans es un sustituto provisional, no
+la tipografía de la marca.
+
+## El espacio muerto y cómo se midió
+
+El síntoma que reportó el cliente ("mucho espacio muerto, falta de diseño")
+tenía una causa concreta: `.head { max-width: 34rem }` dentro de un
+contenedor de 1120 px dejaba **576 px de papel vacío a la derecha**, nueve
+veces al bajar. No faltaba aire: estaba mal puesto, en horizontal donde
+tocaba en vertical.
+
+A partir de 62em la cabecera pasa a dos columnas (titular a la izquierda,
+bajada alineada abajo a la derecha). Se arregla con una sola regla y sin
+HTML nuevo. Los huecos restantes del cierre, las preguntas, la valoración y
+la experiencia se resolvieron uno a uno en la sección 44 de `editorial.css`.
+
+Medición antes y después, con `medir.js` (fuera del repo), a 1280 px:
+
+| Sección | antes | después |
+|---|---|---|
+| `#diferencia` | 656 px | 40 px |
+| `#valoracion` | 637 px | 40 px |
+| `#preguntas` | 621 px | 40 px |
+| `#contacto` | 584 px | 80 px |
+| `#atencion` | 560 px | 40 px |
+
+El objetivo es que ninguna sección pase de 140 px. Si alguien vuelve a
+limitar `.head`, esto se rompe y se nota.
+
+También había trece `h2` **del mismo tamaño exacto** (53.6 px) y un `h1`
+solo un 10% mayor. Una página sin escala de tamaños se lee como una lista,
+no como una composición. Ahora hay tres secciones ancla (`--hito`) con
+titular grande, y la escala es 82 / 58 / 41.
+

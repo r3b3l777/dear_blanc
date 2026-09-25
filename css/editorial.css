@@ -630,17 +630,14 @@ h3 {
    cierre, que es el único momento oscuro de la página.
    ========================================================================== */
 :root {
-  --bone:      #F7F1E8;   /* el más claro: alterna hacia arriba */
-  --clay:      #D9C9B6;   /* arcilla: bordes y rellenos suaves */
-  --clay-ink:  #5A4536;   /* texto sobre arcilla */
-
-  /* Constantes: no se invierten. */
-  --c-bone:      #F7F1E8;
-  --c-clay-deep: #6B5647;
-  --c-clay-2:    #574538;
+  /* Escala de superficies, toda de los neutros del manual. */
+  --bone:      #FFFFFF;
+  --clay:      #D0C7BD;
+  --clay-ink:  #2F1116;
+  --c-bone:      #FFFFFF;
+  --c-clay-deep: #2F1116;
+  --c-clay-2:    #2F1116;
 }
-
-/* (tema oscuro retirado: la paleta de la marca es una sola) */
 
 .section--sand { background: var(--bone); }      /* sube */
 .section--tint { background: var(--paper-2); }   /* baja */
@@ -721,55 +718,72 @@ h3 {
 
 @media (min-width: 56.25em) {
   .hero {
-    min-height: min(92svh, 800px);
-    display: grid; align-content: center;
-    padding-block: calc(var(--nav-h) + 2rem) 2rem;
+    min-height: min(94svh, 870px);
+    display: grid; align-content: stretch;
+    padding-block: 0;
   }
-  .hero__grid { grid-template-columns: minmax(0, 1fr); }
-  /* La foto se sale de la rejilla: cubre la mitad derecha de la portada,
-     pegada al fondo, y el texto se queda en la columna de la izquierda. */
+  .hero__grid { grid-template-columns: minmax(0, 1fr); min-height: inherit; gap: 0; }
+
+  /* Aquí había un degradado de papel sobre el 18% izquierdo de la foto,
+     puesto para fundir el canto. Sobre 742px de caja eso son 133px de
+     imagen tapados: el titular terminaba en x=415 y la fotografía no
+     empezaba de verdad hasta x=671. Esos 256px de papel en medio eran
+     exactamente la sensación de "la imagen está separada de las letras".
+     Fuera el velo de la imagen; ahora pertenece al texto. */
   .hero__bg {
     position: absolute; inset: 0 0 0 auto;
-    width: min(62%, 980px); margin: 0;
+    width: min(66%, 1040px); margin: 0; aspect-ratio: auto;
   }
-  .hero__bg img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: 62% bottom;
-  }
-  /* El fondo del archivo y el papel son el mismo beige, pero entre el
-     degradado del estudio y la compresión queda un canto visible donde
-     empieza la foto. Este velo lo funde. */
-  .hero__bg { aspect-ratio: auto; }
+  /* Un fundido estrecho, del 7%, solo para que no se vea el canto: el
+     degradado anterior era del 18% sobre 742px, o sea 133px de foto
+     tapados, y ese era el hueco que separaba texto e imagen. */
   .hero__bg::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(90deg, var(--paper) 0%, transparent 18%);
+    background: linear-gradient(90deg, var(--paper) 0%, transparent 7%);
   }
-  .hero__bg::before { height: 12%; }
-  .hero__inner { max-width: 34rem; }
-  .hero__body { max-width: 30ch; }
-  /* "Tu tratamiento." es la línea larga y en esta columna partía en dos.
-     El titular se mide contra ella, no contra el ancho de la ventana. */
-  .hero__title { font-size: clamp(2.5rem, 5vw, 4.25rem); }
+  .hero__bg::before { height: 18%; }
+  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 56% bottom; }
+
+  /* El texto se ancla abajo y pisa la foto: ahí se cosen las dos mitades. */
+  .hero__inner {
+    position: relative; z-index: 2;
+    max-width: none; width: min(100%, 60ch);
+    align-self: end;
+    padding-bottom: clamp(3rem, 8vh, 6rem);
+  }
+  /* El velo viaja con el texto, así se lee como texto sobre fotografía y
+     no como un canto vacío entre dos bloques. */
+  .hero__inner::before {
+    content: ""; position: absolute; z-index: -1;
+    inset: -3rem -9rem -3rem calc(-1 * var(--gutter) - 50vw);
+    background: linear-gradient(100deg,
+      var(--paper) 0%, var(--paper) 58%,
+      color-mix(in srgb, var(--paper) 74%, transparent) 78%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* Libre del nowrap dentro de 608px, el titular por fin manda. */
+  .hero__title { font-size: clamp(3.4rem, 6.4vw, 6rem); }
   .hero__title > span { white-space: nowrap; }
+  .hero__title > span:nth-child(2) { padding-left: .55em; }
+  .hero__title > span:nth-child(3) { padding-left: 1.15em; }
+
+  .hero__body { max-width: 30ch; margin-top: clamp(1.25rem, 2.5vh, 2rem); font-size: 1.0625rem; }
 }
 
 @media (min-width: 75em) {
-  .hero__bg { width: min(58%, 1100px); }
-  .hero__inner { max-width: 38rem; }
-  .hero__title { font-size: clamp(3rem, 4.6vw, 5rem); }
+  .hero__bg { width: min(62%, 1160px); }
+  .hero__inner { width: min(100%, 64ch); }
+  .hero__title { font-size: clamp(4rem, 5.8vw, 6.5rem); }
 }
 
-/* La barra flota sobre la foto y sus enlaces caían encima del pelo, que es
-   lo más oscuro de la imagen. Una banda de papel arriba le devuelve el
-   fondo sin tapar la fotografía. */
-.hero::before {
-  content: ""; position: absolute; inset: 0 0 auto 0; z-index: 1;
-  height: calc(var(--nav-h) + 2.5rem);
-  background: linear-gradient(180deg,
-    var(--paper) 0%,
-    color-mix(in srgb, var(--paper) 88%, transparent) 55%,
-    transparent 100%);
-  pointer-events: none;
+/* En móvil la foto sube y se mete bajo la bajada: mismo principio de
+   solape. Antes eran dos carteles pegados con cinta. */
+@media (max-width: 56.24em) {
+  .hero__bg { aspect-ratio: 4 / 5; margin-top: clamp(-3.5rem, -9vw, -2rem); }
+  .hero__bg img { object-position: 64% top; }
+  .hero__inner { position: relative; z-index: 2; }
+  .hero__title { font-size: clamp(2.75rem, 11.5vw, 4rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1069,55 +1083,79 @@ h3 {
 
 /* ==========================================================================
    38. Los cuatro pilares
-   Sustituyen a la rejilla de seis tarjetas con párrafo. Cada palabra entra
-   con una cortina desde abajo; el número se queda detrás, en grande y muy
-   tenue, como marca de agua.
+   Eran cuatro filas de 1120px con una palabra de 250 dentro: entre el 71 y
+   el 78% de cada fila era papel vacío, cuatro veces seguidas. Se leía como
+   un <ul> con borde, que es justo lo que el cliente dijo.
+
+   Ahora son cuatro fichas de una retícula, y el número deja de ser una
+   etiqueta de 11px para convertirse en la ilustración: contorneado, enorme,
+   detrás de la palabra. Sin fotos a propósito: tratamientos y preguntas ya
+   son foto+texto, y repetir el patrón aquí dejaría la página monótona.
    ========================================================================== */
 .pilares {
-  list-style: none; padding: 0;
-  margin: clamp(2rem, 5vw, 3rem) 0 0;
-  display: grid; gap: 0;
-  border-top: 1px solid var(--line);
+  list-style: none; padding: 0; border: 1px solid var(--line);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  display: grid; gap: 1px; background: var(--line);   /* la retícula ES el hilo */
 }
+@media (min-width: 40em) { .pilares { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 75em) { .pilares { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 .pilar {
-  position: relative; overflow: hidden;
-  display: flex; align-items: baseline; gap: clamp(.9rem, 3vw, 2rem);
-  padding: clamp(1rem, 3vw, 1.6rem) 0;
-  border-bottom: 1px solid var(--line);
-  transition: padding-left var(--dur) var(--ease);
+  position: relative; overflow: hidden; border: 0;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: .45rem;
+  min-height: clamp(215px, 25vw, 300px);
+  padding: clamp(1.25rem, 2.4vw, 1.9rem);
+  background: var(--paper);
+  transition: background var(--dur) var(--ease);
 }
-.pilar:hover { padding-left: clamp(.5rem, 2vw, 1.25rem); }
+.pilar:hover { background: var(--surface); padding-left: clamp(1.25rem, 2.4vw, 1.9rem); }
 
 .pilar__num {
-  flex: 0 0 auto;
-  font-size: .6875rem; letter-spacing: var(--track-label, .18em);
-  color: var(--oak-ink);
+  position: absolute; top: -.14em; right: -.05em; z-index: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 400; font-style: italic;
+  font-size: clamp(6.5rem, 10.5vw, 10.5rem);
+  line-height: .82; letter-spacing: -.045em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--oak-soft);
+  pointer-events: none;
+  transition: -webkit-text-stroke-color var(--dur) var(--ease), transform .6s var(--ease);
 }
+.pilar:hover .pilar__num { -webkit-text-stroke-color: var(--ink-3); transform: translateY(-.03em); }
+@supports not (-webkit-text-stroke: 1px red) { .pilar__num { color: var(--oak-wash); } }
 
 .pilar__palabra {
-  font-family: "Cormorant Garamond", serif; font-weight: 400;
-  font-size: clamp(1.75rem, 6.5vw, 3.5rem); line-height: 1.02;
-  letter-spacing: -.02em; color: var(--ink);
-  /* La cortina: la palabra sube desde debajo de su propia caja. */
-  display: block;
-  transform: translateY(100%);
-  transition: transform .7s var(--ease);
-  transition-delay: calc(var(--i, 0) * 110ms);
+  position: relative; z-index: 1;
+  font-family: "Cormorant Garamond", Georgia, serif; font-weight: 400;
+  font-size: clamp(1.6rem, 2.35vw, 2.2rem); line-height: 1.04;
+  letter-spacing: -.02em; color: var(--ink); text-wrap: balance;
+  /* La cortina de antes no vale dentro de una ficha de 300px: con
+     translateY(100%) la palabra seguía viéndose a media tarjeta. */
+  opacity: 0; transform: translateY(.5em);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms);
 }
-.pilar.is-in .pilar__palabra { transform: none; }
+.pilar.is-in .pilar__palabra { opacity: 1; transform: none; }
 
-/* Filete dorado que se dibuja bajo la palabra al pasar el cursor. */
+.pilar__nota {
+  position: relative; z-index: 1;
+  font-size: .8125rem; line-height: 1.45; color: var(--ink-3); max-width: 22ch;
+  opacity: 0; transition: opacity .6s var(--ease);
+  transition-delay: calc(var(--i, 0) * 90ms + 140ms);
+}
+.pilar.is-in .pilar__nota { opacity: 1; }
+
 .pilar::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
-  background: var(--oak);
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--ink);
   transform: scaleX(0); transform-origin: left;
   transition: transform .45s var(--ease);
 }
 .pilar:hover::after { transform: scaleX(1); }
 
 @media (prefers-reduced-motion: reduce) {
-  .pilar__palabra { transform: none; transition: none; }
+  .pilar__palabra, .pilar__nota { opacity: 1; transform: none; transition: none; }
+  .pilar__num { transition: none; }
 }
 
 /* La fotografía de Filosofía iba a un ancho fijo que no se correspondía con
@@ -1190,3 +1228,169 @@ h3 {
   transition: transform .45s var(--ease);
 }
 .quiz--fotos .quiz__item:hover .quiz__texto::before { transform: scaleX(1); }
+
+/* ==========================================================================
+   41. El logotipo de verdad
+   El sitio dibujaba "Dear Blanc" con Cormorant Garamond en CURSIVA. El
+   logotipo real de la marca es vertical, de otra tipografía (TAN St Canard,
+   p.9 del manual), y en las cinco aplicaciones del manual nunca es itálico.
+   Ahora se usa el trazado vectorial extraído del propio manual, así que
+   hereda el color del contexto con currentColor.
+   ========================================================================== */
+.brand { display: inline-flex; align-items: center; }
+.brand__marca {
+  display: block; height: auto;
+  width: clamp(120px, 13vw, 158px);
+  aspect-ratio: 470.6 / 115.9;
+  fill: currentColor; color: var(--ink);
+  transition: width var(--dur) var(--ease);
+}
+.nav[data-stuck] .brand__marca { width: clamp(108px, 11vw, 132px); }
+.brand__marca--pie { color: var(--c-cream); width: clamp(140px, 15vw, 176px); }
+
+/* El lockup ya no es texto, así que las reglas tipográficas que lo pintaban
+   sobran; se dejan solo para la cortina de intro, que sí lo escribe. */
+.intro__marca {
+  display: block; width: min(56vw, 320px); height: auto;
+  aspect-ratio: 470.6 / 115.9; fill: currentColor; color: var(--c-cream);
+}
+
+/* La barra flota sobre la portada y sus enlaces de la derecha caen sobre el
+   pelo, que es lo más oscuro de la foto. Una banda de papel, sólida durante
+   toda la altura de la barra y fundida después, les devuelve el fondo sin
+   tapar la fotografía. Con un degradado desde el píxel cero no bastaba. */
+.hero::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; z-index: 3;
+  height: calc(var(--nav-h) + 4rem);
+  background: linear-gradient(180deg,
+    var(--paper) 0%,
+    var(--paper) calc(var(--nav-h) - 4px),
+    color-mix(in srgb, var(--paper) 70%, transparent) 70%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   42. Cabeceras a dos columnas
+   .head estaba limitada a 34rem (544px) dentro de un contenedor de 1120.
+   Eso dejaba 576px de papel vacío a la derecha de casi todos los títulos,
+   nueve veces al bajar. No era falta de aire: era aire mal puesto, en
+   horizontal donde tocaba vertical.
+
+   A partir de 62em el titular manda a la izquierda y la bajada se alinea
+   abajo a la derecha, como un cabecero de revista. Sin HTML nuevo.
+   ========================================================================== */
+@media (min-width: 62em) {
+  .section > .wrap > .head:not(.head--center) {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: end;
+  }
+  .section > .wrap > .head:not(.head--center) > .eyebrow,
+  .section > .wrap > .head:not(.head--center) > h2 { grid-column: 1; max-width: 18ch; }
+  .section > .wrap > .head:not(.head--center) > .body,
+  .section > .wrap > .head:not(.head--center) > .lede {
+    grid-column: 2; grid-row: 1 / span 3;
+    align-self: end; margin-top: 0; max-width: 38ch;
+    padding-bottom: .35em;      /* la bajada se apoya en la última línea base del h2 */
+  }
+}
+
+/* ==========================================================================
+   43. Jerarquía y ritmo
+   Los trece h2 de la página medían exactamente lo mismo, 53.6px, y el h1
+   solo un 10% más. Una página sin escala de tamaños se lee como una lista,
+   no como una composición: eso era lo de "no se ve correctamente diseñado".
+   ========================================================================== */
+h2 { font-size: clamp(1.7rem, 3.2vw, 2.55rem); line-height: 1.12; letter-spacing: -.016em; }
+h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
+
+/* Tres secciones ancla, y solo tres, con titular de portada interior. */
+.section--hito h2 { font-size: clamp(2.2rem, 4.8vw, 3.6rem); max-width: 14ch; }
+
+/* El cintillo iba a 10px y era ilegible; era además lo único que podía dar
+   entrada a cada sección. */
+.eyebrow { font-size: .75rem; letter-spacing: .16em; color: var(--ink-2); font-weight: 500; }
+
+/* Ritmo vertical en tres pasos. Antes las dieciséis secciones respiraban
+   72px idénticos, sin una sola excepción. */
+:root {
+  --sp-sec:       clamp(3.5rem, 7vw, 6rem);
+  --sp-sec-tight: clamp(2.25rem, 4vw, 3.25rem);
+  --sp-sec-loose: clamp(5rem, 9.5vw, 8.5rem);
+}
+.section       { padding-block: var(--sp-sec); }
+.section--hito { padding-block: var(--sp-sec-loose); }
+/* Dos secciones del mismo tono seguidas se leen como una sola: no hace
+   falta sumar el doble de aire entre ellas. */
+.section--tint + .section--tint,
+.section--clay + .section--clay { padding-top: var(--sp-sec-tight); }
+.band + .section { padding-top: var(--sp-sec-tight); }
+
+/* Medida de lectura: 65ch de Instrument Sans se iba a 740px de línea. */
+.body { font-size: 1.0625rem; line-height: 1.65; max-width: 62ch; }
+.lede { font-size: clamp(1.0625rem, 1.5vw, 1.25rem); line-height: 1.55; max-width: 46ch; }
+
+/* ==========================================================================
+   44. Las columnas muertas que quedaban
+   ========================================================================== */
+
+/* El cierre era el hueco más visible de la página, 544px, porque además es
+   el único bloque oscuro: todo apilado a la izquierda y medio muro vino
+   vacío a la derecha. Ahora el mensaje ocupa su columna y los accesos la
+   suya. */
+@media (min-width: 62em) {
+  .close > .wrap {
+    display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+    column-gap: clamp(3rem, 6vw, 5.5rem); align-items: center;
+    max-width: var(--maxw);
+  }
+  .close__box { max-width: none; }
+  .close__aside { display: grid; gap: 1.75rem; align-content: center; }
+  .close__actions { margin-top: 0; display: grid; gap: .75rem; justify-items: stretch; }
+  .close__actions .btn { width: 100%; justify-content: center; }
+  .close__facts {
+    margin-top: 0; padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--c-cream) 24%, transparent);
+  }
+}
+
+/* La checklist de la valoración eran siete líneas de 15px flotando sin
+   masa, y dejaban 190px de vacío bajo la última. Convertida en panel. */
+@media (min-width: 48em) {
+  .val { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+  .val > .checklist {
+    align-self: center;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--surface); border: 1px solid var(--line);
+  }
+  .val .checklist li { padding-block: .6rem; border-bottom: 1px solid var(--line); }
+  .val .checklist li:last-child { border-bottom: 0; }
+}
+
+/* Cuatro discos de 44px repartidos en 1120: un 15% de tinta. Con filete y
+   texto a la izquierda la fila pasa a tener estructura. */
+@media (min-width: 48em) {
+  .exp--flow { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .exp__step { text-align: left; padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1rem, 2vw, 1.75rem); border-left: 1px solid var(--line); }
+  .exp__step:last-child { border-right: 1px solid var(--line); }
+  .exp__step::after { display: none; }        /* el hilo lo hacen los filetes */
+  .exp__step::before { text-align: left; }
+  .exp__step .disc { margin: 0 0 1.1rem; width: 54px; height: 54px; }
+  .exp__step .disc svg { width: 22px; height: 22px; }
+  .exp__step h3 { font-size: clamp(1.15rem, 1.8vw, 1.5rem); }
+}
+
+/* Las preguntas: el título se queda pegado mientras el acordeón ocupa la
+   columna ancha. */
+@media (min-width: 62em) {
+  #preguntas > .wrap {
+    display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr);
+    column-gap: clamp(3rem, 6vw, 6rem); align-items: start;
+  }
+  #preguntas .head { grid-column: 1; margin-bottom: 0; position: sticky; top: calc(var(--nav-h) + 2rem); }
+  #preguntas .faq { grid-column: 2; max-width: none; }
+  #preguntas .faq summary { font-size: 1.0625rem; padding-block: 1.15rem; }
+}
