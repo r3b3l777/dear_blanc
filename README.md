@@ -318,18 +318,34 @@ Antes el lockup se dibujaba con Cormorant Garamond **en cursiva**. El
 logotipo real es vertical y de otra tipografía (TAN St Canard, p.9 del
 manual): no se parecía.
 
-**Pendiente de tipografía.** El manual usa tres fuentes y el sitio ninguna:
+## Tipografía
 
-| Rol | Marca | Sitio |
+El manual (p.9) define tres fuentes. Dos ya están:
+
+| Rol | Marca | Estado |
 |---|---|---|
-| Logotipo | TAN St Canard Display | resuelto con el SVG |
-| Titulares | CMU Serif | Cormorant Garamond |
-| Texto | Codec Pro | Instrument Sans |
+| Logotipo | TAN St Canard Display | resuelto con el SVG vectorial |
+| Titulares | CMU Serif | **instalada** |
+| Texto / UI | Codec Pro | **pendiente de licencia** |
 
-CMU Serif es libre (OFL) y se puede auto-hospedar sin coste. **Codec Pro es
-comercial** (Zetafonts) y necesita licencia web: hay que comprarla o pedirla
-al cliente. Hasta entonces Instrument Sans es un sustituto provisional, no
-la tipografía de la marca.
+**CMU Serif** es Computer Modern Unicode, licencia OFL. Descargada de CTAN
+(`mirrors.ctan.org/fonts/cm-unicode.zip`, 18 MB) y recortada aquí a los dos
+rangos que ya usaba el sitio, latino y latino extendido, con `fontTools`:
+
+```bash
+# cmunrm.otf = CMU Serif Roman, cmunti.otf = Italic
+pyftsubset cmunrm.otf --unicodes=<rango> --flavor=woff2 \
+           --layout-features='*' --no-hinting --desubroutinize
+```
+
+Los cuatro archivos pesan 25, 46, 24 y 23 KB: menos que las cuatro de
+Cormorant Garamond que sustituyen. Cormorant era una aproximación; se
+retiró junto con sus `@font-face`.
+
+**Codec Pro es comercial** (Zetafonts) y necesita licencia web. Hasta que
+exista, `Instrument Sans` es un **sustituto provisional**, no la tipografía
+de la marca. Está documentado aquí para que no se dé por buena: si alguien
+compara el sitio con el manual, la diferencia en el texto corrido es esa.
 
 ## El espacio muerto y cómo se midió
 
