@@ -10,30 +10,34 @@
   /* Paleta original de Dear Blanc: crema, vino y dorado.
      Los tonos de texto se ajustaron al mínimo necesario para pasar WCAG AA. */
 
-  /* Superficies */
-  --paper:      #FAF3EC;   /* cream  */
-  --paper-2:    #F3E9E1;   /* cream-2 */
-  --paper-3:    #EDE0D9;   /* blush  */
-  --surface:    #FFFDF9;
+  /* Superficies. El fondo es beige, no crema casi blanco: la marca vive en
+     el papel, no en un bloque oscuro. Las tarjetas suben a --surface para
+     despegarse de él. */
+  --paper:      #EFE4D6;   /* beige base   */
+  --paper-2:    #E6D8C6;   /* beige medio  */
+  --paper-3:    #DBC8B2;   /* beige hondo  */
+  --surface:    #FBF7F1;
 
-  /* Tinta */
-  --ink:        #1E0D13;   /* ink    */
-  --ink-2:      #4E4043;
-  --ink-3:      #726465;
+  /* Tinta. El vino dejó de ser fondo y pasó a ser el color del texto: así
+     está en toda la página sin pintar media pantalla de oscuro. */
+  --ink:        #2A1119;   /* vino    */
+  --ink-2:      #573941;
+  --ink-3:      #73555D;
 
-  /* Acento único: dorado */
-  --oak:        #AB8657;   /* gold        */
-  --oak-ink:    #7D5F38;   /* texto pequeño sobre claro (AA 5.4:1) */
-  --oak-soft:   #D8C5A6;   /* gold-light  */
-  --oak-wash:   #F5EADB;
+  /* Acento secundario: dorado */
+  --oak:        #9A754A;   /* algo más oscuro que antes: sobre beige, el
+                              #AB8657 anterior se quedaba corto de contraste */
+  --oak-ink:    #6F5230;
+  --oak-soft:   #C9B291;
+  --oak-wash:   #E8DBC6;
 
-  /* Constantes de marca: superficies siempre oscuras (cierre, pie, intro)
-     y su texto. No cambian con prefers-color-scheme, si no el texto claro
-     se volvería oscuro sobre un fondo que sigue siendo oscuro. */
+  /* Constantes de marca: superficies siempre oscuras (cierre, pie) y su
+     texto. No cambian con prefers-color-scheme, si no el texto claro se
+     volvería oscuro sobre un fondo que sigue siendo oscuro. */
   --c-wine:     #2A1119;
   --c-wine-2:   #3B1A24;
   --c-ink:      #1E0D13;
-  --c-cream:    #FAF3EC;
+  --c-cream:    #F6EFE4;
   --c-gold:     #AB8657;
   --c-gold-lt:  #D8C5A6;
 

@@ -78,9 +78,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿Qué incluye la cita de valoración?", "acceptedAnswer": { "@type": "Answer", "text": "Una revisión completa sin prisa, la conversación sobre lo que quieres lograr y un plan de tratamiento por escrito con tiempos y costos antes de que decidas nada." } },
     { "@type": "Question", "name": "Me da ansiedad el dentista. ¿Qué hacen distinto?", "acceptedAnswer": { "@type": "Answer", "text": "El espacio está pensado para bajar el ritmo antes de la consulta: sala de estar cálida, aroma de firma, música suave y explicación de cada paso antes de hacerlo. Puedes pedir pausas cuando quieras." } },
-    { "@type": "Question", "name": "¿Dónde están y hay estacionamiento?", "acceptedAnswer": { "@type": "Answer", "text": "Estamos dentro de Sanatorio Venecia Tecnológico, sobre Av. Tecnológico en Metepec, Estado de México. Hay estacionamiento dentro del sanatorio." } },
     { "@type": "Question", "name": "¿Puedo pagar a meses?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Los tratamientos de varias sesiones se pueden dividir en pagos y aceptamos meses sin intereses con tarjetas participantes. Lo revisamos contigo en la valoración." } },
     { "@type": "Question", "name": "¿Atienden niños?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, atendemos limpieza, prevención y revisión en niños. Coméntalo al agendar para reservar un horario tranquilo." } }
   ]
@@ -142,12 +140,6 @@
         <a href="#preguntas">Preguntas</a>
       </div>
 
-      <div class="nav__cta">
-        <a class="btn btn--ghost" data-doctoralia href="#">Doctoralia</a>
-        <a class="btn btn--primary" href="#agenda">
-          <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Agendar cita
-        </a>
-      </div>
 
       <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
         <svg class="ic-menu" aria-hidden="true"><use href="#i-list"></use></svg>
@@ -190,21 +182,12 @@
 
     <div class="wrap">
      <div class="hero__inner">
-      <p class="hero__eyebrow">Sanatorio Venecia &middot; Metepec</p>
       <h1 class="hero__title" data-reveal>
         <span>Tu sonrisa.</span>
         <span>Tu historia.</span>
         <span>Tu tratamiento.</span>
       </h1>
       <p class="hero__body">Una sonrisa bonita no tiene que verse perfecta. Tiene que sentirse tuya.</p>
-      <div class="hero__actions">
-        <a class="btn btn--primary" href="#tratamientos">
-          <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>Ver tratamientos
-        </a>
-        <a class="btn btn--ghost" data-wa-directo href="#agenda">
-          <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Agendar por WhatsApp
-        </a>
-      </div>
      </div>
     </div>
   </section>
@@ -221,31 +204,8 @@
     </div>
   </div>
 
-  <!-- ===== 3. Presentación ===== -->
-  <section class="section wrap presenta" id="presentacion" data-slide="01 · Un estudio distinto">
-    <div class="presenta__intro rv">
-      <h2>Un estudio dental que se siente distinto</h2>
-      <p class="lede presenta__lede">Salud, rehabilitación y estética en un mismo plan. Esto es lo que necesitas saber antes de tu primera visita.</p>
-    </div>
-
-    <div class="presenta__notes">
-      <div class="presenta__note rv">
-        <span class="presenta__note-k">Tu valoración</span>
-        <p>Diagnóstico integral, fotografías clínicas y un plan personalizado por escrito antes de que decidas nada.</p>
-      </div>
-      <div class="presenta__note rv">
-        <span class="presenta__note-k">Tratamientos</span>
-        <p>Estética dental, rehabilitación oral y salud preventiva. Más de 10 años acompañando pacientes.</p>
-      </div>
-      <div class="presenta__note rv">
-        <span class="presenta__note-k">Dónde estamos</span>
-        <p>Sanatorio Venecia Tecnológico, Av. Tecnológico, Metepec. Lunes a viernes de 9:00 a 14:00 y de 16:00 a 20:00; sábados de 9:00 a 14:00.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== 4. Filosofía ===== -->
-  <section class="section wrap" id="filosofia" data-slide="02 · Nuestra filosofía">
+  <section class="section wrap" id="filosofia">
     <div class="filo">
       <div class="filo__text rv">
         <div class="head" style="margin-bottom:0">
@@ -268,7 +228,7 @@
   </section>
 
   <!-- ===== 5. Paso 01: ¿Qué quieres transformar? ===== -->
-  <section class="section section--sand" id="transformar" data-slide="03 · ¿Qué quieres transformar?">
+  <section class="section section--sand" id="transformar">
     <div class="wrap">
       <div class="head rv">
         <p class="eyebrow">Empieza por ti</p>
@@ -314,7 +274,7 @@
     </picture>
   </figure>
 
-  <section class="section" id="tratamientos" data-slide="04 · Tratamientos">
+  <section class="section" id="tratamientos">
     <div class="wrap">
       <div class="head rv">
         <p class="eyebrow">Conoce tus opciones</p>
@@ -554,7 +514,7 @@
   </section>
 
   <!-- ===== 7. No sabes qué necesitas ===== -->
-  <section class="section ritual" data-slide="05 · No sabes qué necesitas">
+  <section class="section ritual">
     <div class="wrap">
       <div class="head head--center rv">
         <p class="eyebrow">¿No sabes qué tratamiento necesitas?</p>
@@ -562,14 +522,13 @@
       </div>
       <div class="ritual__quote rv">
         <p class="ritual__line">&ldquo;Sé que quiero cambiar algo de mi sonrisa, pero no sé qué necesito.&rdquo;</p>
-        <p class="ritual__answer">Y está bien. Nosotros comenzamos por escucharte. Durante tu valoración analizamos qué quieres mejorar, qué necesita tu sonrisa y cuáles son las alternativas disponibles para ti. Después construimos un plan.</p>
         <p class="ritual__promise">Sin tratamientos genéricos. Sin decisiones apresuradas. Sin prometerte una sonrisa que no se parezca a ti.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== 8. Paso 03: Valoración Dear Blanc ===== -->
-  <section class="section section--tint" id="valoracion" data-slide="06 · Valoración Dear Blanc">
+  <section class="section section--tint" id="valoracion">
     <div class="wrap">
       <div class="val">
         <div class="val__intro rv">
@@ -583,9 +542,6 @@
           </p>
           <p class="body">Antes de hablar de tratamientos, queremos entenderte. Hacemos un diagnóstico integral y definimos contigo el camino más adecuado.</p>
           <p class="val__quote">Tu sonrisa no necesita un tratamiento genérico. Necesita un plan pensado para ti.</p>
-          <a class="btn btn--primary" data-wa-directo data-motivo="valoracion" href="#agenda">
-            <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Agendar mi valoración
-          </a>
         </div>
 
         <!-- Los siete puntos entran escalonados: el contador --i lo usa el CSS
@@ -604,7 +560,7 @@
   </section>
 
   <!-- ===== 9. Paso 04: La experiencia ===== -->
-  <section class="section wrap" id="experiencia" data-slide="07 · La experiencia">
+  <section class="section wrap" id="experiencia">
     <div class="head rv">
       <p class="eyebrow">Tu experiencia</p>
       <h2>Tu tratamiento comienza desde que entras</h2>
@@ -633,19 +589,21 @@
   </section>
 
   <!-- ===== 10. Nuestra diferencia ===== -->
-  <section class="section section--tint" id="diferencia" data-slide="08 · Nuestra diferencia">
+  <section class="section section--tint" id="diferencia">
     <div class="wrap">
       <div class="head head--center rv">
         <h2>¿Qué hace diferente a Dear Blanc?</h2>
       </div>
-      <div class="diff">
-        <div class="diff__item rv"><span class="diff__num">01</span><h3>Naturalidad</h3><p>Buscamos resultados que armonicen contigo, no que borren tu esencia.</p></div>
-        <div class="diff__item rv"><span class="diff__num">02</span><h3>Diagnóstico</h3><p>Antes de tratar, entendemos.</p></div>
-        <div class="diff__item rv"><span class="diff__num">03</span><h3>Personalización</h3><p>Cada sonrisa necesita un plan diferente.</p></div>
-        <div class="diff__item rv"><span class="diff__num">04</span><h3>Experiencia</h3><p>Más de 10 años acompañando a nuestros pacientes.</p></div>
-        <div class="diff__item rv"><span class="diff__num">05</span><h3>Atención integral</h3><p>Salud, función y estética trabajando en conjunto.</p></div>
-        <div class="diff__item rv"><span class="diff__num">06</span><h3>Una experiencia diferente</h3><p>Queremos que tu visita se sienta cuidada de principio a fin, porque la excelencia también está en los pequeños detalles.</p></div>
-      </div>
+
+      <!-- Cuatro palabras y nada más. Las descripciones que había aquí
+           repetían Filosofía, Valoración y La experiencia; cada una volvió
+           a su sección. Lo que queda entra con una cortina desde abajo. -->
+      <ol class="pilares">
+        <li class="pilar rv" style="--i:0"><span class="pilar__num">01</span><span class="pilar__palabra">Naturalidad</span></li>
+        <li class="pilar rv" style="--i:1"><span class="pilar__num">02</span><span class="pilar__palabra">Diagnóstico</span></li>
+        <li class="pilar rv" style="--i:2"><span class="pilar__num">03</span><span class="pilar__palabra">Personalización</span></li>
+        <li class="pilar rv" style="--i:3"><span class="pilar__num">04</span><span class="pilar__palabra">Experiencia</span></li>
+      </ol>
     </div>
   </section>
 
@@ -657,7 +615,7 @@
     </picture>
   </figure>
 
-  <section class="section section--clay" id="atencion" data-slide="09 · Atención integral">
+  <section class="section section--clay" id="atencion">
     <div class="wrap">
       <div class="head rv" style="max-width:40rem">
         <p class="eyebrow">Un equipo, un plan</p>
@@ -684,7 +642,7 @@
   </section>
 
   <!-- ===== 12. El estudio ===== -->
-  <section class="section" id="estudio" data-slide="10 · El estudio">
+  <section class="section" id="estudio">
     <div class="wrap">
       <div class="head rv" style="max-width:38rem">
         <h2>El espacio habla antes que nosotros</h2>
@@ -714,7 +672,7 @@
 </section>
 
   <!-- ===== 13. Ubicación ===== -->
-  <section class="section section--sand" id="ubicacion" data-slide="11 · Ubicación">
+  <section class="section section--sand" id="ubicacion">
     <div class="wrap place">
       <div class="rv">
         <h2>Sanatorio Venecia, Metepec</h2>
@@ -754,21 +712,13 @@
   </section>
 
   <!-- ===== 14. Preguntas ===== -->
-  <section class="section" id="preguntas" data-slide="12 · Antes de agendar">
+  <section class="section" id="preguntas">
     <div class="wrap">
       <div class="head rv"><h2>Antes de agendar</h2></div>
       <div class="faq rv">
         <details name="faq" open>
-          <summary>¿Qué incluye la cita de valoración?<span class="sign" aria-hidden="true"></span></summary>
-          <p>Una revisión completa sin prisa, la conversación sobre lo que quieres lograr y un plan de tratamiento por escrito con tiempos y costos, antes de que decidas nada.</p>
-        </details>
-        <details name="faq">
           <summary>Me da ansiedad el dentista. ¿Qué hacen distinto?<span class="sign" aria-hidden="true"></span></summary>
           <p>El espacio está pensado para bajar el ritmo antes de la consulta: sala de estar cálida, aroma de firma, música suave y explicación de cada paso antes de darlo. Puedes pedir pausas cuando quieras y nadie te va a apurar.</p>
-        </details>
-        <details name="faq">
-          <summary>¿Dónde están y hay estacionamiento?<span class="sign" aria-hidden="true"></span></summary>
-          <p>Dentro de Sanatorio Venecia Tecnológico, sobre Av. Tecnológico en Metepec, Estado de México. Hay estacionamiento dentro del sanatorio, así que no tienes que buscar lugar en la calle.</p>
         </details>
         <details name="faq">
           <summary>¿Puedo pagar a meses?<span class="sign" aria-hidden="true"></span></summary>
@@ -783,7 +733,7 @@
   </section>
 
   <!-- ===== 15. Último paso: agenda ===== -->
-  <section class="section wrap" id="agenda" data-slide="13 · Agenda tu valoración">
+  <section class="section wrap" id="agenda">
     <div class="book">
       <div class="rv">
         <p class="eyebrow">Agenda tu valoración</p>
@@ -832,7 +782,7 @@
   </section>
 
   <!-- ===== 16. Cierre ===== -->
-  <section class="section close" id="contacto" data-slide="14 · Cierre">
+  <section class="section close" id="contacto">
     <div class="wrap close__box rv">
       <h2>Tu mejor sonrisa no tiene que parecerse a la de alguien más</h2>
       <p class="signature">Tiene que sentirse tuya.</p>

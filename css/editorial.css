@@ -641,92 +641,113 @@ h3 {
 }
 
 /* ==========================================================================
-   30. Paleta ampliada: los beige
-   El sitio venía resuelto con un solo acento (dorado) sobre crema y todas
-   las superficies profundas en vino. Se leía monótono. Aquí entra una
-   escala de beige/arena/arcilla para que cada sección tenga su propio piso
-   y el vino quede reservado al cierre y al pie, donde sí ancla.
+   30. Ritmo de superficies
+   El fondo de la página ya es beige (styles.css): aquí solo se define la
+   escala que separa una sección de la siguiente. Una sube hacia el hueso,
+   la siguiente baja hacia la arcilla, y así el scroll tiene pulso sin que
+   aparezca un bloque oscuro cada dos pantallas.
 
-   Como los tokens de styles.css, hay dos familias: las que se invierten
-   con prefers-color-scheme (--sand…) y las constantes de marca (--c-…)
-   para superficies que son oscuras en día y en noche.
+   El vino dejó de ser superficie. Vive en el texto, en los botones y en el
+   cierre, que es el único momento oscuro de la página.
    ========================================================================== */
 :root {
-  --sand:      #F1E7DA;   /* arena clara: alterna con --paper-2 */
-  --sand-2:    #E7D9C7;   /* arena media: bandas y fichas */
-  --clay:      #D9C7B4;   /* arcilla: bordes y rellenos suaves */
-  --clay-deep: #6B5647;   /* greige profundo: sustituye al vino en .ritual */
-  --clay-ink:  #574538;   /* texto sobre arena, AA sobre --sand */
+  --bone:      #F7F0E6;   /* el más claro: alterna hacia arriba */
+  --clay:      #DBC8B2;   /* arcilla: bordes y rellenos suaves */
+  --clay-ink:  #5A4536;   /* texto sobre arcilla */
 
   /* Constantes: no se invierten. */
-  --c-sand:      #F1E7DA;
+  --c-bone:      #F7F0E6;
   --c-clay-deep: #6B5647;
   --c-clay-2:    #574538;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --sand:      #2E1821;
-    --sand-2:    #3A1F29;
+    --bone:      #2E1821;
     --clay:      #4A2A34;
-    --clay-deep: #D9C7B4;
     --clay-ink:  #E3D5C4;
   }
 }
 
-/* Ritmo de superficies. Las secciones tintadas ya no son todas el mismo
-   crema: se alternan para que al hacer scroll se note el cambio de bloque. */
-.section--sand { background: var(--sand); }
-.section--clay { background: var(--sand-2); }
+.section--sand { background: var(--bone); }      /* sube */
+.section--tint { background: var(--paper-2); }   /* baja */
+.section--clay { background: var(--paper-3); }   /* baja más */
 
-/* El cierre deja de ser vino y pasa a arena profunda; el pie se queda con
-   el vino, que así vuelve a ser un remate y no el color de media página. */
-.close { background: var(--c-clay-deep); color: var(--c-cream); }
-.close .btn--primary { background: var(--c-cream); color: var(--c-clay-2); }
-.close .btn--primary:hover { background: var(--c-gold-lt); color: var(--c-clay-2); }
+/* "No tienes que saberlo" pasa de bloque oscuro a arcilla con texto vino.
+   Era el segundo muro oscuro de la página y no hacía falta. */
+.ritual { background: var(--paper-3); color: var(--ink); }
+.ritual .btn--primary { background: var(--c-wine); color: var(--c-cream); }
 
-/* El bloque "No sabes qué necesitas" pasa de vino a greige. */
-.ritual { background: var(--c-clay-deep); color: var(--c-cream); }
-.ritual .btn--primary { background: var(--c-cream); color: var(--c-clay-2); }
+/* El cierre es el único bloque oscuro, y ahí sí el vino de la marca: llega
+   después de toda la página en beige y funciona como punto final. */
+.close { background: var(--c-wine); color: var(--c-cream); }
+.close .btn--primary { background: var(--c-cream); color: var(--c-wine); }
+.close .btn--primary:hover { background: var(--c-gold-lt); color: var(--c-wine); }
 
 /* ==========================================================================
-   31. Portada: las tres líneas al mismo tamaño
-   Antes el titular iba a dos pesos y "Tu tratamiento" caía como pie de
-   foto, más chico. Ahora las tres pesan igual y entran escalonadas.
+   31. Portada
+   Era el bloque más oscuro de la página: un velo de vino al 90% sobre la
+   foto y el texto en crema. Con eso, lo primero que se veía de la marca era
+   un muro vino.
+
+   Ahora el velo es del mismo beige del papel y el titular va en vino. La
+   foto sigue leyéndose debajo, la portada empalma con la sección que sigue
+   en vez de cortar, y el vino aparece como tinta y no como pared.
+
+   Las tres líneas pesan lo mismo y entran escalonadas.
    ========================================================================== */
+.hero { background: var(--paper); }
+
+/* Velo cálido. Más denso del lado del texto, casi transparente del lado de
+   la boca, para que la fotografía no se pierda. */
+.hero::after {
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--c-bone) 94%, transparent) 0%,
+      color-mix(in srgb, var(--c-bone) 78%, transparent) 42%,
+      color-mix(in srgb, var(--c-bone) 22%, transparent) 78%,
+      transparent 100%),
+    linear-gradient(0deg,
+      color-mix(in srgb, var(--paper) 96%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 30%, transparent) 26%,
+      transparent 60%);
+}
+.hero__bg img { object-position: 64% 44%; }
+
 .hero__title { display: grid; gap: .04em; }
 .hero__title > span {
   display: block;
   font-family: "Cormorant Garamond", serif;
   font-size: 1em; font-style: normal;
-  color: var(--c-cream);
+  color: var(--c-wine);
   opacity: 0; transform: translateY(.35em);
   animation: heroLinea .75s var(--ease) forwards;
 }
 .hero__title > span:nth-child(1) { animation-delay: .10s; }
 .hero__title > span:nth-child(2) { animation-delay: .22s; }
-.hero__title > span:nth-child(3) { animation-delay: .34s; color: var(--c-gold-lt); }
+.hero__title > span:nth-child(3) { animation-delay: .34s; color: var(--oak-ink); }
 
 @keyframes heroLinea { to { opacity: 1; transform: none; } }
 
-/* Con la foto de la sonrisa el velo puede aligerarse del lado derecho:
-   la boca queda a la vista y el texto sigue sobre la zona más oscura. */
-.hero::after {
-  background:
-    linear-gradient(90deg, rgba(26, 10, 14, .90) 0%, rgba(26, 10, 14, .58) 52%, rgba(26, 10, 14, .14) 100%),
-    linear-gradient(0deg,  rgba(26, 10, 14, .78) 0%, rgba(26, 10, 14, .08) 54%, rgba(26, 10, 14, .30) 100%);
-}
-.hero__bg img { object-position: 60% 42%; }
-
-.hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-.hero__actions .btn--ghost { color: var(--c-cream); border-color: rgba(250, 243, 236, .5); }
-.hero__actions .btn--ghost:hover { background: rgba(250, 243, 236, .12); border-color: var(--c-cream); }
+.hero__body { color: var(--ink-2); }
 
 /* Respiración lenta de la foto: 20s, casi imperceptible, solo para que la
    portada no se sienta una imagen congelada. */
 @media (prefers-reduced-motion: no-preference) {
   .hero__bg img { animation: heroAire 20s var(--ease) infinite alternate; }
   @keyframes heroAire { from { transform: scale(1); } to { transform: scale(1.06); } }
+}
+
+/* En modo noche la portada vuelve a ser oscura: el papel ya lo es. */
+@media (prefers-color-scheme: dark) {
+  .hero::after {
+    background:
+      linear-gradient(90deg, rgba(26, 10, 14, .94) 0%, rgba(26, 10, 14, .74) 45%, rgba(26, 10, 14, .20) 100%),
+      linear-gradient(0deg,  rgba(26, 10, 14, .90) 0%, rgba(26, 10, 14, .10) 55%, transparent 100%);
+  }
+  .hero__title > span { color: var(--c-cream); }
+  .hero__title > span:nth-child(3) { color: var(--c-gold-lt); }
+  .hero__body { color: color-mix(in srgb, var(--c-cream) 82%, transparent); }
 }
 
 /* ==========================================================================
@@ -785,8 +806,8 @@ h3 {
 /* ---------- Cara delantera ---------- */
 .svc__front {
   background:
-    radial-gradient(120% 90% at 30% 20%, var(--c-sand) 0%, transparent 60%),
-    linear-gradient(155deg, var(--clay) 0%, var(--sand-2) 55%, var(--sand) 100%);
+    radial-gradient(120% 90% at 30% 20%, var(--c-bone) 0%, transparent 60%),
+    linear-gradient(155deg, var(--clay) 0%, var(--paper-2) 55%, var(--bone) 100%);
   display: grid; align-items: end;
 }
 /* Sin fotografía, la inicial hace de marca de agua: la tarjeta se sostiene
@@ -960,7 +981,7 @@ h3 {
 .team__shot {
   width: clamp(9rem, 26vw, 12rem); aspect-ratio: 1; overflow: hidden;
   border-radius: 999px; display: grid; place-items: center;
-  background: linear-gradient(155deg, var(--clay) 0%, var(--sand) 70%);
+  background: linear-gradient(155deg, var(--clay) 0%, var(--bone) 70%);
   border: 1px solid var(--line);
 }
 .team__shot img { width: 100%; height: 100%; object-fit: cover; }
@@ -977,7 +998,7 @@ h3 {
   border: 1px solid var(--edge); background: transparent; color: var(--ink);
   cursor: pointer; transition: background-color var(--dur) var(--ease);
 }
-.team__arrow:hover { background: var(--sand); }
+.team__arrow:hover { background: var(--bone); }
 .team__arrow svg { width: 16px; height: 16px; }
 .team__arrow[data-team="prev"] svg { transform: rotate(180deg); }
 
@@ -1017,4 +1038,92 @@ h3 {
    activa ya se distingue por su fondo, así que el filete se retira. */
 @media (min-width: 64em) {
   .tx__ink { display: none; }
+}
+
+/* ==========================================================================
+   38. Los cuatro pilares
+   Sustituyen a la rejilla de seis tarjetas con párrafo. Cada palabra entra
+   con una cortina desde abajo; el número se queda detrás, en grande y muy
+   tenue, como marca de agua.
+   ========================================================================== */
+.pilares {
+  list-style: none; padding: 0;
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  display: grid; gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.pilar {
+  position: relative; overflow: hidden;
+  display: flex; align-items: baseline; gap: clamp(.9rem, 3vw, 2rem);
+  padding: clamp(1rem, 3vw, 1.6rem) 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left var(--dur) var(--ease);
+}
+.pilar:hover { padding-left: clamp(.5rem, 2vw, 1.25rem); }
+
+.pilar__num {
+  flex: 0 0 auto;
+  font-size: .6875rem; letter-spacing: var(--track-label, .18em);
+  color: var(--oak-ink);
+}
+
+.pilar__palabra {
+  font-family: "Cormorant Garamond", serif; font-weight: 400;
+  font-size: clamp(1.75rem, 6.5vw, 3.5rem); line-height: 1.02;
+  letter-spacing: -.02em; color: var(--ink);
+  /* La cortina: la palabra sube desde debajo de su propia caja. */
+  display: block;
+  transform: translateY(100%);
+  transition: transform .7s var(--ease);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.pilar.is-in .pilar__palabra { transform: none; }
+
+/* Filete dorado que se dibuja bajo la palabra al pasar el cursor. */
+.pilar::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+  background: var(--oak);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.pilar:hover::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pilar__palabra { transform: none; transition: none; }
+}
+
+/* La fotografía de Filosofía iba a un ancho fijo que no se correspondía con
+   el alto del texto: en pantallas anchas quedaba una columna flaca y larga,
+   y en las de 900 a 1100 px se estiraba deformando el encuadre. Ahora es una
+   proporción fija y la imagen se recorta dentro, nunca se deforma. */
+@media (min-width: 900px) {
+  .filo { grid-template-columns: minmax(0, 1fr) clamp(240px, 26vw, 340px); align-items: start; }
+  /* La imagen se saca del flujo con position:absolute. Si se queda dentro,
+     su alto intrínseco (215x540, o sea muy vertical) manda sobre el
+     aspect-ratio y la columna se estiraba a 836 px: una tira larga y flaca
+     al lado de un texto de 500. Ahora el recuadro lo fija la proporción y
+     la foto se recorta dentro. */
+  .filo__shot { position: relative; aspect-ratio: 3 / 4; height: auto; overflow: hidden; }
+    /* Anclada arriba: el arco, que es lo que vale de la foto, está en el
+     tercio superior. Centrada, el recorte 3:4 dejaba solo muro liso. */
+  .filo__shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 12%; }
+}
+
+/* ==========================================================================
+   39. La barra sobre la portada
+   styles.css la pinta en crema porque ahí abajo el velo era vino. Ahora la
+   portada es beige, así que en modo día la barra vuelve a la tinta normal.
+   En modo noche el velo sigue siendo oscuro y la regla original vale, por
+   eso esto va dentro de una consulta de esquema claro y no la borra.
+   ========================================================================== */
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+  .nav[data-over]:not(:has(.menu[data-open="true"])) .brand,
+  .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a,
+  .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__burger { color: var(--ink); }
+  .nav[data-over]:not(:has(.menu[data-open="true"])) .brand__sub { color: var(--oak-ink); }
+  .nav[data-over]:not(:has(.menu[data-open="true"])) .nav__links a::after { background: var(--oak); }
+  .nav[data-over]:not(:has(.menu[data-open="true"])) .btn--ghost {
+    color: var(--ink); border-color: var(--edge);
+  }
 }
