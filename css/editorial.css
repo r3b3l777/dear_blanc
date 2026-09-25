@@ -651,12 +651,12 @@ h3 {
    cierre, que es el único momento oscuro de la página.
    ========================================================================== */
 :root {
-  --bone:      #F7F0E6;   /* el más claro: alterna hacia arriba */
-  --clay:      #DBC8B2;   /* arcilla: bordes y rellenos suaves */
+  --bone:      #F7F1E8;   /* el más claro: alterna hacia arriba */
+  --clay:      #D9C9B6;   /* arcilla: bordes y rellenos suaves */
   --clay-ink:  #5A4536;   /* texto sobre arcilla */
 
   /* Constantes: no se invierten. */
-  --c-bone:      #F7F0E6;
+  --c-bone:      #F7F1E8;
   --c-clay-deep: #6B5647;
   --c-clay-2:    #574538;
 }
@@ -686,68 +686,121 @@ h3 {
 
 /* ==========================================================================
    31. Portada
-   Era el bloque más oscuro de la página: un velo de vino al 90% sobre la
-   foto y el texto en crema. Con eso, lo primero que se veía de la marca era
-   un muro vino.
+   La foto nueva trae medio encuadre vacío a la izquierda: ahí va el
+   titular. No hace falta ningún velo, así que la fotografía se ve tal cual
+   y la chica nunca queda tapada por el texto.
 
-   Ahora el velo es del mismo beige del papel y el titular va en vino. La
-   foto sigue leyéndose debajo, la portada empalma con la sección que sigue
-   en vez de cortar, y el vino aparece como tinta y no como pared.
+   Móvil: texto arriba, foto debajo, entera.
+   >= 900px: la foto ocupa la mitad derecha a sangre y el titular cae sobre
+   el hueco vacío de la propia imagen.
 
-   Las tres líneas pesan lo mismo y entran escalonadas.
+   El fondo del archivo se tintó al beige de la página, así que la foto y el
+   papel son el mismo color y no se ve el canto del rectángulo.
    ========================================================================== */
-.hero { background: var(--paper); }
-
-/* Velo cálido. Más denso del lado del texto, casi transparente del lado de
-   la boca, para que la fotografía no se pierda. */
-.hero::after {
-  background:
-    linear-gradient(90deg,
-      color-mix(in srgb, var(--c-bone) 94%, transparent) 0%,
-      color-mix(in srgb, var(--c-bone) 78%, transparent) 42%,
-      color-mix(in srgb, var(--c-bone) 22%, transparent) 78%,
-      transparent 100%),
-    linear-gradient(0deg,
-      color-mix(in srgb, var(--paper) 96%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 30%, transparent) 26%,
-      transparent 60%);
+.hero {
+  position: relative;
+  margin-top: calc(-1 * var(--nav-h));
+  min-height: 0;
+  display: block; overflow: hidden;
+  background: var(--paper);
+  padding-block: calc(var(--nav-h) + 1.5rem) 0;
 }
-.hero__bg img { object-position: 64% 44%; }
+.hero::after { content: none; }            /* fuera el velo de vino */
 
-.hero__title { display: grid; gap: .04em; }
+.hero__grid { display: grid; gap: clamp(1.5rem, 4vw, 2.5rem); }
+.hero__inner { position: relative; z-index: 1; max-width: 46rem; }
+
+.hero__bg {
+  position: relative; display: block;
+  margin-inline: calc(-1 * var(--gutter));   /* a sangre en móvil */
+  /* La toma es apaisada con la chica a la derecha: en un teléfono, servida
+     entera, media pantalla era fondo vacío. Se recorta a 4:3 y se encuadra
+     sobre ella. */
+  aspect-ratio: 4 / 3; overflow: hidden;
+}
+.hero__bg img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: 68% bottom;
+}
+/* El canto de abajo se funde con el papel para que la foto no termine en
+   una raya recta contra la marquesina. */
+.hero__bg::before {
+  content: ""; position: absolute; inset: auto 0 0 0; z-index: 1; height: 14%;
+  background: linear-gradient(0deg, var(--paper) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero__title { display: grid; gap: .04em; font-size: clamp(2.5rem, 10vw, 6.5rem); }
 .hero__title > span {
   display: block;
   font-family: "Cormorant Garamond", serif;
   font-size: 1em; font-style: normal;
   color: var(--c-wine);
   opacity: 0; transform: translateY(.35em);
-  animation: heroLinea .75s var(--ease) forwards;
+  animation: heroLinea .8s var(--ease) forwards;
 }
-.hero__title > span:nth-child(1) { animation-delay: .10s; }
-.hero__title > span:nth-child(2) { animation-delay: .22s; }
-.hero__title > span:nth-child(3) { animation-delay: .34s; color: var(--oak-ink); }
-
+.hero__title > span:nth-child(1) { animation-delay: .12s; }
+.hero__title > span:nth-child(2) { animation-delay: .26s; }
+.hero__title > span:nth-child(3) { animation-delay: .40s; color: var(--oak-ink); }
 @keyframes heroLinea { to { opacity: 1; transform: none; } }
 
-.hero__body { color: var(--ink-2); }
+.hero__body { color: var(--ink-2); max-width: 34ch; }
 
-/* Respiración lenta de la foto: 20s, casi imperceptible, solo para que la
-   portada no se sienta una imagen congelada. */
-@media (prefers-reduced-motion: no-preference) {
-  .hero__bg img { animation: heroAire 20s var(--ease) infinite alternate; }
-  @keyframes heroAire { from { transform: scale(1); } to { transform: scale(1.06); } }
+@media (min-width: 56.25em) {
+  .hero {
+    min-height: min(92svh, 800px);
+    display: grid; align-content: center;
+    padding-block: calc(var(--nav-h) + 2rem) 2rem;
+  }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
+  /* La foto se sale de la rejilla: cubre la mitad derecha de la portada,
+     pegada al fondo, y el texto se queda en la columna de la izquierda. */
+  .hero__bg {
+    position: absolute; inset: 0 0 0 auto;
+    width: min(62%, 980px); margin: 0;
+  }
+  .hero__bg img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: 62% bottom;
+  }
+  /* El fondo del archivo y el papel son el mismo beige, pero entre el
+     degradado del estudio y la compresión queda un canto visible donde
+     empieza la foto. Este velo lo funde. */
+  .hero__bg { aspect-ratio: auto; }
+  .hero__bg::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, var(--paper) 0%, transparent 18%);
+  }
+  .hero__bg::before { height: 12%; }
+  .hero__inner { max-width: 34rem; }
+  .hero__body { max-width: 30ch; }
+  /* "Tu tratamiento." es la línea larga y en esta columna partía en dos.
+     El titular se mide contra ella, no contra el ancho de la ventana. */
+  .hero__title { font-size: clamp(2.5rem, 5vw, 4.25rem); }
+  .hero__title > span { white-space: nowrap; }
 }
 
-/* En modo noche la portada vuelve a ser oscura: el papel ya lo es. */
-@media (prefers-color-scheme: dark) {
-  .hero::after {
-    background:
-      linear-gradient(90deg, rgba(26, 10, 14, .94) 0%, rgba(26, 10, 14, .74) 45%, rgba(26, 10, 14, .20) 100%),
-      linear-gradient(0deg,  rgba(26, 10, 14, .90) 0%, rgba(26, 10, 14, .10) 55%, transparent 100%);
-  }
-  .hero__title > span { color: var(--c-cream); }
-  .hero__title > span:nth-child(3) { color: var(--c-gold-lt); }
-  .hero__body { color: color-mix(in srgb, var(--c-cream) 82%, transparent); }
+@media (min-width: 75em) {
+  .hero__bg { width: min(58%, 1100px); }
+  .hero__inner { max-width: 38rem; }
+  .hero__title { font-size: clamp(3rem, 4.6vw, 5rem); }
+}
+
+/* La barra flota sobre la foto y sus enlaces caían encima del pelo, que es
+   lo más oscuro de la imagen. Una banda de papel arriba le devuelve el
+   fondo sin tapar la fotografía. */
+.hero::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; z-index: 1;
+  height: calc(var(--nav-h) + 2.5rem);
+  background: linear-gradient(180deg,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--paper) 88%, transparent) 55%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title > span { animation: none; opacity: 1; transform: none; }
 }
 
 /* ==========================================================================
@@ -790,7 +843,8 @@ h3 {
 .svc__flip {
   position: absolute; inset: 0;
   transform-style: preserve-3d;
-  transition: transform .62s var(--ease);
+  /* .62s se sentía un golpe. A .95s el giro se lee como un gesto. */
+  transition: transform .95s var(--ease);
 }
 .svc[data-flip] .svc__flip { transform: rotateY(180deg); }
 @media (hover: hover) and (pointer: fine) {
@@ -1127,3 +1181,56 @@ h3 {
     color: var(--ink); border-color: var(--edge);
   }
 }
+
+/* ==========================================================================
+   40. Las preguntas, con fotografía
+   Eran seis filas de texto con una flecha. Ahora cada una es una tarjeta con
+   su imagen arriba y la pregunta debajo, igual que los tratamientos: la
+   sección se decide mirando, no leyendo.
+   ========================================================================== */
+.quiz--fotos {
+  display: grid; gap: clamp(.75rem, 2vw, 1.25rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.quiz--fotos .quiz__item {
+  display: grid; gap: 0; align-content: start;
+  padding: 0; border: 1px solid var(--line);
+  background: var(--surface); text-decoration: none;
+  overflow: hidden;
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.quiz--fotos .quiz__item::after { content: none; }   /* fuera la flecha de la lista */
+.quiz--fotos .quiz__item:hover { transform: translateY(-3px); border-color: var(--oak); }
+
+.quiz__shot {
+  display: block; position: relative; overflow: hidden;
+  aspect-ratio: 3 / 2; background: var(--paper-2);
+}
+.quiz__shot img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .7s var(--ease);
+}
+.quiz--fotos .quiz__item:hover .quiz__shot img { transform: scale(1.06); }
+
+.quiz__texto { display: block; padding: .9rem 1rem 1.1rem; }
+.quiz__titulo {
+  display: block;
+  font-family: "Cormorant Garamond", serif; font-size: 1.125rem;
+  line-height: 1.25; color: var(--ink);
+}
+.quiz__nota {
+  display: block; margin-top: .3rem;
+  font-size: .75rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--oak-ink);
+}
+
+/* Filete dorado que se dibuja al pasar el cursor. */
+.quiz--fotos .quiz__item .quiz__texto { position: relative; }
+.quiz--fotos .quiz__item .quiz__texto::before {
+  content: ""; position: absolute; left: 1rem; right: 1rem; top: 0; height: 1px;
+  background: var(--oak); transform: scaleX(0); transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.quiz--fotos .quiz__item:hover .quiz__texto::before { transform: scaleX(1); }

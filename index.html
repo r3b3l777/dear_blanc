@@ -175,20 +175,23 @@
   <!-- ===== 1. Hero: split asimétrico ===== -->
   <!-- ===== 1. Portada a sangre ===== -->
   <section class="hero" id="inicio">
-    <picture class="hero__bg">
-      <source type="image/webp" srcset="/assets/img/sonrisa-portada-640.webp 640w, /assets/img/sonrisa-portada.webp 965w, /assets/img/sonrisa-portada-2x.webp 1930w" sizes="100vw">
-      <img src="/assets/img/sonrisa-portada.jpg" srcset="/assets/img/sonrisa-portada-640.jpg 640w, /assets/img/sonrisa-portada.jpg 965w" sizes="100vw" width="965" height="734" alt="Primer plano de una sonrisa natural y luminosa" fetchpriority="high" decoding="async">
-    </picture>
+    <div class="wrap hero__grid">
+      <div class="hero__inner">
+        <h1 class="hero__title" data-reveal>
+          <span>Tu sonrisa.</span>
+          <span>Tu historia.</span>
+          <span>Tu tratamiento.</span>
+        </h1>
+        <p class="hero__body">Una sonrisa bonita no tiene que verse perfecta. Tiene que sentirse tuya.</p>
+      </div>
 
-    <div class="wrap">
-     <div class="hero__inner">
-      <h1 class="hero__title" data-reveal>
-        <span>Tu sonrisa.</span>
-        <span>Tu historia.</span>
-        <span>Tu tratamiento.</span>
-      </h1>
-      <p class="hero__body">Una sonrisa bonita no tiene que verse perfecta. Tiene que sentirse tuya.</p>
-     </div>
+      <!-- En móvil la foto va debajo del texto y se ve entera. A partir de
+           900px se sale de la rejilla y ocupa la mitad derecha: el titular
+           cae sobre el hueco vacío de la imagen, no sobre ella. -->
+      <picture class="hero__bg">
+        <source type="image/webp" srcset="/assets/img/portada-sonrisa-760.webp 760w, /assets/img/portada-sonrisa.webp 1173w, /assets/img/portada-sonrisa-2x.webp 2346w" sizes="(min-width: 56.25em) 62vw, 100vw">
+        <img src="/assets/img/portada-sonrisa.jpg" srcset="/assets/img/portada-sonrisa-760.jpg 760w, /assets/img/portada-sonrisa.jpg 1173w" sizes="(min-width: 56.25em) 62vw, 100vw" width="1173" height="769" alt="Paciente sonriendo, con las manos bajo el mentón" fetchpriority="high" decoding="async">
+      </picture>
     </div>
   </section>
 
@@ -235,45 +238,83 @@
         <h2>¿Qué quieres transformar?</h2>
         <p class="body">Empieza por lo que tú estás buscando.</p>
       </div>
-      <div class="quiz">
-        <a class="quiz__item rv" href="#tratamientos" data-tab="rehabilitacion">
-          <span class="quiz__text"><strong>Quiero volver a sonreír con confianza</strong><small>Conoce nuestras opciones de rehabilitación y estética.</small></span>
-          <span class="disc" aria-hidden="true"><svg><use href="#i-arrow-right"></use></svg></span>
+      <div class="quiz quiz--fotos">
+        <a class="quiz__item rv" href="#tratamientos" data-tab="rehabilitacion" style="--i:0">
+          <span class="quiz__shot">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/preguntas/confianza.webp 420w, /assets/img/preguntas/confianza@2x.webp 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw">
+              <img src="/assets/img/preguntas/confianza.jpg" srcset="/assets/img/preguntas/confianza.jpg 420w, /assets/img/preguntas/confianza@2x.jpg 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw" alt="" width="420" height="280" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero volver a sonreír con confianza</span>
+            <span class="quiz__nota">Rehabilitación y estética</span>
+          </span>
         </a>
-        <a class="quiz__item rv" href="#tratamientos" data-tab="estetica">
-          <span class="quiz__text"><strong>Quiero mejorar la apariencia de mi sonrisa</strong><small>Descubre nuestras experiencias de estética dental.</small></span>
-          <span class="disc" aria-hidden="true"><svg><use href="#i-arrow-right"></use></svg></span>
+        <a class="quiz__item rv" href="#tratamientos" data-tab="estetica" style="--i:1">
+          <span class="quiz__shot">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/preguntas/apariencia.webp 420w, /assets/img/preguntas/apariencia@2x.webp 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw">
+              <img src="/assets/img/preguntas/apariencia.jpg" srcset="/assets/img/preguntas/apariencia.jpg 420w, /assets/img/preguntas/apariencia@2x.jpg 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw" alt="" width="420" height="280" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero mejorar la apariencia de mi sonrisa</span>
+            <span class="quiz__nota">Estética dental</span>
+          </span>
         </a>
-        <a class="quiz__item rv" href="#tratamientos" data-tab="estetica">
-          <span class="quiz__text"><strong>Quiero una sonrisa más luminosa</strong><small>Conoce nuestros protocolos de blanqueamiento.</small></span>
-          <span class="disc" aria-hidden="true"><svg><use href="#i-arrow-right"></use></svg></span>
+        <a class="quiz__item rv" href="#tratamientos" data-tab="estetica" style="--i:2">
+          <span class="quiz__shot">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/preguntas/luminosa.webp 420w, /assets/img/preguntas/luminosa@2x.webp 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw">
+              <img src="/assets/img/preguntas/luminosa.jpg" srcset="/assets/img/preguntas/luminosa.jpg 420w, /assets/img/preguntas/luminosa@2x.jpg 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw" alt="" width="420" height="280" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero una sonrisa más luminosa</span>
+            <span class="quiz__nota">Blanqueamiento</span>
+          </span>
         </a>
-        <a class="quiz__item rv" href="#tratamientos" data-tab="rehabilitacion">
-          <span class="quiz__text"><strong>Me falta uno o varios dientes</strong><small>Conoce nuestras alternativas de rehabilitación.</small></span>
-          <span class="disc" aria-hidden="true"><svg><use href="#i-arrow-right"></use></svg></span>
+        <a class="quiz__item rv" href="#tratamientos" data-tab="rehabilitacion" style="--i:3">
+          <span class="quiz__shot">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/preguntas/faltan.webp 420w, /assets/img/preguntas/faltan@2x.webp 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw">
+              <img src="/assets/img/preguntas/faltan.jpg" srcset="/assets/img/preguntas/faltan.jpg 420w, /assets/img/preguntas/faltan@2x.jpg 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw" alt="" width="420" height="280" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Me falta uno o varios dientes</span>
+            <span class="quiz__nota">Implantes y prótesis</span>
+          </span>
         </a>
-        <a class="quiz__item rv" href="#tratamientos" data-tab="salud">
-          <span class="quiz__text"><strong>Quiero cuidar mejor mi salud oral</strong><small>Descubre nuestras experiencias de prevención y mantenimiento.</small></span>
-          <span class="disc" aria-hidden="true"><svg><use href="#i-arrow-right"></use></svg></span>
+        <a class="quiz__item rv" href="#tratamientos" data-tab="salud" style="--i:4">
+          <span class="quiz__shot">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/preguntas/salud.webp 420w, /assets/img/preguntas/salud@2x.webp 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw">
+              <img src="/assets/img/preguntas/salud.jpg" srcset="/assets/img/preguntas/salud.jpg 420w, /assets/img/preguntas/salud@2x.jpg 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw" alt="" width="420" height="280" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero cuidar mejor mi salud oral</span>
+            <span class="quiz__nota">Prevención y mantenimiento</span>
+          </span>
         </a>
-        <a class="quiz__item rv" href="#valoracion">
-          <span class="quiz__text"><strong>No sé qué necesito</strong><small>Empieza con una valoración personalizada.</small></span>
-          <span class="disc" aria-hidden="true"><svg><use href="#i-arrow-right"></use></svg></span>
+        <a class="quiz__item rv" href="#tratamientos" data-tab="salud" style="--i:5">
+          <span class="quiz__shot">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/preguntas/nose.webp 420w, /assets/img/preguntas/nose@2x.webp 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw">
+              <img src="/assets/img/preguntas/nose.jpg" srcset="/assets/img/preguntas/nose.jpg 420w, /assets/img/preguntas/nose@2x.jpg 840w" sizes="(min-width: 64em) 30vw, (min-width: 40em) 46vw, 88vw" alt="" width="420" height="280" loading="lazy" decoding="async">
+            </picture>
+          </span>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">No sé qué necesito</span>
+            <span class="quiz__nota">Empieza por una valoración</span>
+          </span>
         </a>
-      </div>
     </div>
   </section>
 
   <!-- ===== 6. Paso 02: Tratamientos ===== -->
-  <!-- Banda de imagen: las láminas 05-07 del deck abren con una foto a
-       sangre antes del titular. -->
-  <figure class="band rv">
-    <picture>
-      <source type="image/webp" srcset="/assets/img/instrumental.webp">
-      <img src="/assets/img/instrumental.jpg" width="432" height="260" loading="lazy" decoding="async" alt="Charola dorada con espejo e instrumental dental ordenado">
-    </picture>
-  </figure>
-
   <section class="section" id="tratamientos">
     <div class="wrap">
       <div class="head rv">
@@ -681,7 +722,7 @@
         <dl class="facts">
           <div class="fact">
             <span class="disc"><svg aria-hidden="true"><use href="#i-map-pin"></use></svg></span>
-            <div><dt>Dirección</dt><dd>Sanatorio Venecia Tecnológico, Av. Tecnológico, Metepec, Estado de México</dd></div>
+            <div><dt>Dirección</dt><dd>Sanatorio Venecia · Av. Tecnológico 725-Mz 018, Colonia Agrícola Bella Vista, 52172 Metepec, Méx.</dd></div>
           </div>
           <div class="fact">
             <span class="disc"><svg aria-hidden="true"><use href="#i-clock"></use></svg></span>

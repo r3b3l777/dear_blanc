@@ -13,14 +13,14 @@
   /* Superficies. El fondo es beige, no crema casi blanco: la marca vive en
      el papel, no en un bloque oscuro. Las tarjetas suben a --surface para
      despegarse de él. */
-  --paper:      #EFE4D6;   /* beige base   */
-  --paper-2:    #E6D8C6;   /* beige medio  */
-  --paper-3:    #DBC8B2;   /* beige hondo  */
-  --surface:    #FBF7F1;
+  --paper:      #EFE5D9;   /* beige base   */
+  --paper-2:    #E5D8C9;   /* beige medio  */
+  --paper-3:    #D9C9B6;   /* beige hondo  */
+  --surface:    #FDF9F4;   /* crema de marca, exacto */
 
   /* Tinta. El vino dejó de ser fondo y pasó a ser el color del texto: así
      está en toda la página sin pintar media pantalla de oscuro. */
-  --ink:        #2A1119;   /* vino    */
+  --ink:        #2F1116;   /* vino de marca, exacto */
   --ink-2:      #573941;
   --ink-3:      #73555D;
 
@@ -34,19 +34,19 @@
   /* Constantes de marca: superficies siempre oscuras (cierre, pie) y su
      texto. No cambian con prefers-color-scheme, si no el texto claro se
      volvería oscuro sobre un fondo que sigue siendo oscuro. */
-  --c-wine:     #2A1119;
-  --c-wine-2:   #3B1A24;
+  --c-wine:     #2F1116;
+  --c-wine-2:   #3F1A21;
   --c-ink:      #1E0D13;
-  --c-cream:    #F6EFE4;
+  --c-cream:    #FDF9F4;
   --c-gold:     #AB8657;
   --c-gold-lt:  #D8C5A6;
 
-  --wine:       #2A1119;
-  --wine-2:     #3B1A24;
+  --wine:       #2F1116;
+  --wine-2:     #3F1A21;
 
-  --line:       rgba(30, 13, 19, .13);   /* filete decorativo */
-  --line-strong:rgba(30, 13, 19, .22);
-  --edge:       rgba(30, 13, 19, .48);   /* borde de control, >= 3:1 */
+  --line:       rgba(47, 17, 22, .13);   /* filete decorativo */
+  --line-strong:rgba(47, 17, 22, .22);
+  --edge:       rgba(47, 17, 22, .48);   /* borde de control, >= 3:1 */
   --on-oak:     #230E15;   /* texto sobre dorado (AA 5.5:1) */
 
   --wa:         #0B7A3E;

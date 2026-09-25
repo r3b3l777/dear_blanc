@@ -272,7 +272,7 @@
 
   function recordarTab(tab) {
     if (!history.replaceState) return;
-    history.replaceState(null, "", "?tx=" + tab.id.replace("tab-", "") + "#tratamientos");
+    history.replaceState(null, "", "?tx=" + tab.id.replace("tab-", ""));
   }
   tabs.forEach(function (tab, i) {
     tab.addEventListener("click", function () { activarTab(tab, false); recordarTab(tab); });
@@ -333,23 +333,25 @@
 
     if (reduce) return;   // sin pasada automática si se pidió menos movimiento
 
+    /* Antes giraban las diez a la vez en cuanto la rejilla asomaba, y en
+       menos de tres segundos ya había terminado todo. Ahora cada tarjeta se
+       voltea cuando le toca a ella entrar en pantalla: el que baja marca el
+       ritmo, y el reverso se queda el tiempo suficiente para leerlo. */
     var io = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (e) {
         if (!e.isIntersecting) return;
-        io.unobserve(e.target);   // una sola vez por rejilla
-        $$(".svc", e.target).forEach(function (card, i) {
-          var t1 = setTimeout(function () { card.setAttribute("data-flip", ""); }, 320 + i * 230);
-          var t2 = setTimeout(function () { card.removeAttribute("data-flip"); }, 1900 + i * 230);
-          // Si alguien toca la tarjeta a media pasada, la pasada se retira
-          // y no le arrebata el control.
-          card.addEventListener("pointerdown", function () {
-            clearTimeout(t1); clearTimeout(t2);
-          }, { once: true });
-        });
+        var card = e.target;
+        io.unobserve(card);                       // una sola vez por tarjeta
+        var t1 = setTimeout(function () { card.setAttribute("data-flip", ""); }, 420);
+        var t2 = setTimeout(function () { card.removeAttribute("data-flip"); }, 3600);
+        // Si alguien la toca a media pasada, se cancela y el control es suyo.
+        card.addEventListener("pointerdown", function () {
+          clearTimeout(t1); clearTimeout(t2);
+        }, { once: true });
       });
-    }, { threshold: .35 });
+    }, { threshold: .55 });
 
-    rejillas.forEach(function (r) { io.observe(r); });
+    $$(".svc").forEach(function (c) { io.observe(c); });
   })();
 
   /* ---------- "Consultar precio": un solo toque abre WhatsApp ----------
