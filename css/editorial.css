@@ -1493,3 +1493,38 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 .horario > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: .5rem; }
 .horario dt { color: var(--c-cream); font-weight: 500; }
 .horario dd { margin: 0; color: color-mix(in srgb, var(--c-cream) 72%, transparent); }
+
+/* ==========================================================================
+   47. La galería del consultorio
+   Siete fotografías reales del estudio, a 4000x6000 de origen. Son las
+   primeras imágenes propias del sitio: todo lo anterior salía recortado de
+   las láminas de marca a 432 px.
+
+   Va en columnas y no en rejilla porque siete no reparte en filas limpias:
+   con tres columnas quedaban dos huecos en la última. El flujo por columnas
+   las acomoda solo y respeta la proporción de cada toma, que no es la misma
+   en todas (cinco verticales, dos apaisadas).
+   ========================================================================== */
+.galeria {
+  list-style: none; padding: 0; margin: 0;
+  columns: 1; column-gap: clamp(.65rem, 1.6vw, 1rem);
+}
+@media (min-width: 40em) { .galeria { columns: 2; } }
+@media (min-width: 62em) { .galeria { columns: 3; } }
+
+.galeria__foto {
+  break-inside: avoid;                 /* que una foto no se parta en dos columnas */
+  margin-bottom: clamp(.65rem, 1.6vw, 1rem);
+  overflow: hidden; position: relative;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+}
+.galeria__foto img {
+  display: block; width: 100%; height: auto;
+  transition: transform .8s var(--ease);
+}
+.galeria__foto:hover img { transform: scale(1.03); }
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria__foto:hover img { transform: none; }
+}
