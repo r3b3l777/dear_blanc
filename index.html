@@ -81,16 +81,6 @@
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Me da ansiedad el dentista. ¿Qué hacen distinto?", "acceptedAnswer": { "@type": "Answer", "text": "El espacio está pensado para bajar el ritmo antes de la consulta: sala de estar cálida, aroma de firma, música suave y explicación de cada paso antes de hacerlo. Puedes pedir pausas cuando quieras." } },
-    { "@type": "Question", "name": "¿Atienden niños?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, atendemos limpieza, prevención y revisión en niños. Coméntalo al agendar para reservar un horario tranquilo." } }
-  ]
-}
-</script>
 </head>
 
 <body>
@@ -155,7 +145,6 @@
         <a href="#experiencia">La experiencia</a>
         <a href="#estudio">El estudio</a>
         <a href="#ubicacion">Ubicación</a>
-        <a href="#preguntas">Preguntas</a>
       </div>
 
 
@@ -174,7 +163,6 @@
           <a href="#experiencia">La experiencia</a>
           <a href="#estudio">El estudio</a>
           <a href="#ubicacion">Ubicación</a>
-          <a href="#preguntas">Preguntas</a>
           <div class="menu__actions">
             <a class="btn btn--primary btn--wide" href="#agenda">
               <svg aria-hidden="true"><use href="#i-calendar-blank"></use></svg>Agendar cita
@@ -206,9 +194,14 @@
       <!-- En móvil la foto va debajo del texto y se ve entera. A partir de
            900px se sale de la rejilla y ocupa la mitad derecha: el titular
            cae sobre el hueco vacío de la imagen, no sobre ella. -->
+      <!-- Dos tomas distintas, no la misma recortada: la vertical para el
+           teléfono y la apaisada para escritorio. El <source media> deja que
+           el navegador se baje solo la que le toca. -->
       <picture class="hero__bg">
-        <source type="image/webp" srcset="/assets/img/portada-sonrisa-760.webp 760w, /assets/img/portada-sonrisa.webp 1173w, /assets/img/portada-sonrisa-2x.webp 2346w" sizes="(min-width: 56.25em) 62vw, 100vw">
-        <img src="/assets/img/portada-sonrisa.jpg" srcset="/assets/img/portada-sonrisa-760.jpg 760w, /assets/img/portada-sonrisa.jpg 1173w" sizes="(min-width: 56.25em) 62vw, 100vw" width="1173" height="769" alt="Paciente sonriendo, con las manos bajo el mentón" fetchpriority="high" decoding="async">
+        <source media="(min-width: 56.25em)" type="image/webp" srcset="/assets/img/portada-ancha.webp 836w, /assets/img/portada-ancha@2x.webp 1672w" sizes="100vw">
+        <source media="(min-width: 56.25em)" srcset="/assets/img/portada-ancha.jpg">
+        <source type="image/webp" srcset="/assets/img/portada-movil.webp 512w, /assets/img/portada-movil@2x.webp 1024w" sizes="100vw">
+        <img src="/assets/img/portada-movil.jpg" width="512" height="768" alt="Primer plano de una sonrisa, con la mano bajo el mentón" fetchpriority="high" decoding="async">
       </picture>
     </div>
   </section>
@@ -241,8 +234,8 @@
       </div>
       <figure class="filo__shot rv">
         <picture>
-          <source type="image/webp" srcset="/assets/img/filosofia-especialista.webp 400w, /assets/img/filosofia-especialista@2x.webp 800w" sizes="(min-width: 56.25em) 26vw, 88vw">
-          <img src="/assets/img/filosofia-especialista.jpg" srcset="/assets/img/filosofia-especialista.jpg 400w, /assets/img/filosofia-especialista@2x.jpg 800w" sizes="(min-width: 56.25em) 26vw, 88vw" width="400" height="533" loading="lazy" decoding="async" alt="Especialista de Dear Blanc explicando sobre un modelo dental en el consultorio">
+          <source type="image/webp" srcset="/assets/img/filosofia-especialista.webp 420w, /assets/img/filosofia-especialista@2x.webp 840w" sizes="(min-width: 56.25em) 26vw, 88vw">
+          <img src="/assets/img/filosofia-especialista.jpg" srcset="/assets/img/filosofia-especialista.jpg 420w, /assets/img/filosofia-especialista@2x.jpg 840w" sizes="(min-width: 56.25em) 26vw, 88vw" width="420" height="560" loading="lazy" decoding="async" alt="Especialista de Dear Blanc explicando sobre un modelo dental en el consultorio">
         </picture>
       </figure>
     </div>
@@ -662,37 +655,37 @@
   <section class="section" id="estudio">
     <div class="wrap">
       <ul class="galeria">
-        <li class="galeria__foto rv">
+        <li class="galeria__foto rv" data-foto="recepcion">
           <picture>
             <source type="image/webp" srcset="/assets/img/clinica/recepcion.webp 760w, /assets/img/clinica/recepcion@2x.webp 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw">
             <img src="/assets/img/clinica/recepcion.jpg" srcset="/assets/img/clinica/recepcion.jpg 760w, /assets/img/clinica/recepcion@2x.jpg 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw" width="760" height="570" loading="lazy" decoding="async" alt="Recepción de Dear Blanc, con el logotipo retroiluminado sobre el muro">
           </picture>
         </li>
-        <li class="galeria__foto rv">
+        <li class="galeria__foto rv" data-foto="orquidea">
           <picture>
             <source type="image/webp" srcset="/assets/img/clinica/orquidea.webp 760w, /assets/img/clinica/orquidea@2x.webp 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw">
             <img src="/assets/img/clinica/orquidea.jpg" srcset="/assets/img/clinica/orquidea.jpg 760w, /assets/img/clinica/orquidea@2x.jpg 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw" width="760" height="1140" loading="lazy" decoding="async" alt="Orquídea y marco dorado sobre el mostrador, bajo el logotipo del estudio">
           </picture>
         </li>
-        <li class="galeria__foto rv">
+        <li class="galeria__foto rv" data-foto="unidad">
           <picture>
             <source type="image/webp" srcset="/assets/img/clinica/unidad.webp 760w, /assets/img/clinica/unidad@2x.webp 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw">
             <img src="/assets/img/clinica/unidad.jpg" srcset="/assets/img/clinica/unidad.jpg 760w, /assets/img/clinica/unidad@2x.jpg 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw" width="760" height="1140" loading="lazy" decoding="async" alt="Unidad dental del consultorio, con mobiliario de roble claro al fondo">
           </picture>
         </li>
-        <li class="galeria__foto rv">
+        <li class="galeria__foto rv" data-foto="sillon">
           <picture>
             <source type="image/webp" srcset="/assets/img/clinica/sillon.webp 760w, /assets/img/clinica/sillon@2x.webp 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw">
             <img src="/assets/img/clinica/sillon.jpg" srcset="/assets/img/clinica/sillon.jpg 760w, /assets/img/clinica/sillon@2x.jpg 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw" width="760" height="507" loading="lazy" decoding="async" alt="Paciente en el sillón, con audífonos y una bebida de la casa">
           </picture>
         </li>
-        <li class="galeria__foto rv">
+        <li class="galeria__foto rv" data-foto="radiografia">
           <picture>
             <source type="image/webp" srcset="/assets/img/clinica/radiografia.webp 760w, /assets/img/clinica/radiografia@2x.webp 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw">
             <img src="/assets/img/clinica/radiografia.jpg" srcset="/assets/img/clinica/radiografia.jpg 760w, /assets/img/clinica/radiografia@2x.jpg 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw" width="760" height="1140" loading="lazy" decoding="async" alt="Pantalla con una radiografía panorámica junto al lavabo del consultorio">
           </picture>
         </li>
-        <li class="galeria__foto rv">
+        <li class="galeria__foto rv" data-foto="marco">
           <picture>
             <source type="image/webp" srcset="/assets/img/clinica/marco.webp 760w, /assets/img/clinica/marco@2x.webp 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw">
             <img src="/assets/img/clinica/marco.jpg" srcset="/assets/img/clinica/marco.jpg 760w, /assets/img/clinica/marco@2x.jpg 1520w" sizes="(min-width: 62em) 30vw, (min-width: 40em) 46vw, 88vw" width="760" height="1140" loading="lazy" decoding="async" alt="Marco dorado con la firma de Joanna Maruri bajo el logotipo del estudio">
@@ -742,22 +735,6 @@
     </div>
   </section>
 
-  <!-- ===== 14. Preguntas ===== -->
-  <section class="section" id="preguntas">
-    <div class="wrap">
-      <div class="head rv"><h2>Antes de agendar</h2></div>
-      <div class="faq rv">
-        <details name="faq" open>
-          <summary>Me da ansiedad el dentista. ¿Qué hacen distinto?<span class="sign" aria-hidden="true"></span></summary>
-          <p>El espacio está pensado para bajar el ritmo antes de la consulta: sala de estar cálida, aroma de firma, música suave y explicación de cada paso antes de darlo. Puedes pedir pausas cuando quieras y nadie te va a apurar.</p>
-        </details>
-        <details name="faq">
-          <summary>¿Atienden niños?<span class="sign" aria-hidden="true"></span></summary>
-          <p>Sí, atendemos limpieza, prevención y revisión en niños. Coméntalo al agendar para reservarte un horario tranquilo, con menos gente en la sala.</p>
-        </details>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== 15. Último paso: agenda ===== -->
   <section class="section wrap" id="agenda">

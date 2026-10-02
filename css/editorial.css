@@ -669,6 +669,7 @@ h3 {
    ========================================================================== */
 .hero {
   position: relative;
+  background: var(--paper-3);
   margin-top: calc(-1 * var(--nav-h));
   min-height: 0;
   display: block; overflow: hidden;
@@ -696,7 +697,7 @@ h3 {
    una raya recta contra la marquesina. */
 .hero__bg::before {
   content: ""; position: absolute; inset: auto 0 0 0; z-index: 1; height: 14%;
-  background: linear-gradient(0deg, var(--paper) 0%, transparent 100%);
+  background: linear-gradient(0deg, var(--paper) 0%, transparent 100%);  /* funde con la sección siguiente */
   pointer-events: none;
 }
 
@@ -734,7 +735,13 @@ h3 {
   }
   .hero__bg::after  { content: none; }
   .hero__bg::before { height: 16%; }
-  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 72% bottom; }
+  /* La toma apaisada deja el hueco a la izquierda: se encuadra a la derecha
+     para que la cara quede libre y el titular caiga sobre el vacío. */
+  /* Pegada a la derecha. La toma mide 16:9 y la portada es más baja de
+     proporción, así que cover recorta a lo ancho: anclándola al 100% todo
+     el recorte se come el lado de la cara y se conserva entero el hueco de
+     la izquierda, que es donde va el titular. */
+  .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: 100% center; }
 
   .hero__inner {
     position: relative; z-index: 2;
@@ -752,24 +759,24 @@ h3 {
     inset: -8rem -20rem -6rem calc(-1 * var(--gutter) - 60vw);
     background: radial-gradient(
       ellipse 62% 78% at 28% 62%,
-      color-mix(in srgb, var(--paper) 94%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 82%, transparent) 42%,
-      color-mix(in srgb, var(--paper) 38%, transparent) 72%,
+      color-mix(in srgb, var(--paper-3) 96%, transparent) 0%,
+      color-mix(in srgb, var(--paper-3) 84%, transparent) 44%,
+      color-mix(in srgb, var(--paper-3) 36%, transparent) 74%,
       transparent 92%);
     pointer-events: none;
   }
 
-  .hero__title { font-size: clamp(3.4rem, 6.4vw, 6rem); }
+  .hero__title { font-size: clamp(2.9rem, 5vw, 4.6rem); }
   .hero__title > span { white-space: nowrap; }
-  .hero__title > span:nth-child(2) { padding-left: .55em; }
-  .hero__title > span:nth-child(3) { padding-left: 1.15em; }
+  .hero__title > span:nth-child(2) { padding-left: .35em; }
+  .hero__title > span:nth-child(3) { padding-left: .7em; }
 
   .hero__body { max-width: 30ch; margin-top: clamp(1.25rem, 2.5vh, 2rem); font-size: 1.0625rem; }
 }
 
 @media (min-width: 75em) {
   .hero__inner { width: min(100%, 66ch); }
-  .hero__title { font-size: clamp(4rem, 5.8vw, 6.5rem); }
+  .hero__title { font-size: clamp(3.4rem, 4.4vw, 5.2rem); }
 }
 
 /* En móvil la foto sube y se mete bajo la bajada: mismo principio de
@@ -778,11 +785,13 @@ h3 {
   /* El margen negativo mete la foto bajo el texto, pero con -6vw se comía
      la coronilla: en vertical el encuadre ya entra justo, así que lo único
      que recortaba la cabeza era este margen. */
-  .hero__bg { aspect-ratio: 5 / 6; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
+  /* En móvil entra la toma vertical, que ya viene encuadrada: no hay que
+     recortarla, solo dejarla caer entera bajo el texto. */
+  .hero__bg { aspect-ratio: 2 / 3; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
   /* 90% y no 76%: ella está a dos tercios del encuadre original, así que
      con menos el recorte la dejaba a la izquierda y sobraba fondo a la
      derecha. Medido sobre la imagen escalada, 90% la centra. */
-  .hero__bg img { object-position: 90% top; }
+  .hero__bg img { object-position: center top; }
   .hero__inner { position: relative; z-index: 2; }
   .hero__title { font-size: clamp(2.75rem, 11.5vw, 4rem); }
 }
@@ -1164,7 +1173,9 @@ h3 {
    y en las de 900 a 1100 px se estiraba deformando el encuadre. Ahora es una
    proporción fija y la imagen se recorta dentro, nunca se deforma. */
 @media (min-width: 900px) {
-  .filo { grid-template-columns: minmax(0, 1fr) clamp(240px, 26vw, 340px); align-items: start; }
+  /* El panel sube de 340 a 420 px y se centra contra el texto: a 340 la
+     foto se quedaba chica al lado de un bloque de tres párrafos. */
+  .filo { grid-template-columns: minmax(0, 1fr) clamp(280px, 30vw, 420px); align-items: center; }
   /* La imagen se saca del flujo con position:absolute. Si se queda dentro,
      su alto intrínseco (215x540, o sea muy vertical) manda sobre el
      aspect-ratio y la columna se estiraba a 836 px: una tira larga y flaca
@@ -1269,9 +1280,9 @@ h3 {
   content: ""; position: absolute; inset: 0 0 auto 0; z-index: 3;
   height: calc(var(--nav-h) + 4rem);
   background: linear-gradient(180deg,
-    var(--paper) 0%,
-    var(--paper) calc(var(--nav-h) - 4px),
-    color-mix(in srgb, var(--paper) 70%, transparent) 70%,
+    var(--paper-3) 0%,
+    var(--paper-3) calc(var(--nav-h) - 4px),
+    color-mix(in srgb, var(--paper-3) 70%, transparent) 70%,
     transparent 100%);
   pointer-events: none;
 }
@@ -1507,23 +1518,42 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
    ========================================================================== */
 .galeria {
   list-style: none; padding: 0; margin: 0;
-  columns: 1; column-gap: clamp(.65rem, 1.6vw, 1rem);
+  display: grid; gap: clamp(.5rem, 1.2vw, .9rem);
+  grid-template-columns: minmax(0, 1fr);
 }
-@media (min-width: 40em) { .galeria { columns: 2; } }
-@media (min-width: 62em) { .galeria { columns: 3; } }
+@media (min-width: 40em) { .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 62em) { .galeria { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
+/* Todas las celdas con la misma proporción. Antes la galería iba en
+   columnas y cada foto conservaba la suya: las columnas acababan a alturas
+   distintas y el bloque se cerraba en escalera. Con seis fotos y tres
+   columnas, 4:5 da dos filas llenas y un rectángulo perfecto; lo que cada
+   toma pierde de encuadre lo recupera object-position, ajustado una a una. */
 .galeria__foto {
-  break-inside: avoid;                 /* que una foto no se parta en dos columnas */
-  margin-bottom: clamp(.65rem, 1.6vw, 1rem);
-  overflow: hidden; position: relative;
+  position: relative; overflow: hidden;
+  aspect-ratio: 4 / 5;
   border: 1px solid var(--line);
   background: var(--paper-2);
 }
+/* El <picture> es inline y sin alto propio, así que el height:100% del
+   <img> se resolvía contra él y no contra la celda: la foto se quedaba a
+   media caja y debajo asomaba el fondo. */
+.galeria__foto picture { display: block; width: 100%; height: 100%; }
 .galeria__foto img {
-  display: block; width: 100%; height: auto;
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
   transition: transform .8s var(--ease);
 }
-.galeria__foto:hover img { transform: scale(1.03); }
+.galeria__foto:hover img { transform: scale(1.04); }
+
+/* Encuadre por foto: las dos apaisadas y la del sillón necesitan que el
+   recorte 4:5 caiga donde está el motivo, no en el centro geométrico. */
+.galeria__foto[data-foto="recepcion"]   img { object-position: 100% center; }
+.galeria__foto[data-foto="sillon"]      img { object-position: 54% 32%; }
+.galeria__foto[data-foto="orquidea"]    img { object-position: center 38%; }
+.galeria__foto[data-foto="radiografia"] img { object-position: 58% 42%; }
+.galeria__foto[data-foto="unidad"]      img { object-position: center 45%; }
+.galeria__foto[data-foto="marco"]       img { object-position: center 55%; }
 
 @media (prefers-reduced-motion: reduce) {
   .galeria__foto:hover img { transform: none; }
