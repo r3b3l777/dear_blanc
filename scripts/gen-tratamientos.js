@@ -16,6 +16,10 @@ global.window = {};
 require(path.join(raiz, 'js/config.js'));
 const DB = global.window.DB;
 
+/* El reverso lleva solo nombre y descripción. No va ningún botón de
+   precio: en el sitio no se publican precios y el enlace por tratamiento se
+   retiró a propósito. Si alguien lo vuelve a meter aquí, reaparece en las
+   trece tarjetas de golpe, que es justo lo que pasó una vez. */
 const cat = {
   estetica: 'Estética dental',
   rehabilitacion: 'Rehabilitación oral',
@@ -73,10 +77,6 @@ for (const clave of Object.keys(cat)) {
                 <div class="svc__face svc__back">
                   <h4 class="svc__name">${it.nombre}</h4>
                   <p class="svc__desc">${it.desc}</p>
-                  <a class="svc__cta" href="#agenda" data-precio="${it.slug}" data-nombre="${it.nombre}">
-                    <span>Consultar precio</span>
-                    <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>
-                  </a>
                 </div>
               </div>
               <button type="button" class="svc__girar" aria-label="Ver la descripción de ${it.nombre}"></button>

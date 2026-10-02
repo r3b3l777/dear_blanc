@@ -375,18 +375,6 @@
     rejillas.forEach(function (r) { io.observe(r); });
   })();
 
-  /* ---------- "Consultar precio": un solo toque abre WhatsApp ----------
-     En el sitio no se publican precios. El botón de cada tarjeta manda el
-     nombre del tratamiento ya escrito para que la respuesta sea directa. */
-  $$("[data-precio]").forEach(function (a) {
-    if (!numeroListo) return;
-    a.href = wa(
-      "Hola, vi " + a.dataset.nombre + " en el sitio de Dear Blanc Dental Studio. " +
-      "¿Me pueden compartir el precio y agendar una valoración?"
-    );
-    a.target = "_blank"; a.rel = "noopener";
-  });
-
   /* Botones de WhatsApp directo repartidos por la página. */
   $$("[data-wa-directo]").forEach(function (a) {
     if (!numeroListo) return;

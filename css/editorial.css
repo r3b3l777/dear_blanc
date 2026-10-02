@@ -1540,3 +1540,40 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 @media (prefers-reduced-motion: reduce) {
   .galeria__foto:hover img { transform: none; }
 }
+
+/* ==========================================================================
+   48. Ubicación y pie
+   ========================================================================== */
+
+/* El enlace a Google Maps pasa de píldora con texto a un disco con el pin.
+   Sobre una fachada que ya se explica sola, "Cómo llegar" era ruido. */
+.map { position: relative; }
+.map__pin {
+  position: absolute; right: clamp(.9rem, 2.5vw, 1.5rem); bottom: clamp(.9rem, 2.5vw, 1.5rem);
+  width: 62px; height: 62px; border-radius: 999px;
+  display: grid; place-items: center;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(47,17,22,.16), 0 14px 32px -14px rgba(47,17,22,.45);
+  transition: transform var(--dur) var(--ease-pop), box-shadow var(--dur) var(--ease);
+}
+.map__pin svg { width: 30px; height: 30px; }
+.map__pin:hover { transform: translateY(-3px) scale(1.06); box-shadow: 0 4px 10px rgba(47,17,22,.2), 0 20px 42px -16px rgba(47,17,22,.5); }
+.map__pin:active { transform: scale(.97); transition-duration: var(--press); }
+
+/* styles.css fija .map a 4:3 y la foto nueva es 3:2: sobraba una banda al
+   pie de la caja. La caja pasa a la proporción de la foto. */
+.map { aspect-ratio: 3 / 2; }
+.map picture { display: block; width: 100%; height: 100%; }
+.map img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Las tres redes del pie, en disco. */
+.redes { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; gap: .6rem; }
+.redes a {
+  width: 44px; height: 44px; border-radius: 999px;   /* mínimo táctil */
+  display: grid; place-items: center;
+  border: 1px solid color-mix(in srgb, var(--c-cream) 30%, transparent);
+  color: var(--c-cream);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.redes a:hover { background: color-mix(in srgb, var(--c-cream) 14%, transparent); border-color: var(--c-cream); }
+.redes svg { width: 18px; height: 18px; }

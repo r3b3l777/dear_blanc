@@ -81,10 +81,16 @@ window.DB = {
       titulo: "Recuperar lo que una sonrisa ha perdido",
       cierre: "Primero entendemos el problema. Después diseñamos la solución.",
       items: [
-        { slug: "coronas-restauraciones", nombre: "Coronas y restauraciones", img: "coronas-restauraciones",
-          desc: "Devuelven estructura, función y apariencia al diente, conservando el tejido sano." },
-        { slug: "implantes-protesis",     nombre: "Puentes y prótesis con implantes", img: "implantes-protesis",
-          desc: "Reemplazan dientes ausentes con una solución planificada que devuelve el equilibrio de la mordida." }
+        { slug: "implantes",      nombre: "Implante dental",  img: "implantes",
+          desc: "Reemplaza la raíz del diente ausente y sostiene la corona como lo haría el tuyo." },
+        { slug: "coronas",        nombre: "Corona",           img: "coronas",
+          desc: "Cubre y protege el diente dañado devolviéndole forma, función y apariencia." },
+        { slug: "puentes",        nombre: "Puente",           img: "puentes",
+          desc: "Rellena el hueco de uno o varios dientes apoyándose en los que quedan a los lados." },
+        { slug: "protesis",       nombre: "Prótesis",         img: "protesis",
+          desc: "Devuelve la arcada completa cuando faltan muchos dientes, fija o removible." },
+        { slug: "restauraciones", nombre: "Restauraciones estéticas", img: "restauraciones",
+          desc: "Reparan la parte dañada del diente conservando toda la estructura sana que queda." }
       ]
     },
     salud: {
