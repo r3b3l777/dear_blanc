@@ -723,7 +723,7 @@ h3 {
      izquierda se convertía en una zona muerta enorme bajo el titular. Con
      la proporción de la imagen no sobra ni falta nada. */
   .hero {
-    min-height: 0; aspect-ratio: 1672 / 941;
+    min-height: 0; aspect-ratio: 1672 / 735;   /* la del archivo, recortado sobre la sonrisa */
     display: block; padding-block: 0;
     position: relative;
   }
@@ -767,7 +767,7 @@ h3 {
      que recortaba la cabeza era este margen. */
   /* En móvil entra la toma vertical, que ya viene encuadrada: no hay que
      recortarla, solo dejarla caer entera bajo el texto. */
-  .hero__bg { aspect-ratio: 2 / 3; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
+  .hero__bg { aspect-ratio: 1024 / 1180; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
   /* 90% y no 76%: ella está a dos tercios del encuadre original, así que
      con menos el recorte la dejaba a la izquierda y sobraba fondo a la
      derecha. Medido sobre la imagen escalada, 90% la centra. */
@@ -1498,44 +1498,44 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
    las acomoda solo y respeta la proporción de cada toma, que no es la misma
    en todas (cinco verticales, dos apaisadas).
    ========================================================================== */
+/* Cinco fotos, todas del mismo tamaño. Cinco no reparte en filas limpias:
+   a tres columnas quedan dos huecos, a dos queda uno. Las dos únicas
+   distribuciones sin hueco son una fila de cinco y una tira que se desliza,
+   así que se usa cada una donde cabe. */
 .galeria {
   list-style: none; padding: 0; margin: 0;
-  display: grid; gap: clamp(.5rem, 1.2vw, .9rem);
-  grid-template-columns: minmax(0, 1fr);
+  display: grid; gap: clamp(.5rem, 1.2vw, .85rem);
+  grid-auto-flow: column;
+  grid-auto-columns: 72%;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding-bottom: .25rem;
 }
-@media (min-width: 40em) { .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 62em) { .galeria { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.galeria::-webkit-scrollbar { display: none; }
 
-/* Mosaico, no celdas iguales. Las seis tomas no comparten proporción:
-   cuatro son verticales 2:3 y dos apaisadas. Metidas todas en una celda
-   4:5, las apaisadas perdían más de un tercio del encuadre.
+@media (min-width: 40em) { .galeria { grid-auto-columns: 42%; } }
+@media (min-width: 62em) {
+  .galeria {
+    grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-auto-columns: auto; overflow: visible; scroll-snap-type: none;
+  }
+}
 
-   Aquí cada una conserva la suya y el mosaico cuadra solo: una apaisada a
-   4:3 ocupando dos columnas mide exactamente lo mismo de alto que una
-   vertical 2:3 en una columna. Las filas salen parejas sin fijar altura. */
 .galeria__foto {
   position: relative; overflow: hidden;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 4 / 5;
+  scroll-snap-align: start;
   border: 1px solid var(--line);
   background: var(--paper-2);
 }
-.galeria__foto--ancha { grid-column: span 2; aspect-ratio: 4 / 3; }
-
 .galeria__foto picture { display: block; width: 100%; height: 100%; }
 .galeria__foto img {
   display: block; width: 100%; height: 100%;
   object-fit: cover;
   transition: transform .8s var(--ease);
 }
-.galeria__foto:hover img { transform: scale(1.04); }
-
-/* Encuadre por foto: el recorte tiene que caer donde está el motivo. */
-.galeria__foto[data-foto="recepcion"]   img { object-position: 100% center; }
-.galeria__foto[data-foto="sillon"]      img { object-position: 54% 30%; }
-.galeria__foto[data-foto="orquidea"]    img { object-position: center 38%; }
-.galeria__foto[data-foto="radiografia"] img { object-position: 58% 42%; }
-.galeria__foto[data-foto="unidad"]      img { object-position: center 45%; }
-.galeria__foto[data-foto="marco"]       img { object-position: center 55%; }
+.galeria__foto:hover img { transform: scale(1.05); }
 
 @media (prefers-reduced-motion: reduce) {
   .galeria__foto:hover img { transform: none; }

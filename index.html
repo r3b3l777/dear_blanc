@@ -206,10 +206,10 @@
            teléfono y la apaisada para escritorio. El <source media> deja que
            el navegador se baje solo la que le toca. -->
       <picture class="hero__bg">
-        <source media="(min-width: 56.25em)" type="image/webp" srcset="/assets/img/portada-ancha.webp 836w, /assets/img/portada-ancha@2x.webp 1672w" sizes="100vw">
+        <source media="(min-width: 56.25em)" type="image/webp" srcset="/assets/img/portada-ancha.webp 880w, /assets/img/portada-ancha@2x.webp 1760w" sizes="100vw">
         <source media="(min-width: 56.25em)" srcset="/assets/img/portada-ancha.jpg">
-        <source type="image/webp" srcset="/assets/img/portada-movil.webp 512w, /assets/img/portada-movil@2x.webp 1024w" sizes="100vw">
-        <img src="/assets/img/portada-movil.jpg" width="512" height="768" alt="Primer plano de una sonrisa, con la mano bajo el mentón" fetchpriority="high" decoding="async">
+        <source type="image/webp" srcset="/assets/img/portada-movil.webp 560w, /assets/img/portada-movil@2x.webp 1120w" sizes="100vw">
+        <img src="/assets/img/portada-movil.jpg" width="560" height="645" alt="Primer plano de una sonrisa, con la mano bajo el mentón" fetchpriority="high" decoding="async">
       </picture>
     </div>
   </section>
@@ -710,12 +710,42 @@
   <!-- ===== 12. El estudio ===== -->
   <section class="section" id="estudio">
     <div class="wrap">
-      <!-- Galería vacía a la espera de las fotos nuevas del consultorio.
-           Mientras no haya ningún <li>, js/main.js retira la sección entera
-           para que no quede un hueco en la página. En cuanto se añadan las
-           fotos aquí, la sección vuelve sola: no hay que tocar nada más.
-           Las fotos anteriores siguen en scripts/fotos-clinica/. -->
-      <ul class="galeria"></ul>
+      <!-- Las cinco a la misma proporción, 4:5, y en una sola fila en
+           escritorio: cinco no reparte en filas limpias, así que cualquier
+           otra rejilla deja huecos. Por debajo de 62em pasa a una tira que
+           se desliza con el dedo, que tampoco los deja. -->
+      <ul class="galeria">
+        <li class="galeria__foto rv" data-foto="recepcion">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/clinica/recepcion.webp 640w, /assets/img/clinica/recepcion@2x.webp 1280w" sizes="(min-width: 62em) 19vw, 72vw">
+            <img src="/assets/img/clinica/recepcion.jpg" srcset="/assets/img/clinica/recepcion.jpg 640w, /assets/img/clinica/recepcion@2x.jpg 1280w" sizes="(min-width: 62em) 19vw, 72vw" width="640" height="800" loading="lazy" decoding="async" alt="Recepción de Dear Blanc, con el logotipo retroiluminado sobre el muro">
+          </picture>
+        </li>
+        <li class="galeria__foto rv" data-foto="cafe">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/clinica/cafe.webp 640w, /assets/img/clinica/cafe@2x.webp 1280w" sizes="(min-width: 62em) 19vw, 72vw">
+            <img src="/assets/img/clinica/cafe.jpg" srcset="/assets/img/clinica/cafe.jpg 640w, /assets/img/clinica/cafe@2x.jpg 1280w" sizes="(min-width: 62em) 19vw, 72vw" width="640" height="800" loading="lazy" decoding="async" alt="Vaso de la casa y servilleta sobre la charola, en la sala de espera">
+          </picture>
+        </li>
+        <li class="galeria__foto rv" data-foto="escaner">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/clinica/escaner.webp 640w, /assets/img/clinica/escaner@2x.webp 1280w" sizes="(min-width: 62em) 19vw, 72vw">
+            <img src="/assets/img/clinica/escaner.jpg" srcset="/assets/img/clinica/escaner.jpg 640w, /assets/img/clinica/escaner@2x.jpg 1280w" sizes="(min-width: 62em) 19vw, 72vw" width="640" height="800" loading="lazy" decoding="async" alt="Especialista revisando el escaneo de la sonrisa en una tableta">
+          </picture>
+        </li>
+        <li class="galeria__foto rv" data-foto="unidad">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/clinica/unidad.webp 640w, /assets/img/clinica/unidad@2x.webp 1280w" sizes="(min-width: 62em) 19vw, 72vw">
+            <img src="/assets/img/clinica/unidad.jpg" srcset="/assets/img/clinica/unidad.jpg 640w, /assets/img/clinica/unidad@2x.jpg 1280w" sizes="(min-width: 62em) 19vw, 72vw" width="640" height="800" loading="lazy" decoding="async" alt="Unidad dental del consultorio, con el vaso de la casa y el lavabo al fondo">
+          </picture>
+        </li>
+        <li class="galeria__foto rv" data-foto="paciente">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/clinica/paciente.webp 640w, /assets/img/clinica/paciente@2x.webp 1280w" sizes="(min-width: 62em) 19vw, 72vw">
+            <img src="/assets/img/clinica/paciente.jpg" srcset="/assets/img/clinica/paciente.jpg 640w, /assets/img/clinica/paciente@2x.jpg 1280w" sizes="(min-width: 62em) 19vw, 72vw" width="640" height="800" loading="lazy" decoding="async" alt="Paciente en el sillón, con audífonos y una bebida de la casa">
+          </picture>
+        </li>
+      </ul>
 
 </section>
 
