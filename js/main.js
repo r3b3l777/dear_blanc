@@ -384,6 +384,20 @@
     a.target = "_blank"; a.rel = "noopener";
   });
 
+  /* ---------- El estudio: sin fotos, sin sección ----------
+     La galería está a la espera de la nueva sesión de fotos. Una sección
+     con un titular y nada debajo se lee como un error, así que mientras no
+     haya ninguna fotografía se retira entera, con su enlace de la barra. */
+  (function () {
+    var g = $(".galeria");
+    if (!g || g.children.length) return;
+    var sec = g.closest("section");
+    if (sec) sec.remove();
+    $$('a[href="#estudio"]').forEach(function (a) {
+      if (a.parentElement) a.parentElement.removeChild(a);
+    });
+  })();
+
   /* ==========================================================================
      21. Equipo: tarjetas que rotan solas
      Sin foto todavía, se dibuja un avatar con iniciales. La rotación se
