@@ -205,10 +205,16 @@ recortado de las láminas de marca a 432 px.
 La de la especialista estaba también en la galería y se quitó de ahí: la
 misma foto en dos sitios de la misma página se nota.
 
-**Las fuentes a resolución completa viven en `scripts/fotos-clinica/`** y
-eso no es decorativo: los originales desaparecieron de `~/Downloads` al día
-siguiente, y el recorte de Filosofía se pudo generar porque la copia de
-4000x6000 estaba en el repositorio.
+**Los masters viven en `scripts/fotos-clinica/`, a 2000 px.** No son los
+originales: esos pesaban 30 MB entre los ocho y en git son un lastre que no
+se va nunca. El archivo web más grande que genera el sitio mide 1520 px, así
+que 2000 px regenera cualquier recorte y cabe en 5 MB.
+
+Esa carpeta no es decorativa. Los originales de 4000x6000 desaparecieron de
+`~/Downloads` el mismo día, y el recorte de Filosofía se pudo hacer porque
+la copia estaba en el repositorio. **Los originales están fuera de git, en
+`~/dear-blanc-originales/`** — si hace falta un recorte que 2000 px no
+aguante, salen de ahí.
 
 La galería va en **columnas** (`columns: 3`) y no en rejilla. Siete fotos no
 reparten en filas limpias: con tres columnas quedaban dos huecos en la
