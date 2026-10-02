@@ -1577,3 +1577,54 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 }
 .redes a:hover { background: color-mix(in srgb, var(--c-cream) 14%, transparent); border-color: var(--c-cream); }
 .redes svg { width: 18px; height: 18px; }
+
+/* ==========================================================================
+   49. El pie y la ubicación, medidos
+   ========================================================================== */
+
+/* styles.css declara tres columnas en .foot__grid y el HTML tiene dos hijos:
+   la tercera pista nunca se llena y deja 358 px muertos, el 32% del ancho
+   del pie. Eso era lo de "distribuye la información correctamente". */
+@media (min-width: 40em) {
+  .foot__grid { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: clamp(2rem, 5vw, 4.5rem); }
+  /* El horario a dos columnas: siete filas seguidas median 189 px contra un
+     logotipo de 104 y el pie quedaba descompensado. Con cuatro se empareja. */
+  .horario { grid-template-columns: repeat(2, max-content); column-gap: 2.75rem; }
+  .horario > div { grid-template-columns: 5.5rem max-content; }
+}
+@media (min-width: 64em) { .foot__grid { grid-template-columns: minmax(0, 1fr) auto; gap: 4.5rem; } }
+.horario { row-gap: .5rem; }
+
+/* Las redes: lo que se veía grande no era el icono de 18 px, era el aro de
+   44 que lo rodeaba. Fuera el aro; el dibujo baja a 16 y el área táctil se
+   queda en 44x44, que es lo que hay que respetar. */
+.redes {
+  margin: clamp(2rem, 4vw, 2.75rem) 0 0;
+  justify-content: center; gap: .25rem;
+  padding-top: clamp(1.75rem, 3.5vw, 2.25rem);
+  border-top: 1px solid color-mix(in srgb, var(--c-cream) 16%, transparent);
+}
+.redes a { border: 0; background: transparent; color: color-mix(in srgb, var(--c-cream) 72%, transparent); }
+.redes a:hover { background: transparent; color: var(--c-cream); }
+.redes svg { width: 16px; height: 16px; }
+.foot__legal { margin-top: clamp(1.75rem, 3.5vw, 2.25rem); }
+
+/* Ubicación. La foto no estaba mal proporcionada: el archivo mide 1.5018 y
+   la caja 1.5000, o sea un 0.12% de recorte. Lo que fallaba era la
+   alineación: con align-items:center la foto sobresalía 11.6 px por arriba
+   y por abajo del bloque de texto, así que nada compartía línea. Con start,
+   el borde superior cae en la altura de mayúscula del titular. */
+.place { align-items: start; }
+@media (min-width: 48em) {
+  /* Y la fachada sube de 532 a 585 px: es el motivo de la sección y recibía
+     exactamente el mismo peso que tres párrafos. */
+  .place { grid-template-columns: .9fr 1.1fr; gap: 3.5rem; }
+}
+
+/* El disco del pin ocupaba el 17.7% del ancho de la fachada en teléfono. */
+.map__pin { width: 52px; height: 52px; }
+.map__pin svg { width: 26px; height: 26px; }
+@media (max-width: 47.99em) {
+  .map__pin { width: 44px; height: 44px; }   /* mínimo táctil exacto */
+  .map__pin svg { width: 22px; height: 22px; }
+}
