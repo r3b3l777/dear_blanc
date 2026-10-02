@@ -189,6 +189,32 @@ armado; el nombre se resuelve en la conversación, que es donde ya estaba
 pasando de todos modos. Hay una prueba en `test.js` (fuera del repo) que
 cuenta los clics; si alguien vuelve a meter un "Continuar", se nota.
 
+## Fotografía del consultorio
+
+Las siete fotos reales del estudio llegaron el 1 de octubre a 4000x6000.
+Son las primeras imágenes propias del sitio: todo lo anterior salía
+recortado de las láminas de marca a 432 px.
+
+| Archivo | Dónde se usa |
+|---|---|
+| `filosofia-especialista` | Filosofía, panel 3:4 |
+| `clinica/recepcion` | Galería (4:3) |
+| `clinica/orquidea`, `unidad`, `radiografia`, `marco` | Galería (2:3) |
+| `clinica/sillon` | Galería (3:2) |
+
+La de la especialista estaba también en la galería y se quitó de ahí: la
+misma foto en dos sitios de la misma página se nota.
+
+**Las fuentes a resolución completa viven en `scripts/fotos-clinica/`** y
+eso no es decorativo: los originales desaparecieron de `~/Downloads` al día
+siguiente, y el recorte de Filosofía se pudo generar porque la copia de
+4000x6000 estaba en el repositorio.
+
+La galería va en **columnas** (`columns: 3`) y no en rejilla. Siete fotos no
+reparten en filas limpias: con tres columnas quedaban dos huecos en la
+última. El flujo por columnas las acomoda solo y respeta la proporción de
+cada toma, que no es la misma en todas.
+
 ## Fotografía de los tratamientos
 
 Las ocho fotos salieron de dos láminas de marca que mandó el estudio. Cada
