@@ -723,7 +723,7 @@ h3 {
      izquierda se convertía en una zona muerta enorme bajo el titular. Con
      la proporción de la imagen no sobra ni falta nada. */
   .hero {
-    min-height: 0; aspect-ratio: 1672 / 735;   /* la del archivo, recortado sobre la sonrisa */
+    min-height: 0; aspect-ratio: 1672 / 670;   /* la del archivo: el corte bajó y se recortó más por abajo, así la sonrisa queda al centro */
     display: block; padding-block: 0;
     position: relative;
   }
@@ -767,7 +767,7 @@ h3 {
      que recortaba la cabeza era este margen. */
   /* En móvil entra la toma vertical, que ya viene encuadrada: no hay que
      recortarla, solo dejarla caer entera bajo el texto. */
-  .hero__bg { aspect-ratio: 1024 / 1180; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
+  .hero__bg { aspect-ratio: 1024 / 1050; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
   /* 90% y no 76%: ella está a dos tercios del encuadre original, así que
      con menos el recorte la dejaba a la izquierda y sobraba fondo a la
      derecha. Medido sobre la imagen escalada, 90% la centra. */
@@ -1155,9 +1155,14 @@ h3 {
 @media (min-width: 900px) {
   /* El panel sube de 340 a 420 px y se centra contra el texto: a 340 la
      foto se quedaba chica al lado de un bloque de tres párrafos. */
-  /* De 420 a 540 px: con tres párrafos al lado, el panel pedía más peso
-     para que la foto y el texto se miren de igual a igual. */
-  .filo { grid-template-columns: minmax(0, 1fr) clamp(320px, 38vw, 540px); align-items: center; gap: clamp(2rem, 5vw, 4rem); }
+  /* La foto crece otra vez y se sale a sangre por la derecha: dentro del
+     wrap flotaba como una tarjeta pegada al texto; llegando al borde de la
+     pantalla se incorpora a la sección en vez de posarse encima. */
+  .filo { grid-template-columns: minmax(0, 1fr) clamp(360px, 46vw, 720px); align-items: center; gap: clamp(2rem, 5vw, 4rem); }
+  .filo__shot {
+    aspect-ratio: 4 / 5;
+    margin-right: calc(-1 * max(var(--gutter), (100vw - var(--maxw)) / 2));
+  }
   /* La imagen se saca del flujo con position:absolute. Si se queda dentro,
      su alto intrínseco (215x540, o sea muy vertical) manda sobre el
      aspect-ratio y la columna se estiraba a 836 px: una tira larga y flaca
@@ -1498,10 +1503,9 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
    las acomoda solo y respeta la proporción de cada toma, que no es la misma
    en todas (cinco verticales, dos apaisadas).
    ========================================================================== */
-/* Cinco fotos, todas del mismo tamaño. Cinco no reparte en filas limpias:
-   a tres columnas quedan dos huecos, a dos queda uno. Las dos únicas
-   distribuciones sin hueco son una fila de cinco y una tira que se desliza,
-   así que se usa cada una donde cabe. */
+/* Nueve fotos, todas del mismo tamaño. Nueve sí reparte: tres filas de
+   tres, exactas y sin huecos. Por debajo de 62em pasa a una tira que se
+   desliza con el dedo, que tampoco deja huecos. */
 .galeria {
   list-style: none; padding: 0; margin: 0;
   display: grid; gap: clamp(.5rem, 1.2vw, .85rem);
@@ -1517,7 +1521,7 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 @media (min-width: 40em) { .galeria { grid-auto-columns: 42%; } }
 @media (min-width: 62em) {
   .galeria {
-    grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-auto-columns: auto; overflow: visible; scroll-snap-type: none;
   }
 }
