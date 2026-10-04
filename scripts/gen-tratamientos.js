@@ -113,4 +113,9 @@ fs.writeFileSync(destino, html.slice(0, ini) + bloque + html.slice(fin));
 
 const total = (bloque.match(/class="svc"/g) || []).length;
 const conFoto = (bloque.match(/data-foto/g) || []).length;
+// Al reescribir el bloque se pierden los sellos ?v= de esas imágenes, y sin
+// sello el navegador se queda con la versión vieja para siempre (vercel.json
+// marca /assets como immutable). Se vuelven a poner aquí mismo.
+require('child_process').execFileSync(process.execPath, [path.join(__dirname, 'sellar-assets.js')], { stdio: 'inherit' });
+
 console.log(`index.html actualizado: ${total} tarjetas, ${conFoto} con fotografía, ${total - conFoto} sin ella`);

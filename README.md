@@ -312,6 +312,33 @@ Domingos cerrado. Está en cuatro sitios y los cuatro tienen que coincidir:
 `DB.atencion` en `config.js`, la ficha de Ubicación, la ficha de la agenda y
 el `openingHoursSpecification` del JSON-LD en `index.html`.
 
+## El sello de los assets, y por qué no es opcional
+
+`vercel.json` marca `/assets` como `max-age=31536000, immutable`. `immutable`
+le dice al navegador que **esa URL no va a cambiar nunca**, así que ni la
+revalida. Eso es correcto solo si el nombre del archivo cambia cuando cambia
+el contenido, y aquí no cambiaba: las fotos se reemplazan conservando el
+nombre.
+
+El resultado fue un fallo real y difícil de ver: el servidor tenía las fotos
+nuevas, el sitio recién desplegado las servía bien, y aun así el navegador
+seguía pintando las viejas. Ni con Cmd+Shift+R, porque `immutable` también
+se salta la recarga forzada para los subrecursos.
+
+```bash
+node scripts/sellar-assets.js
+```
+
+Pone `?v=<sha1 corto del contenido>` en cada URL de `/assets` que aparezca
+en `index.html` y en los CSS. Cada contenido nuevo pasa a ser una URL nueva,
+el navegador la pide, y `immutable` deja de ser mentira.
+
+**Hay que correrlo después de tocar cualquier imagen o fuente y antes de
+publicar.** `gen-tratamientos.js` ya lo encadena al final, porque al
+reescribir el bloque de Tratamientos borraba los sellos de esas trece fotos.
+Es idempotente: recalcula el sello cada vez. Si una referencia apunta a un
+archivo que no está en disco, lo dice y sale con error.
+
 ## La paleta es la del manual, no una aproximación
 
 Los colores salen de la p.10 de `ADN CREATIVO & DEAR BLANC.pdf`, que es el
