@@ -759,21 +759,61 @@ h3 {
   .hero__title { font-size: clamp(3rem, 3.6vw, 4.4rem); }
 }
 
-/* En móvil la foto sube y se mete bajo la bajada: mismo principio de
-   solape. Antes eran dos carteles pegados con cinta. */
+/* MÓVIL. Antes eran dos bloques pegados: el texto arriba sobre papel y la
+   foto debajo, que además no llegaba al borde derecho y dejaba un sobrante
+   de beige al pie. Ahora la portada es la fotografía a sangre y el texto va
+   encima, como en escritorio.
+
+   El titular se apoya en la zona alta, que en esta toma es fondo
+   desenfocado, y la cara queda libre. El velo de papel solo cubre esa
+   franja alta y se apaga antes de llegar a la sonrisa. */
 @media (max-width: 56.24em) {
-  /* El margen negativo mete la foto bajo el texto, pero con -6vw se comía
-     la coronilla: en vertical el encuadre ya entra justo, así que lo único
-     que recortaba la cabeza era este margen. */
-  /* En móvil entra la toma vertical, que ya viene encuadrada: no hay que
-     recortarla, solo dejarla caer entera bajo el texto. */
-  .hero__bg { aspect-ratio: 930 / 1020; margin-top: clamp(-1.25rem, -3vw, -.75rem); }
-  /* 90% y no 76%: ella está a dos tercios del encuadre original, así que
-     con menos el recorte la dejaba a la izquierda y sobraba fondo a la
-     derecha. Medido sobre la imagen escalada, 90% la centra. */
-  .hero__bg img { object-position: center top; }
-  .hero__inner { position: relative; z-index: 2; }
-  .hero__title { font-size: clamp(2.75rem, 11.5vw, 4rem); }
+  .hero {
+    position: relative;
+    min-height: min(88svh, 760px);
+    /* El texto va abajo y no arriba: en esta toma la cara ocupa el tercio
+       alto, así que ahí el titular le caía encima de la sonrisa. Abajo hay
+       pelo y hombro, que es la zona tranquila del encuadre. */
+    display: grid; align-content: end;
+    padding-block: calc(var(--nav-h) + 1.25rem) clamp(2rem, 7vh, 3.5rem);
+    overflow: hidden;
+  }
+  .hero__grid { display: block; }
+
+  .hero__bg {
+    position: absolute; inset: 0; z-index: 0;
+    width: 100%; margin: 0; aspect-ratio: auto;
+  }
+  .hero__bg img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: 64% center;
+  }
+  /* El fundido de abajo cose la portada con la marquesina. */
+  .hero__bg::before { content: none; }   /* lo cose el velo del texto */
+
+  .hero__inner {
+    position: relative; z-index: 2;
+    max-width: none; width: 100%;
+    padding-bottom: 0;
+  }
+  /* Velo solo en la franja del texto. Se apaga al 62%, muy por encima de
+     donde empieza la sonrisa. */
+  /* El velo sube desde el pie y se apaga antes de llegar a la boca. */
+  .hero__inner::before {
+    content: ""; position: absolute; z-index: -1;
+    inset: auto calc(-1 * var(--gutter)) -8rem;
+    height: calc(100% + 14rem);
+    background: linear-gradient(0deg,
+      color-mix(in srgb, var(--paper) 94%, transparent)  0%,
+      color-mix(in srgb, var(--paper) 88%, transparent) 42%,
+      color-mix(in srgb, var(--paper) 46%, transparent) 72%,
+      transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero__title { font-size: clamp(2.5rem, 10.5vw, 3.6rem); }
+  .hero__body { max-width: 30ch; margin-top: 1rem; }
+}
 }
 
 @media (prefers-reduced-motion: reduce) {
