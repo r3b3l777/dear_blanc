@@ -1216,8 +1216,12 @@ h3 {
 /* Seis tarjetas. Con auto-fill caían cuatro arriba y dos abajo, y la
    segunda fila dejaba medio ancho vacío. Fijando tres columnas salen dos
    filas llenas; dos en tablet y una en móvil, que también son exactos. */
+/* Seis tarjetas que son solo la imagen: la pregunta y la categoría vienen
+   rotuladas dentro del archivo, en la tipografía de la marca. Tres columnas
+   a partir de 62em, dos desde 40em y una por debajo: con seis, las tres
+   reparten exacto y ninguna deja huecos. */
 .quiz--fotos {
-  display: grid; gap: clamp(.75rem, 2vw, 1.25rem);
+  display: grid; gap: clamp(.65rem, 1.6vw, 1rem);
   grid-template-columns: minmax(0, 1fr);
   margin-top: clamp(1.75rem, 4vw, 2.5rem);
 }
@@ -1225,45 +1229,25 @@ h3 {
 @media (min-width: 62em) { .quiz--fotos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 .quiz--fotos .quiz__item {
-  display: grid; gap: 0; align-content: start;
-  padding: 0; border: 1px solid var(--line);
+  display: block; padding: 0; overflow: hidden;
+  border: 1px solid var(--line);
   background: var(--surface); text-decoration: none;
-  overflow: hidden;
   transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 .quiz--fotos .quiz__item::after { content: none; }   /* fuera la flecha de la lista */
-.quiz--fotos .quiz__item:hover { transform: translateY(-3px); border-color: var(--oak); }
+.quiz--fotos .quiz__item:hover,
+.quiz--fotos .quiz__item:focus-visible { transform: translateY(-3px); border-color: var(--ink); }
 
-.quiz__shot {
-  display: block; position: relative; overflow: hidden;
-  aspect-ratio: 3 / 2; background: var(--paper-2);
-}
-.quiz__shot img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+.quiz--fotos picture { display: block; }
+.quiz--fotos img {
+  display: block; width: 100%; height: auto;
   transition: transform .7s var(--ease);
 }
-.quiz--fotos .quiz__item:hover .quiz__shot img { transform: scale(1.06); }
+.quiz--fotos .quiz__item:hover img { transform: scale(1.03); }
 
-.quiz__texto { display: block; padding: .9rem 1rem 1.1rem; }
-.quiz__titulo {
-  display: block;
-  font-family: "CMU Serif", Georgia, serif; font-size: 1.125rem;
-  line-height: 1.25; color: var(--ink);
+@media (prefers-reduced-motion: reduce) {
+  .quiz--fotos .quiz__item:hover img { transform: none; }
 }
-.quiz__nota {
-  display: block; margin-top: .3rem;
-  font-size: .75rem; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--oak-ink);
-}
-
-/* Filete dorado que se dibuja al pasar el cursor. */
-.quiz--fotos .quiz__item .quiz__texto { position: relative; }
-.quiz--fotos .quiz__item .quiz__texto::before {
-  content: ""; position: absolute; left: 1rem; right: 1rem; top: 0; height: 1px;
-  background: var(--oak); transform: scaleX(0); transform-origin: left;
-  transition: transform .45s var(--ease);
-}
-.quiz--fotos .quiz__item:hover .quiz__texto::before { transform: scaleX(1); }
 
 /* ==========================================================================
    41. El logotipo de verdad
