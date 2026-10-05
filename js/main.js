@@ -355,14 +355,27 @@
 
     function encolar(cartas) {
       var i = 0, cancelada = false;
+      var rejilla = cartas[0] && cartas[0].parentElement;
+      // Mientras dure el barrido el hover se desactiva (lo lee el CSS): si
+      // no, pasar el ratón por encima abría un segundo reverso.
+      if (rejilla) rejilla.setAttribute("data-barriendo", "");
+      function soltar() { if (rejilla) rejilla.removeAttribute("data-barriendo"); }
       // Tocar cualquiera de la rejilla detiene la cola: a partir de ahí
       // manda quien mira.
+      // pointerover y no solo pointerdown: en escritorio nadie pulsa, pasa
+      // el ratón por encima, y en cuanto lo hace debe mandar él.
       cartas.forEach(function (c) {
-        c.addEventListener("pointerdown", function () { cancelada = true; }, { once: true });
+        ["pointerdown", "pointerover"].forEach(function (ev) {
+          c.addEventListener(ev, function () {
+            cancelada = true;
+            cartas.forEach(function (o) { o.removeAttribute("data-flip"); });
+            soltar();
+          }, { once: true });
+        });
       });
 
       (function siguiente() {
-        if (cancelada || i >= cartas.length) return;
+        if (cancelada || i >= cartas.length) { soltar(); return; }
         var carta = cartas[i++];
         carta.setAttribute("data-flip", "");
         setTimeout(function () {

@@ -63,7 +63,11 @@ for (const clave of Object.keys(cat)) {
     const m = hayFoto(it.img) ? medidas(it.img) : null;
     const dos = m && fs.existsSync(rutaFoto(it.img + '@2x'));
     const base = '/assets/img/tratamientos/' + it.img;
-    const set = ext => dos ? `${base}.${ext} 440w, ${base}@2x.${ext} 880w` : `${base}.${ext} 440w`;
+    // El ancho del @2x se lee del archivo, no se da por hecho: cuatro de las
+    // láminas miden 544 de origen y declararlas 880w hacía que el navegador
+    // pidiera una densidad que no existe y escalara 1.6x.
+    const m2 = dos ? medidas(it.img + '@2x') : null;
+    const set = ext => m2 ? `${base}.${ext} ${m.w}w, ${base}@2x.${ext} ${m2.w}w` : `${base}.${ext} ${m.w}w`;
     const foto = m ? `
               <picture>
                 <source type="image/webp" srcset="${set('webp')}" sizes="${SIZES}">

@@ -792,7 +792,11 @@ h3 {
   /* Dos columnas anchas, no tres angostas: el reverso tiene que caber con
      su descripción y el botón sin recortar. A 210px de ancho el texto se
      cortaba a media frase y "Consultar precio" quedaba fuera. */
-  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  /* 228 y no 260: entre 1024 y 1071 px el panel de .tx se parte en dos
+     columnas y la rejilla cae a 498 px, por debajo de los 536 que pedían
+     dos columnas de 260. El resultado era una sola columna de tarjetas
+     enormes con media pantalla vacía al lado, justo en el iPad apaisado. */
+  grid-template-columns: repeat(auto-fill, minmax(min(228px, 100%), 1fr));
   margin-top: clamp(1.5rem, 4vw, 2.25rem);
   perspective: 1200px;      /* la fuga vive en la rejilla: todas las
                                tarjetas giran hacia el mismo punto */
@@ -824,8 +828,12 @@ h3 {
   transition: transform 1.05s var(--ease);
 }
 .svc[data-flip] .svc__flip { transform: rotateY(180deg); }
+/* El hover es CSS puro y no sabía nada de la cola del barrido, así que
+   pasando el ratón durante la pasada se veían dos reversos a la vez. Solo
+   manda cuando la rejilla ya no está barriendo. */
 @media (hover: hover) and (pointer: fine) {
-  .svc:hover .svc__flip, .svc:focus-within .svc__flip { transform: rotateY(180deg); }
+  .svcs:not([data-barriendo]) .svc:hover .svc__flip,
+  .svcs:not([data-barriendo]) .svc:focus-within .svc__flip { transform: rotateY(180deg); }
 }
 
 .svc__face {
@@ -852,12 +860,36 @@ h3 {
 .svc__front picture { position: absolute; inset: 0; }
 .svc__front img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* Velo de lectura bajo el nombre. Solo donde hay foto. */
+/* Orden de capas explícito. ::before es el primer hijo, así que sin z-index
+   queda por debajo de la <picture>. */
+.svc__front picture    { z-index: 0; }
+.svc__front::after     { z-index: 2; }
+
+/* El velo iba en rgba(20,8,12): negro con una pizca de rojo, que no es un
+   color de la marca, y llegaba hasta el 62% del alto, así que a media
+   tarjeta todavía agrisaba la foto. Se veían un 26% más oscuras.
+
+   Y al igualar las cuatro fotos de estudio con las nueve de lámina, las
+   trece pasaron a ser imágenes claras sobre beige. Sobre eso, un nombre en
+   crema no se lee por mucho velo oscuro que le eches encima, y el velo
+   oscuro además pelea con la fotografía.
+
+   Así que el velo se invierte: papel abajo y nombre en vino. Es lo que
+   pide una fotografía clara, y el único acento sigue siendo el vino.
+   Alcance 46% en vez de 62%: a media tarjeta la foto vuelve a su
+   luminancia real. */
 .svc__front[data-foto]::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(0deg, rgba(20, 8, 12, .86) 0%, rgba(20, 8, 12, .30) 36%, transparent 62%);
+  background: linear-gradient(0deg,
+    color-mix(in srgb, var(--paper) 95%, transparent)  0%,
+    color-mix(in srgb, var(--paper) 88%, transparent) 14%,
+    color-mix(in srgb, var(--paper) 36%, transparent) 30%,
+    transparent 46%);
 }
-.svc__front .svc__name { position: relative; z-index: 1; padding: .8rem .85rem .85rem; }
-.svc__front[data-foto] .svc__name { color: var(--c-cream); }
+/* z-index 3 y no 1: el velo está en 2, así que con 1 el nombre quedaba
+   pintado por debajo y se veía lavado. */
+.svc__front .svc__name { position: relative; z-index: 3; padding: .8rem .85rem .85rem; }
+.svc__front[data-foto] .svc__name { color: var(--ink); }
 
 /* ---------- Cara trasera ---------- */
 .svc__back {
