@@ -33,8 +33,14 @@ function hash(rutaWeb) {
   return v;
 }
 
-// Cualquier /assets/... con extensión, lleve ya ?v= o no.
-const PATRON = /(\/assets\/[A-Za-z0-9._\-/@]+\.(?:webp|jpg|jpeg|png|svg|woff2|ico))(\?v=[0-9a-f]+)?/g;
+// /assets, /css y /js. Los tres, lleven ya ?v= o no.
+//
+// El CSS y el JS también: index.html los pedía como "editorial.css?v=1", un
+// número puesto a mano que nunca se tocaba, y vercel.json les da una hora de
+// frescura sin revalidar. Resultado: un cambio de CSS publicado podía tardar
+// una hora en verse, y el navegador ni preguntaba. Mismo fallo que con las
+// imágenes, solo que con una hora de techo en vez de un año.
+const PATRON = /(\/(?:assets\/[A-Za-z0-9._\-/@]+\.(?:webp|jpg|jpeg|png|svg|woff2|ico)|(?:css|js)\/[A-Za-z0-9._\-]+\.(?:css|js)))(\?v=[0-9a-z]+)?/g;
 
 let tocados = 0, sinArchivo = new Set();
 for (const rel of ['index.html', 'css/styles.css', 'css/editorial.css', 'css/fonts.css', 'site.webmanifest']) {
@@ -47,6 +53,17 @@ for (const rel of ['index.html', 'css/styles.css', 'css/editorial.css', 'css/fon
     return `${ruta}?v=${h}`;
   });
   if (despues !== antes) { fs.writeFileSync(abs, despues); tocados++; }
+}
+
+// styles.css importa fonts.css con una ruta relativa, que el patrón de
+// arriba no coge por no llevar barra inicial. Va aparte.
+const stylesAbs = path.join(raiz, 'css/styles.css');
+if (fs.existsSync(stylesAbs)) {
+  const antes = fs.readFileSync(stylesAbs, 'utf8');
+  const h = hash('/css/fonts.css');
+  const despues = antes.replace(/@import url\("fonts\.css(?:\?v=[0-9a-z]+)?"\)/,
+    h ? `@import url("fonts.css?v=${h}")` : '@import url("fonts.css")');
+  if (despues !== antes) { fs.writeFileSync(stylesAbs, despues); tocados++; }
 }
 
 console.log(`sellados ${[...sello.values()].filter(Boolean).length} archivos en ${tocados} fuentes`);

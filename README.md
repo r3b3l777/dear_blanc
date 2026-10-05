@@ -329,8 +329,14 @@ se salta la recarga forzada para los subrecursos.
 node scripts/sellar-assets.js
 ```
 
-Pone `?v=<sha1 corto del contenido>` en cada URL de `/assets` que aparezca
-en `index.html` y en los CSS. Cada contenido nuevo pasa a ser una URL nueva,
+Pone `?v=<sha1 corto del contenido>` en cada URL de `/assets`, `/css` y
+`/js` que aparezca en `index.html` y en los CSS, incluido el `@import` de
+`fonts.css`, que va con ruta relativa y hay que cazar aparte.
+
+El CSS y el JS tenían el mismo fallo en versión corta: `index.html` los
+pedía como `editorial.css?v=1`, un número puesto a mano que nadie tocaba, y
+`vercel.json` les da una hora de frescura sin revalidar. Un cambio de CSS
+publicado podía tardar una hora en verse, y el navegador ni preguntaba. Cada contenido nuevo pasa a ser una URL nueva,
 el navegador la pide, y `immutable` deja de ser mentira.
 
 **Hay que correrlo después de tocar cualquier imagen o fuente y antes de
