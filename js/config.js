@@ -71,8 +71,6 @@ window.DB = {
           desc: "Transforman forma, color y armonía de ciertos dientes, siempre después de valorar tu caso." },
         { slug: "blanqueamiento",       nombre: "Blanqueamiento dental", img: "blanqueamiento",
           desc: "Un tono más claro y una sonrisa más luminosa con protocolo profesional, cuidando el esmalte." },
-        { slug: "armonizacion",         nombre: "Armonización estética", img: "armonizacion",
-          desc: "Ajustes que cambian la percepción de tu sonrisa cuando se planifican de manera integral." },
         { slug: "ortodoncia-invisible", nombre: "Ortodoncia invisible",  img: "ortodoncia-invisible",
           desc: "Alinea tu sonrisa de forma discreta y removible, a tu propio ritmo y sin brackets a la vista." }
       ]
@@ -85,10 +83,10 @@ window.DB = {
           desc: "Reemplaza la raíz del diente ausente y sostiene la corona como lo haría el tuyo." },
         { slug: "coronas",        nombre: "Corona",           img: "coronas",
           desc: "Cubre y protege el diente dañado devolviéndole forma, función y apariencia." },
-        { slug: "puentes",        nombre: "Puente",           img: "puentes",
-          desc: "Rellena el hueco de uno o varios dientes apoyándose en los que quedan a los lados." },
-        { slug: "protesis",       nombre: "Prótesis",         img: "protesis",
-          desc: "Devuelve la arcada completa cuando faltan muchos dientes, fija o removible." },
+        { slug: "puentes",        nombre: "Prótesis fija",    img: "puentes",
+          desc: "Rellena el hueco de uno o varios dientes apoyándose en los que quedan a los lados. Va fija." },
+        { slug: "protesis",       nombre: "Prótesis total",   img: "protesis",
+          desc: "Devuelve la arcada completa cuando faltan muchos dientes." },
         { slug: "restauraciones", nombre: "Restauraciones estéticas", img: "restauraciones",
           desc: "Reparan la parte dañada del diente conservando toda la estructura sana que queda." }
       ]

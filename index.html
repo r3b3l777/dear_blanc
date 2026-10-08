@@ -34,8 +34,8 @@
 
 <link rel="preload" href="/assets/fonts/CMUSerif-normal-latin.woff2?v=b4168e00" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/InstrumentSans-normal-latin.woff2?v=561da854" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/styles.css?v=9579c6e9">
-<link rel="stylesheet" href="/css/editorial.css?v=eabdf4e6">
+<link rel="stylesheet" href="/css/styles.css?v=59765dc8">
+<link rel="stylesheet" href="/css/editorial.css?v=d3c127b9">
 <noscript><style>.intro{display:none}.rv{opacity:1;transform:none}</style></noscript>
 
 <script type="application/ld+json">
@@ -218,10 +218,10 @@
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
       <span>
-        <i>Diseño de sonrisa</i><b>&#10022;</b><i>Carillas dentales</i><b>&#10022;</b><i>Blanqueamiento dental</i><b>&#10022;</b><i>Armonización estética</i><b>&#10022;</b><i>Ortodoncia invisible</i><b>&#10022;</b><i>Implantes dentales</i><b>&#10022;</b><i>Coronas</i><b>&#10022;</b><i>Puentes y prótesis</i><b>&#10022;</b><i>Restauraciones</i><b>&#10022;</b><i>Limpieza dental profesional</i><b>&#10022;</b><i>Periodoncia</i><b>&#10022;</b><i>Guardas oclusales</i><b>&#10022;</b>
+        <i>Diseño de sonrisa</i><b>&#10022;</b><i>Carillas dentales</i><b>&#10022;</b><i>Blanqueamiento dental</i><b>&#10022;</b><i>Ortodoncia invisible</i><b>&#10022;</b><i>Implantes dentales</i><b>&#10022;</b><i>Coronas</i><b>&#10022;</b><i>Prótesis fija</i><b>&#10022;</b><i>Prótesis total</i><b>&#10022;</b><i>Restauraciones</i><b>&#10022;</b><i>Limpieza dental profesional</i><b>&#10022;</b><i>Periodoncia</i><b>&#10022;</b><i>Guardas oclusales</i><b>&#10022;</b>
       </span>
       <span>
-        <i>Diseño de sonrisa</i><b>&#10022;</b><i>Carillas dentales</i><b>&#10022;</b><i>Blanqueamiento dental</i><b>&#10022;</b><i>Armonización estética</i><b>&#10022;</b><i>Ortodoncia invisible</i><b>&#10022;</b><i>Implantes dentales</i><b>&#10022;</b><i>Coronas</i><b>&#10022;</b><i>Puentes y prótesis</i><b>&#10022;</b><i>Restauraciones</i><b>&#10022;</b><i>Limpieza dental profesional</i><b>&#10022;</b><i>Periodoncia</i><b>&#10022;</b><i>Guardas oclusales</i><b>&#10022;</b>
+        <i>Diseño de sonrisa</i><b>&#10022;</b><i>Carillas dentales</i><b>&#10022;</b><i>Blanqueamiento dental</i><b>&#10022;</b><i>Ortodoncia invisible</i><b>&#10022;</b><i>Implantes dentales</i><b>&#10022;</b><i>Coronas</i><b>&#10022;</b><i>Prótesis fija</i><b>&#10022;</b><i>Prótesis total</i><b>&#10022;</b><i>Restauraciones</i><b>&#10022;</b><i>Limpieza dental profesional</i><b>&#10022;</b><i>Periodoncia</i><b>&#10022;</b><i>Guardas oclusales</i><b>&#10022;</b>
       </span>
     </div>
   </div>
@@ -242,8 +242,8 @@
       </div>
       <figure class="filo__shot rv">
         <picture>
-          <source type="image/webp" srcset="/assets/img/filosofia-especialista.webp?v=223d9d69 780w, /assets/img/filosofia-especialista@2x.webp?v=c24307e4 1560w" sizes="(min-width: 56.25em) 48vw, 88vw">
-          <img src="/assets/img/filosofia-especialista.jpg?v=ca37fa6d" srcset="/assets/img/filosofia-especialista.jpg?v=ca37fa6d 780w, /assets/img/filosofia-especialista@2x.jpg?v=c7e549c7 1560w" sizes="(min-width: 56.25em) 48vw, 88vw" width="780" height="975" loading="lazy" decoding="async" alt="Especialista de Dear Blanc explicando sobre un modelo dental en el consultorio">
+          <source type="image/webp" srcset="/assets/img/filosofia-especialista.webp?v=6ac14cea 780w, /assets/img/filosofia-especialista@2x.webp?v=017214b4 1560w" sizes="(min-width: 56.25em) 48vw, 88vw">
+          <img src="/assets/img/filosofia-especialista.jpg?v=ee2bfb7f" srcset="/assets/img/filosofia-especialista.jpg?v=ee2bfb7f 780w, /assets/img/filosofia-especialista@2x.jpg?v=cfe23c6d 1560w" sizes="(min-width: 56.25em) 48vw, 88vw" width="780" height="975" loading="lazy" decoding="async" alt="Especialista de Dear Blanc explicando sobre un modelo dental en el consultorio">
         </picture>
       </figure>
     </div>
@@ -257,46 +257,71 @@
         <h2>¿Qué quieres transformar?</h2>
         <p class="body">Empieza por lo que tú estás buscando.</p>
       </div>
-      <!-- Cada imagen trae la pregunta y la categoría rotuladas dentro, en
-           la tipografía de la marca, así que la tarjeta no repite el texto.
-           Lo que sí hace es llevarlo en el alt, que es lo que queda para
-           lectores de pantalla, buscadores y si la imagen no carga. -->
+      <!-- La pregunta y la categoría vuelven a HTML. Las fotos nuevas ya no
+           traen el rótulo dentro, y aunque lo trajeran: el texto vivo se
+           selecciona, se traduce, responde a Ctrl+F, crece cuando el lector
+           sube el tamaño de letra y lo rasteriza el navegador a la densidad
+           de la pantalla. El rotulado dentro del PNG no hace ninguna. -->
       <div class="quiz quiz--fotos">
-        <a class="quiz__item rv" href="#tratamientos" data-tab="rehabilitacion" style="--i:0">
+        <a class="quiz__item rv" href="#tratamientos" data-tab="estetica" style="--i:0">
           <picture>
-            <source type="image/webp" srcset="/assets/img/preguntas/confianza.webp?v=cb8b7b96 507w, /assets/img/preguntas/confianza@2x.webp?v=a9166ee4 1014w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
-            <img src="/assets/img/preguntas/confianza.jpg?v=8b972625" alt="Quiero volver a sonreír con confianza. Rehabilitación y estética." width="507" height="507" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="/assets/img/preguntas/confianza.webp?v=25f140b2 440w, /assets/img/preguntas/confianza@2x.webp?v=381566ed 480w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
+            <img src="/assets/img/preguntas/confianza.jpg?v=0a899a73" alt="" width="440" height="293" loading="lazy" decoding="async">
           </picture>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero volver a sonreír con confianza</span>
+            <span class="quiz__nota">Ortodoncia invisible</span>
+          </span>
         </a>
         <a class="quiz__item rv" href="#tratamientos" data-tab="estetica" style="--i:1">
           <picture>
-            <source type="image/webp" srcset="/assets/img/preguntas/apariencia.webp?v=9a7ae74d 507w, /assets/img/preguntas/apariencia@2x.webp?v=0c893283 1014w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
-            <img src="/assets/img/preguntas/apariencia.jpg?v=a714a89f" alt="Quiero mejorar la apariencia de mi sonrisa. Estética dental." width="507" height="512" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="/assets/img/preguntas/apariencia.webp?v=54c3a8b0 440w, /assets/img/preguntas/apariencia@2x.webp?v=82cb4faa 880w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
+            <img src="/assets/img/preguntas/apariencia.jpg?v=190ae779" alt="" width="440" height="293" loading="lazy" decoding="async">
           </picture>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero mejorar la apariencia de mi sonrisa</span>
+            <span class="quiz__nota">Estética dental</span>
+          </span>
         </a>
         <a class="quiz__item rv" href="#tratamientos" data-tab="estetica" style="--i:2">
           <picture>
-            <source type="image/webp" srcset="/assets/img/preguntas/luminosa.webp?v=73a01aa0 507w, /assets/img/preguntas/luminosa@2x.webp?v=66521f1a 1014w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
-            <img src="/assets/img/preguntas/luminosa.jpg?v=61056276" alt="Quiero una sonrisa más luminosa. Blanqueamiento." width="507" height="507" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="/assets/img/preguntas/luminosa.webp?v=5e36a1ec 440w, /assets/img/preguntas/luminosa@2x.webp?v=4eed437c 880w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
+            <img src="/assets/img/preguntas/luminosa.jpg?v=cc6bc8fc" alt="" width="440" height="293" loading="lazy" decoding="async">
           </picture>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero una sonrisa más luminosa</span>
+            <span class="quiz__nota">Blanqueamiento</span>
+          </span>
         </a>
         <a class="quiz__item rv" href="#tratamientos" data-tab="rehabilitacion" style="--i:3">
           <picture>
-            <source type="image/webp" srcset="/assets/img/preguntas/faltan.webp?v=68a06d9e 507w, /assets/img/preguntas/faltan@2x.webp?v=ec551c33 1014w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
-            <img src="/assets/img/preguntas/faltan.jpg?v=344a5569" alt="Me falta uno o varios dientes. Implantes y prótesis." width="507" height="507" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="/assets/img/preguntas/faltan.webp?v=135422d0 440w, /assets/img/preguntas/faltan@2x.webp?v=407d3a72 490w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
+            <img src="/assets/img/preguntas/faltan.jpg?v=e3639f1d" alt="" width="440" height="294" loading="lazy" decoding="async">
           </picture>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Me falta uno o varios dientes</span>
+            <span class="quiz__nota">Implantes y prótesis</span>
+          </span>
         </a>
         <a class="quiz__item rv" href="#tratamientos" data-tab="salud" style="--i:4">
           <picture>
-            <source type="image/webp" srcset="/assets/img/preguntas/salud.webp?v=4a4b9cdb 507w, /assets/img/preguntas/salud@2x.webp?v=66df3655 1014w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
-            <img src="/assets/img/preguntas/salud.jpg?v=8d782fcd" alt="Quiero cuidar mejor mi salud oral. Prevención y mantenimiento." width="507" height="512" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="/assets/img/preguntas/salud.webp?v=beab38f9 440w, /assets/img/preguntas/salud@2x.webp?v=150fd540 880w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
+            <img src="/assets/img/preguntas/salud.jpg?v=19cafdcf" alt="" width="440" height="293" loading="lazy" decoding="async">
           </picture>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">Quiero cuidar mejor mi salud oral</span>
+            <span class="quiz__nota">Prevención y mantenimiento</span>
+          </span>
         </a>
         <a class="quiz__item rv" href="#tratamientos" data-tab="salud" style="--i:5">
           <picture>
-            <source type="image/webp" srcset="/assets/img/preguntas/nose.webp?v=2a225fd4 507w, /assets/img/preguntas/nose@2x.webp?v=82b63d53 1014w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
-            <img src="/assets/img/preguntas/nose.jpg?v=560a370c" alt="No sé qué necesito. Empieza por una valoración." width="507" height="507" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="/assets/img/preguntas/nose.webp?v=b6ed2b61 440w, /assets/img/preguntas/nose@2x.webp?v=c0f1976b 495w" sizes="(min-width: 62em) 31vw, (min-width: 40em) 46vw, 88vw">
+            <img src="/assets/img/preguntas/nose.jpg?v=23f6f40a" alt="" width="440" height="293" loading="lazy" decoding="async">
           </picture>
+          <span class="quiz__texto">
+            <span class="quiz__titulo">No sé qué necesito</span>
+            <span class="quiz__nota">Empieza por una valoración</span>
+          </span>
         </a>
     </div>
   </section>
@@ -310,10 +335,6 @@
           <h2>Todo comienza por escucharte</h2>
           <!-- Lo primero que se lee: la valoración va incluida. Es la
                objeción número uno antes de escribir por WhatsApp. -->
-          <p class="val__flag">
-            <span class="disc disc--sm"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>
-            <span><strong>Incluida en tu primera cita.</strong> No es un servicio aparte ni se cobra por separado.</span>
-          </p>
           <p class="body">Antes de hablar de tratamientos, queremos entenderte. Hacemos un diagnóstico integral y definimos contigo el camino más adecuado.</p>
           <p class="val__quote">Tu sonrisa no necesita un tratamiento genérico. Necesita un plan pensado para ti.</p>
         </div>
@@ -374,8 +395,8 @@
               <div class="svc__flip">
                 <div class="svc__face svc__front" data-foto data-ghost="C">
               <picture>
-                <source type="image/webp" srcset="/assets/img/tratamientos/carillas.webp?v=8680e8e8 440w, /assets/img/tratamientos/carillas@2x.webp?v=085355c2 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
-                <img src="/assets/img/tratamientos/carillas.jpg?v=a4785687" srcset="/assets/img/tratamientos/carillas.jpg?v=a4785687 440w, /assets/img/tratamientos/carillas@2x.jpg?v=31872181 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Carillas dentales" width="440" height="293" loading="lazy" decoding="async">
+                <source type="image/webp" srcset="/assets/img/tratamientos/carillas.webp?v=411a8ecf 440w, /assets/img/tratamientos/carillas@2x.webp?v=825414c4 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
+                <img src="/assets/img/tratamientos/carillas.jpg?v=ab6cd404" srcset="/assets/img/tratamientos/carillas.jpg?v=ab6cd404 440w, /assets/img/tratamientos/carillas@2x.jpg?v=01125890 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Carillas dentales" width="440" height="293" loading="lazy" decoding="async">
               </picture>
                   <h4 class="svc__name">Carillas dentales</h4>
                 </div>
@@ -402,23 +423,7 @@
               </div>
               <button type="button" class="svc__girar" aria-label="Ver la descripción de Blanqueamiento dental"></button>
               </article>
-              <article class="svc" data-svc="armonizacion" style="--i:3">
-              <div class="svc__flip">
-                <div class="svc__face svc__front" data-foto data-ghost="A">
-              <picture>
-                <source type="image/webp" srcset="/assets/img/tratamientos/armonizacion.webp?v=63ad77c1 440w, /assets/img/tratamientos/armonizacion@2x.webp?v=62ade784 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
-                <img src="/assets/img/tratamientos/armonizacion.jpg?v=e9066309" srcset="/assets/img/tratamientos/armonizacion.jpg?v=e9066309 440w, /assets/img/tratamientos/armonizacion@2x.jpg?v=7d3b289f 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Armonización estética" width="440" height="293" loading="lazy" decoding="async">
-              </picture>
-                  <h4 class="svc__name">Armonización estética</h4>
-                </div>
-                <div class="svc__face svc__back">
-                  <h4 class="svc__name">Armonización estética</h4>
-                  <p class="svc__desc">Ajustes que cambian la percepción de tu sonrisa cuando se planifican de manera integral.</p>
-                </div>
-              </div>
-              <button type="button" class="svc__girar" aria-label="Ver la descripción de Armonización estética"></button>
-              </article>
-              <article class="svc" data-svc="ortodoncia-invisible" style="--i:4">
+              <article class="svc" data-svc="ortodoncia-invisible" style="--i:3">
               <div class="svc__flip">
                 <div class="svc__face svc__front" data-foto data-ghost="O">
               <picture>
@@ -480,32 +485,32 @@
                 <div class="svc__face svc__front" data-foto data-ghost="P">
               <picture>
                 <source type="image/webp" srcset="/assets/img/tratamientos/puentes.webp?v=8706e186 440w, /assets/img/tratamientos/puentes@2x.webp?v=a0a82058 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
-                <img src="/assets/img/tratamientos/puentes.jpg?v=95feb79b" srcset="/assets/img/tratamientos/puentes.jpg?v=95feb79b 440w, /assets/img/tratamientos/puentes@2x.jpg?v=3bdd9475 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Puente" width="440" height="293" loading="lazy" decoding="async">
+                <img src="/assets/img/tratamientos/puentes.jpg?v=95feb79b" srcset="/assets/img/tratamientos/puentes.jpg?v=95feb79b 440w, /assets/img/tratamientos/puentes@2x.jpg?v=3bdd9475 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Prótesis fija" width="440" height="293" loading="lazy" decoding="async">
               </picture>
-                  <h4 class="svc__name">Puente</h4>
+                  <h4 class="svc__name">Prótesis fija</h4>
                 </div>
                 <div class="svc__face svc__back">
-                  <h4 class="svc__name">Puente</h4>
-                  <p class="svc__desc">Rellena el hueco de uno o varios dientes apoyándose en los que quedan a los lados.</p>
+                  <h4 class="svc__name">Prótesis fija</h4>
+                  <p class="svc__desc">Rellena el hueco de uno o varios dientes apoyándose en los que quedan a los lados. Va fija.</p>
                 </div>
               </div>
-              <button type="button" class="svc__girar" aria-label="Ver la descripción de Puente"></button>
+              <button type="button" class="svc__girar" aria-label="Ver la descripción de Prótesis fija"></button>
               </article>
               <article class="svc" data-svc="protesis" style="--i:3">
               <div class="svc__flip">
                 <div class="svc__face svc__front" data-foto data-ghost="P">
               <picture>
                 <source type="image/webp" srcset="/assets/img/tratamientos/protesis.webp?v=c7da3391 440w, /assets/img/tratamientos/protesis@2x.webp?v=d6086395 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
-                <img src="/assets/img/tratamientos/protesis.jpg?v=65b74fea" srcset="/assets/img/tratamientos/protesis.jpg?v=65b74fea 440w, /assets/img/tratamientos/protesis@2x.jpg?v=7f1135df 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Prótesis" width="440" height="293" loading="lazy" decoding="async">
+                <img src="/assets/img/tratamientos/protesis.jpg?v=65b74fea" srcset="/assets/img/tratamientos/protesis.jpg?v=65b74fea 440w, /assets/img/tratamientos/protesis@2x.jpg?v=7f1135df 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Prótesis total" width="440" height="293" loading="lazy" decoding="async">
               </picture>
-                  <h4 class="svc__name">Prótesis</h4>
+                  <h4 class="svc__name">Prótesis total</h4>
                 </div>
                 <div class="svc__face svc__back">
-                  <h4 class="svc__name">Prótesis</h4>
-                  <p class="svc__desc">Devuelve la arcada completa cuando faltan muchos dientes, fija o removible.</p>
+                  <h4 class="svc__name">Prótesis total</h4>
+                  <p class="svc__desc">Devuelve la arcada completa cuando faltan muchos dientes.</p>
                 </div>
               </div>
-              <button type="button" class="svc__girar" aria-label="Ver la descripción de Prótesis"></button>
+              <button type="button" class="svc__girar" aria-label="Ver la descripción de Prótesis total"></button>
               </article>
               <article class="svc" data-svc="restauraciones" style="--i:4">
               <div class="svc__flip">
@@ -536,8 +541,8 @@
               <div class="svc__flip">
                 <div class="svc__face svc__front" data-foto data-ghost="L">
               <picture>
-                <source type="image/webp" srcset="/assets/img/tratamientos/limpieza-prevencion.webp?v=7d2d85f6 440w, /assets/img/tratamientos/limpieza-prevencion@2x.webp?v=52346884 544w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
-                <img src="/assets/img/tratamientos/limpieza-prevencion.jpg?v=b5586508" srcset="/assets/img/tratamientos/limpieza-prevencion.jpg?v=b5586508 440w, /assets/img/tratamientos/limpieza-prevencion@2x.jpg?v=8cf195aa 544w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Limpieza dental y prevención" width="440" height="294" loading="lazy" decoding="async">
+                <source type="image/webp" srcset="/assets/img/tratamientos/limpieza-prevencion.webp?v=c20b1bef 440w, /assets/img/tratamientos/limpieza-prevencion@2x.webp?v=460a6b52 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw">
+                <img src="/assets/img/tratamientos/limpieza-prevencion.jpg?v=1ef0e6d0" srcset="/assets/img/tratamientos/limpieza-prevencion.jpg?v=1ef0e6d0 440w, /assets/img/tratamientos/limpieza-prevencion@2x.jpg?v=f3ba9353 880w" sizes="(min-width: 64em) 26vw, (min-width: 40em) 44vw, 86vw" alt="Limpieza dental y prevención" width="440" height="293" loading="lazy" decoding="async">
               </picture>
                   <h4 class="svc__name">Limpieza dental y prevención</h4>
                 </div>
@@ -659,10 +664,23 @@
   <!-- ===== 11. Atención integral ===== -->
   <section class="section section--clay" id="atencion">
     <div class="wrap">
-      <div class="head rv" style="max-width:40rem">
+      <div class="head rv">
         <p class="eyebrow">Un equipo, un plan</p>
-        <h2>Una clínica. Un equipo. Un plan para ti.</h2>
-        <p class="body">En Dear Blanc reunimos diferentes áreas de atención para acompañarte de manera integral. Dependiendo de tu diagnóstico, coordinamos las especialidades que tu tratamiento requiera, porque tu sonrisa no debería verse por partes: la estética, la función y la salud deben trabajar juntas para lograr un resultado armónico.</p>
+        <!-- Las tres frases, línea por línea y escalonadas, como el titular
+             de la portada. Corridas en un renglón se leían como una sola
+             cosa; partidas, cada una pesa. -->
+        <h2 class="trio">
+          <span>Una clínica.</span>
+          <span>Un equipo.</span>
+          <span>Un plan para ti.</span>
+        </h2>
+        <!-- El párrafo iba de corrido y eran cinco líneas seguidas. Partido
+             en tres ideas se recorre en vez de leerse. -->
+        <div class="ideas">
+          <p>Reunimos distintas áreas de atención bajo el mismo techo.</p>
+          <p>Según tu diagnóstico, coordinamos las especialidades que tu tratamiento necesite.</p>
+          <p>Tu sonrisa no debería verse por partes: estética, función y salud trabajan juntas.</p>
+        </div>
       </div>
 
       <!-- Equipo. Las tarjetas las pinta js/main.js desde DB.equipo y van
@@ -795,10 +813,6 @@
             <span class="disc"><svg aria-hidden="true"><use href="#i-clock"></use></svg></span>
             <div><dt>Te respondemos</dt><dd>El mismo día, en horario de consultorio</dd></div>
           </div>
-          <div class="fact">
-            <span class="disc"><svg aria-hidden="true"><use href="#i-clipboard-text"></use></svg></span>
-            <div><dt>Sales con un plan</dt><dd>Por escrito y pensado para tu caso</dd></div>
-          </div>
         </dl>
       </div>
 
@@ -882,7 +896,7 @@
   <span><span class="wa-fab__pre">Agendar por </span>WhatsApp</span>
 </a>
 
-<script src="/js/config.js?v=4009364d"></script>
+<script src="/js/config.js?v=4842651a"></script>
 <script src="/js/main.js?v=876ab1ba"></script>
 </body>
 </html>
