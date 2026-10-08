@@ -35,7 +35,7 @@
 <link rel="preload" href="/assets/fonts/CMUSerif-normal-latin.woff2?v=b4168e00" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/InstrumentSans-normal-latin.woff2?v=561da854" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/styles.css?v=59765dc8">
-<link rel="stylesheet" href="/css/editorial.css?v=d7577f71">
+<link rel="stylesheet" href="/css/editorial.css?v=cd6bcd53">
 <noscript><style>.intro{display:none}.rv{opacity:1;transform:none}</style></noscript>
 
 <script type="application/ld+json">
@@ -693,13 +693,24 @@
           <span>Un equipo.</span>
           <span>Un plan para ti.</span>
         </h2>
-        <!-- El párrafo iba de corrido y eran cinco líneas seguidas. Partido
-             en tres ideas se recorre en vez de leerse. -->
-        <div class="ideas">
-          <p>Reunimos distintas áreas de atención bajo el mismo techo.</p>
-          <p>Según tu diagnóstico, coordinamos las especialidades que tu tratamiento necesite.</p>
-          <p>Tu sonrisa no debería verse por partes: estética, función y salud trabajan juntas.</p>
-        </div>
+        <!-- Tres ideas de peso parejo, no una lista: cada una es una celda
+             con rótulo y frase, cerrada por filetes de 1px. Mismo armado que
+             la ficha de #airflow (dl > div > dt + dd). Los rótulos recogen
+             los tres sustantivos del propio titular. -->
+        <dl class="ideas">
+          <div class="idea">
+            <dt>La clínica</dt>
+            <dd>Reunimos distintas áreas de atención bajo el mismo techo.</dd>
+          </div>
+          <div class="idea">
+            <dt>El plan</dt>
+            <dd>Tu diagnóstico define qué especialidades entran al plan.</dd>
+          </div>
+          <div class="idea">
+            <dt>La sonrisa</dt>
+            <dd>Estética, función y salud se tratan juntas, nunca por partes.</dd>
+          </div>
+        </dl>
       </div>
 
       <!-- Equipo. Las tarjetas las pinta js/main.js desde DB.equipo y van

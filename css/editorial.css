@@ -1666,21 +1666,58 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 .trio > span:nth-child(2) { padding-left: .5em; }
 .trio > span:nth-child(3) { padding-left: 1em; color: var(--ink-2); }
 
-.ideas { display: grid; gap: clamp(.9rem, 2vw, 1.25rem); max-width: 38ch; }
-.ideas p {
-  margin: 0; padding-left: 1.1rem; position: relative;
-  font-size: 1rem; line-height: 1.6; color: var(--ink-2);
+/* Las tres ideas. Mismo lenguaje que la ficha de #airflow: celda de rótulo
+   + frase, filete de 1px de --line cerrando arriba y entre celdas.
+
+   El filete corto que había delante de cada párrafo medía 7.19x1 px de
+   tinta plena (10.38:1 sobre arena, contra el 1.28:1 del filete de la casa):
+   demasiado oscuro para ser un filete y demasiado corto para agrupar nada,
+   así que las tres se leían como viñetas de lista.
+
+   Y por debajo de 62em .ideas no recibía ningún margen, ni el de .body ni
+   el de .head p, porque era un div: "Un plan para ti." y la primera idea
+   quedaban a 0.0 px una de otra. Medido. Ahora hay 28. */
+.ideas {
+  display: grid;
+  margin: clamp(1.75rem, 3.5vw, 2.25rem) 0 0;
+  max-width: none;
+  border-top: 1px solid var(--line);
 }
-.ideas p::before {
-  content: ""; position: absolute; left: 0; top: .65em;
-  width: .45rem; height: 1px; background: var(--ink);
+.idea { padding-block: .95rem; border-bottom: 1px solid var(--line); }
+
+/* El rótulo va en --ink-2 y no en --ink-3 como .af__dato dt: sobre arena,
+   --ink-3 se queda en 4.22:1 y no llega al AA a 11 px. Aquí da 6.09:1. */
+.idea dt {
+  font-size: .6875rem;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink-2);
+}
+/* Con el rótulo cargando el peso, la frase puede ir a tinta plena.
+   text-wrap: balance reparte las dos líneas del móvil: sin él la primera
+   idea cerraba con un muñón de 99 px. */
+.idea dd {
+  margin: .5rem 0 0;
+  font-size: 1rem; line-height: 1.5;
+  color: var(--ink);
+  text-wrap: balance;
 }
 
 @media (min-width: 62em) {
   .section > .wrap > .head:not(.head--center) > .ideas {
-    grid-column: 2; grid-row: 1 / span 3; align-self: end; margin-top: 0;
-    padding-bottom: .35em;
+    grid-column: 2; grid-row: 1 / span 3;
+    align-self: end; margin-top: 0;
+    padding-bottom: 0;   /* el .35em del bloque 42 dejaba la última línea
+                            base 14.9 px por debajo de la del titular */
   }
+}
+
+/* De 992 a 1139 la columna derecha no da para una línea por idea y salían
+   celdas de 98.4 / 74.4 / 98.4. Se cierra la medida para que las tres rompan
+   igual, en dos líneas. Se cambia la medida, no el cuerpo. */
+@media (min-width: 62em) and (max-width: 71.24em) {
+  .section > .wrap > .head:not(.head--center) > .ideas { max-width: 24rem; }
 }
 
 
