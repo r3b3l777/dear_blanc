@@ -26,8 +26,8 @@ window.DB = {
   /* Horario de atención. `dias` alimenta el JSON-LD y la ficha de ubicación;
      `resumen` es la línea corta que se repite en la barra y el pie. */
   atencion: {
-    resumen: "Lun a Vie 9:00-14:00 y 16:00-20:00 · Sáb 9:00-14:00",
-    detalle: "Lunes a viernes de 9:00 a 14:00 y de 16:00 a 20:00. Sábados de 9:00 a 14:00. Domingos cerrado.",
+    resumen: "Lun a Vie 10:00-14:00 y 16:00-19:00 · Sáb 9:00-14:00",
+    detalle: "Lunes a viernes de 10:00 a 14:00 y de 16:00 a 19:00. Sábados de 9:00 a 14:00. Domingos cerrado.",
     domingo: "Domingos cerrado"
   },
 
@@ -44,8 +44,8 @@ window.DB = {
   /* Franjas horarias que se ofrecen en el paso 2. Reflejan el horario real:
      mañana corrida de 9 a 14, tarde de 16 a 20 (el sábado solo hay mañana). */
   horarios: [
-    { id: "manana",   nombre: "Por la mañana", nota: "9:00 a 14:00" },
-    { id: "tarde",    nombre: "Por la tarde",  nota: "16:00 a 20:00, de lunes a viernes" },
+    { id: "manana",   nombre: "Por la mañana", nota: "10:00 a 14:00, de lunes a viernes" },
+    { id: "tarde",    nombre: "Por la tarde",  nota: "16:00 a 19:00, de lunes a viernes" },
     { id: "sabado",   nombre: "El sábado",     nota: "9:00 a 14:00" },
     { id: "flexible", nombre: "Me acomodo",    nota: "Cualquier horario" }
   ],
