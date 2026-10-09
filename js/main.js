@@ -80,6 +80,9 @@
     var fab = $("#waFab");   if (fab) fab.href = base;
     var fw  = $("#footWa");  if (fw)  { fw.href = base; fw.target = "_blank"; fw.rel = "noopener"; }
     // Ficha de contacto del cierre (lámina 12): muestra el número real.
+    // Sección GBT: abre WhatsApp con el mensaje ya escrito.
+    var gw  = $("#gbtWa");
+    if (gw) { gw.href = wa("Hola, quiero agendar mi experiencia GBT (Guided Biofilm Therapy) en Dear Blanc."); gw.target = "_blank"; gw.rel = "noopener"; }
     var cw  = $("#closeWa");
     if (cw) {
       cw.href = base; cw.target = "_blank"; cw.rel = "noopener";

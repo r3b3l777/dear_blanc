@@ -610,8 +610,10 @@ h3 {
    funciona sin él y la foto ya aparece más abajo, en El estudio.
    -------------------------------------------------------------------------- */
 .filo { display: grid; gap: clamp(1.5rem, 4vw, 3rem); }
-.filo__shot { margin: 0; display: none; }
-.filo__shot img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+/* En el teléfono la foto va debajo del texto, en 4:5 y anclada arriba
+   (ahí está lo que importa). Antes se apagaba por debajo de 900px. */
+.filo__shot { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
+.filo__shot img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; border-radius: 2px; }
 .filo .claim { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
 
 @media (min-width: 900px) {
@@ -1738,13 +1740,15 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
 
 /* --- 52.1 El hero fotográfico ------------------------------------------- */
 .af__hero {
-  margin: 0 0 clamp(2rem, 4.5vw, 3.25rem);
+  /* La foto del Prophylaxis Master ocupa todo el cuadro (5:4, con el rótulo
+     a ras de la base): cualquier recorte se come el frasco o el letrero, así
+     que se muestra entera y se acota el ancho en escritorio. */
+  margin: 0 auto clamp(2rem, 4.5vw, 3.25rem);
   width: 100%;
+  max-width: 860px;
+  aspect-ratio: 1100 / 879;
   overflow: hidden;
   background: var(--paper-2);
-  /* Móvil: retrato. Se recorta por los lados (ahí solo hay fondo) y el
-     equipo llega a ocupar tres cuartos del ancho del teléfono. */
-  aspect-ratio: 4 / 5;
 }
 .af__hero picture { display: contents; }
 .af__hero img {
@@ -1752,25 +1756,23 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
-}
-
-@media (min-width: 40em) {
-  /* Tableta: 4:3. Recorte lateral del 5.6% por lado, nada en vertical. */
-  .af__hero { aspect-ratio: 4 / 3; }
 }
 @media (min-width: 62em) {
-  /* Escritorio: banda apaisada 7:4. Recorta 7.1% arriba y abajo, con el
-     rótulo a salvo (acaba en el 88%). El tope de 1500px evita que en un
-     monitor ancho la banda se coma la pantalla entera. */
-  .af__hero {
-    aspect-ratio: 7 / 4;
-    max-width: 1500px;
-    margin-inline: auto;
-  }
+  .af__hero { border-radius: 2px; }
 }
 
-/* --- 52.2 La ficha: una sola retícula ----------------------------------- */
+.af__lead {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 52ch;
+}
+.af__cta { margin-top: clamp(1.75rem, 3.5vw, 2.5rem); }
+@media (max-width: 39.99em) {
+  .af__cta .btn { width: 100%; }
+}
+
 .af__ficha {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -1816,14 +1818,6 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
   max-width: 34ch;
 }
 
-.af__nota {
-  margin: 1rem 0 0;
-  font-size: .8125rem;
-  line-height: 1.5;
-  color: var(--ink-3);
-  max-width: 54ch;
-}
-
 /* Dos beneficios por fila en cuanto hay ancho, ya sin hueco entre celdas. */
 @media (min-width: 40em) {
   .af__benes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1847,5 +1841,4 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
   .af__bene:nth-child(-n+2) { border-top: 0; }
   .af__bene .disc { width: 46px; height: 46px; }
   .af__bene .disc svg { width: 17px; height: 17px; }
-  .af__nota { margin-top: 1.1rem; }
 }
