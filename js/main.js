@@ -241,6 +241,33 @@
     revelables.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- GBT: paralaje del equipo ----------
+     Mientras la banda cruza la pantalla, la foto se desplaza ±22 px en
+     sentido contrario al scroll: el aparato parece estar un plano por
+     detrás del texto. Solo escribe una variable CSS (--af-y) dentro de un
+     rAF, y solo mientras la banda está a la vista. Sin paralaje si se
+     pidió menos movimiento. */
+  (function () {
+    var banda = $(".af__stage"), img = $(".af__hero img");
+    if (reduce || !banda || !img || !("IntersectionObserver" in window)) return;
+    var visible = false, pendiente = false;
+    function mover() {
+      pendiente = false;
+      var r = banda.getBoundingClientRect(), vh = window.innerHeight;
+      // 0 cuando la banda asoma por abajo, 1 cuando se va por arriba.
+      var p = (vh - r.top) / (vh + r.height);
+      p = Math.max(0, Math.min(1, p));
+      img.style.setProperty("--af-y", ((0.5 - p) * 44).toFixed(1) + "px");
+    }
+    function pedir() { if (visible && !pendiente) { pendiente = true; requestAnimationFrame(mover); } }
+    new IntersectionObserver(function (e) {
+      visible = e[0].isIntersecting;
+      pedir();
+    }).observe(banda);
+    window.addEventListener("scroll", pedir, { passive: true });
+    window.addEventListener("resize", pedir);
+  })();
+
   /* ---------- Pestañas de tratamientos (patrón WAI-ARIA) ---------- */
   var tabs = $$(".tx__tab");
   function activarTab(tab, enfocar) {

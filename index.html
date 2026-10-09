@@ -627,28 +627,39 @@
   </section>
 
   <!-- ===== 10. GBT · Guided Biofilm Therapy ===== -->
-  <section class="section section--tint section--hito" id="airflow">
-    <div class="wrap">
-      <div class="head rv">
-        <p class="eyebrow">Nuevo en nuestra clínica ✨</p>
-        <h2>No todas las limpiezas dentales son iguales</h2>
-        <p class="body">Descubre una nueva experiencia para cuidar tu sonrisa. La higiene dental profesional ha evolucionado, y ahora puedes vivirla en nuestra clínica.</p>
-        <p class="body" style="margin-top:.75rem">Presentamos <strong>GBT — Guided Biofilm Therapy</strong>, un protocolo de higiene dental profesional de EMS que integra evaluación, prevención y tecnología avanzada. Porque cuidar tu sonrisa debería ser una experiencia que quieras repetir.</p>
+  <!-- Hero interior: el equipo es el protagonista. La banda de arriba
+       (.af__stage) va a sangre y prolonga el fondo de estudio de la foto,
+       así el aparato se ve entero, sin recortes, y grande. Las dos
+       bajadas van en un solo contenedor (.af__bajada): sueltas, la regla
+       de cabeceras a dos columnas (bloque 42) las metía en la misma celda
+       y se encimaban de 992 px en adelante. -->
+  <section class="section section--tint section--hito af" id="airflow">
+    <div class="af__stage">
+      <div class="wrap af__top">
+        <p class="eyebrow rv">Nuevo en nuestra clínica ✨</p>
+        <h2 class="rv">No todas las limpiezas dentales son iguales</h2>
+      </div>
+
+      <figure class="af__hero rv">
+        <picture>
+          <source type="image/webp" srcset="/assets/img/airflow.webp?v=45787424 1100w, /assets/img/airflow@2x.webp?v=19f968e7 1320w" sizes="(min-width: 62em) 940px, 100vw">
+          <img src="/assets/img/airflow.jpg?v=e1684b53" srcset="/assets/img/airflow.jpg?v=e1684b53 1100w, /assets/img/airflow@2x.jpg?v=00c1e773 1320w" sizes="(min-width: 62em) 940px, 100vw" alt="Equipo EMS AIRFLOW Prophylaxis Master con sus piezas de mano AIRFLOW MAX y PIEZON LED" width="1100" height="879" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="wrap">
+        <div class="af__bajada">
+          <p class="body rv">Descubre una nueva experiencia para cuidar tu sonrisa. La higiene dental profesional ha evolucionado, y ahora puedes vivirla en nuestra clínica.</p>
+          <p class="body rv">Presentamos <strong>GBT — Guided Biofilm Therapy</strong>, un protocolo de higiene dental profesional de EMS que integra evaluación, prevención y tecnología avanzada. Porque cuidar tu sonrisa debería ser una experiencia que quieras repetir.</p>
+        </div>
       </div>
     </div>
-
-    <figure class="af__hero rv">
-      <picture>
-        <source type="image/webp" srcset="/assets/img/airflow.webp?v=45787424 1100w, /assets/img/airflow@2x.webp?v=19f968e7 1320w" sizes="(min-width: 62em) 860px, 100vw">
-        <img src="/assets/img/airflow.jpg?v=e1684b53" srcset="/assets/img/airflow.jpg?v=e1684b53 1100w, /assets/img/airflow@2x.jpg?v=00c1e773 1320w" sizes="(min-width: 62em) 860px, 100vw" alt="Equipo EMS AIRFLOW Prophylaxis Master con sus piezas de mano AIRFLOW MAX y PIEZON LED" width="1100" height="879" loading="lazy" decoding="async">
-      </picture>
-    </figure>
 
     <div class="wrap">
       <p class="af__lead rv">Incorporamos el protocolo Guided Biofilm Therapy de EMS, que combina prevención, tecnología AIRFLOW® y atención personalizada para cuidar tu sonrisa.</p>
 
-      <div class="af__ficha rv">
-        <dl class="af__datos">
+      <div class="af__ficha">
+        <dl class="af__datos rv">
           <div class="af__dato"><dt>Equipo</dt><dd>EMS AIRFLOW® Prophylaxis Master</dd></div>
           <div class="af__dato"><dt>Protocolo</dt><dd>GBT Therapy · protocolo de 8 pasos</dd></div>
           <div class="af__dato"><dt>Tecnología</dt><dd>NO PAIN, mínimamente invasiva</dd></div>
@@ -656,22 +667,22 @@
         </dl>
 
         <ul class="af__benes">
-          <li class="af__bene">
+          <li class="af__bene rv">
             <span class="disc"><svg aria-hidden="true"><use href="#i-scan"></use></svg></span>
             <h3>Limpieza dirigida del biofilm</h3>
             <p>Primero se revela la placa y luego se limpia justo donde está.</p>
           </li>
-          <li class="af__bene">
+          <li class="af__bene rv">
             <span class="disc"><svg aria-hidden="true"><use href="#i-check-circle"></use></svg></span>
             <h3>Enfoque mínimamente invasivo</h3>
             <p>Tecnología NO PAIN que cuida esmalte, encías, implantes y ortodoncia.</p>
           </li>
-          <li class="af__bene">
+          <li class="af__bene rv">
             <span class="disc"><svg aria-hidden="true"><use href="#i-wind"></use></svg></span>
             <h3>Mayor precisión y mejor acceso</h3>
             <p>Llega a las zonas difíciles entre dientes, encías e implantes.</p>
           </li>
-          <li class="af__bene">
+          <li class="af__bene rv">
             <span class="disc"><svg aria-hidden="true"><use href="#i-sparkle"></use></svg></span>
             <h3>Experiencia adaptada a ti</h3>
             <p>Cada paso se ajusta a tu boca y a tu sensibilidad.</p>

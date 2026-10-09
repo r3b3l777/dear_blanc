@@ -1738,27 +1738,125 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
    formatos de abajo están calculados para que el rótulo no se pierda.
    ========================================================================== */
 
-/* --- 52.1 El hero fotográfico ------------------------------------------- */
+/* --- 52.1 El hero fotográfico -------------------------------------------
+   La sección abre como una portada interior: una banda a sangre en la que
+   el equipo es lo primero y lo más grande que se ve.
+
+   La foto del Prophylaxis Master ocupa todo el cuadro (5:4) y el rótulo
+   "AIRFLOW PROPHYLAXIS MASTER" queda al 82–87% de la altura: cualquier
+   recorte vertical se come el frasco o el letrero. Así que no se recorta;
+   lo que se hace es prolongar el fondo. El estudio de la foto es un beige
+   cálido que va de #F6EEE3 (arriba a la derecha) a #DFD6CD (abajo a la
+   izquierda); la banda repite ese degradado y los bordes de la imagen se
+   funden con una máscara, de modo que el aparato parece estar en la
+   página y no dentro de un rectángulo.
+   ------------------------------------------------------------------------ */
+.af.section { padding-top: 0; }
+
+.af__stage {
+  --af-fondo: #EDE5DA;
+  position: relative;
+  padding-top: clamp(3rem, 8vw, 5.5rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  /* Luz de estudio arriba al centro, como la de la foto, y el degradado
+     termina en --paper-2 para que la banda se cierre sin costura con el
+     resto de la sección. */
+  background:
+    radial-gradient(60% 55% at 58% 38%, #F5EDE2 0%, rgba(245, 237, 226, 0) 70%),
+    linear-gradient(180deg, #F1E9DE 0%, var(--af-fondo) 48%, #E6DDD3 80%, var(--paper-2) 100%);
+  overflow: hidden;   /* el vaivén de la foto nunca empuja el scroll lateral */
+}
+
+.af__top { text-align: center; }
+.af__top .eyebrow { margin: 0; justify-content: center; }
+.af__top h2 {
+  margin: .9rem auto 0;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+
 .af__hero {
-  /* La foto del Prophylaxis Master ocupa todo el cuadro (5:4, con el rótulo
-     a ras de la base): cualquier recorte se come el frasco o el letrero, así
-     que se muestra entera y se acota el ancho en escritorio. */
-  margin: 0 auto clamp(2rem, 4.5vw, 3.25rem);
+  position: relative;
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+  /* Móvil: a sangre, de borde a borde. Las piezas de mano llegan casi a
+     los lados de la foto; con el gutter se veían pegadas al margen. */
   width: 100%;
-  max-width: 860px;
+  /* Escritorio: lo más grande que quepa con el titular en la misma
+     pantalla. 1.25 es la proporción 1100/879; 15rem, lo que ocupan el
+     cintillo, el titular y el aire de arriba. */
+  max-width: min(58.75rem, calc((100vh - 15rem) * 1.25));
+  max-width: min(58.75rem, calc((100svh - 15rem) * 1.25));
   aspect-ratio: 1100 / 879;
-  overflow: hidden;
-  background: var(--paper-2);
 }
 .af__hero picture { display: contents; }
+/* En teléfono la foto se amplía un 12% y se deja salir 6% por cada lado:
+   lo que se pierde es fondo y el fundido de la máscara (las ruedas de las
+   piezas de mano empiezan al 15%), y el equipo gana casi 40 px de alto. */
+@media (max-width: 47.99em) {
+  .af__hero { width: 112%; max-width: none; margin-inline: -6%; }
+}
 .af__hero img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  /* Bordes fundidos: 7% a los lados (las ruedas de las piezas de mano
+     empiezan al 15%), 6% arriba, y abajo solo a partir del 90%, donde ya
+     no hay letrero, solo la base y las mangueras. */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 6%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 6%, #000 90%, transparent 100%);
+          mask-composite: intersect;
+  /* --af-y lo escribe main.js al hacer scroll (paralaje); sin JS vale 0. */
+  transform: translate3d(0, var(--af-y, 0px), 0);
+  will-change: transform;
 }
-@media (min-width: 62em) {
-  .af__hero { border-radius: 2px; }
+
+/* La entrada del equipo: sube, crece un 4% y aparece, más lenta que el
+   resto de revelados para que se lea como el momento de la sección.
+   Solo transform y opacity; la curva es la --ease de la casa (sale rápido
+   y se posa), sin rebote. */
+.af__hero.rv {
+  transform: translateY(48px) scale(.96);
+  transform-origin: 50% 80%;
+  transition: opacity 1s var(--ease), transform 1.4s var(--ease);
+}
+.af__hero.rv.is-in { transform: none; }
+
+/* Las dos bajadas, debajo del equipo. Un solo contenedor: el bloque 42
+   pone en la misma celda a todo .body hijo directo de .head, y con dos
+   párrafos se pintaban uno encima del otro. */
+.af__bajada {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+}
+.af__bajada .body { margin: 0; color: var(--ink-2); }
+.af__bajada strong { color: var(--ink); }
+
+@media (min-width: 48em) {
+  .af__bajada {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    max-width: 60rem;
+    margin-inline: auto;
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--line-strong);
+  }
+}
+
+/* Sin JS no hay quien añada .is-in: aquí el contenido no se esconde. */
+@media (scripting: none) {
+  #airflow .rv { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .af__hero.rv { transform: none; }
+  .af__hero img { transform: none; will-change: auto; }
 }
 
 .af__lead {
