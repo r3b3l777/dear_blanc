@@ -35,7 +35,7 @@
 <link rel="preload" href="/assets/fonts/CMUSerif-normal-latin.woff2?v=b4168e00" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/InstrumentSans-normal-latin.woff2?v=561da854" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/styles.css?v=59765dc8">
-<link rel="stylesheet" href="/css/editorial.css?v=74e748a1">
+<link rel="stylesheet" href="/css/editorial.css?v=ca7ff783">
 <noscript><style>.intro{display:none}.rv{opacity:1;transform:none}</style></noscript>
 
 <script type="application/ld+json">
@@ -627,36 +627,50 @@
   </section>
 
   <!-- ===== 10. GBT · Guided Biofilm Therapy ===== -->
-  <!-- Hero interior: el equipo es el protagonista. La banda de arriba
-       (.af__stage) va a sangre y prolonga el fondo de estudio de la foto,
-       así el aparato se ve entero, sin recortes, y grande. Las dos
-       bajadas van en un solo contenedor (.af__bajada): sueltas, la regla
-       de cabeceras a dos columnas (bloque 42) las metía en la misma celda
-       y se encimaban de 992 px en adelante. -->
+  <!-- Portada interior de producto. La banda (.af__stage) ocupa una
+       pantalla, en vino, con el equipo recortado y grande bajo un foco de
+       luz; titular, primera bajada y botón de WhatsApp van dentro, para que
+       en el teléfono se vean sin bajar. Lo demás (bajada larga, ficha y
+       beneficios) sigue debajo, sobre papel. -->
   <section class="section section--tint section--hito af" id="airflow">
     <div class="af__stage">
-      <div class="wrap af__top">
-        <p class="eyebrow rv">Nuevo en nuestra clínica ✨</p>
-        <h2 class="rv">No todas las limpiezas dentales son iguales</h2>
-      </div>
+      <div class="af__grid">
+        <div class="af__top">
+          <p class="eyebrow rv">Nuevo en nuestra clínica ✨</p>
+          <h2 class="rv">No todas las limpiezas dentales son iguales</h2>
+        </div>
 
-      <figure class="af__hero rv">
-        <picture>
-          <source type="image/webp" srcset="/assets/img/airflow.webp?v=45787424 1100w, /assets/img/airflow@2x.webp?v=19f968e7 1320w" sizes="(min-width: 62em) 940px, 100vw">
-          <img src="/assets/img/airflow.jpg?v=e1684b53" srcset="/assets/img/airflow.jpg?v=e1684b53 1100w, /assets/img/airflow@2x.jpg?v=00c1e773 1320w" sizes="(min-width: 62em) 940px, 100vw" alt="Equipo EMS AIRFLOW Prophylaxis Master con sus piezas de mano AIRFLOW MAX y PIEZON LED" width="1100" height="879" loading="lazy" decoding="async">
-        </picture>
-      </figure>
+        <!-- Tres capas, cada una con un solo movimiento: la figura entra
+             (.rv), .af__flota respira y .af__para sigue el scroll. Si se
+             juntaran en un elemento, un transform pisaría al otro. -->
+        <figure class="af__maq rv">
+          <div class="af__flota">
+            <div class="af__para">
+              <picture>
+                <source type="image/webp" srcset="/assets/img/gbt-maquina.webp?v=82d4219e 936w, /assets/img/gbt-maquina@2x.webp?v=e277ec95 1404w" sizes="(min-width: 62em) 44vw, 88vw">
+                <img src="/assets/img/gbt-maquina.png?v=72decb71" alt="Equipo EMS AIRFLOW Prophylaxis Master con sus piezas de mano AIRFLOW MAX y PIEZON LED" width="936" height="1029" loading="lazy" decoding="async">
+              </picture>
+              <span class="af__brillo" aria-hidden="true"><span></span></span>
+            </div>
+          </div>
+        </figure>
 
-      <div class="wrap">
-        <div class="af__bajada">
-          <p class="body rv">Descubre una nueva experiencia para cuidar tu sonrisa. La higiene dental profesional ha evolucionado, y ahora puedes vivirla en nuestra clínica.</p>
-          <p class="body rv">Presentamos <strong>GBT — Guided Biofilm Therapy</strong>, un protocolo de higiene dental profesional de EMS que integra evaluación, prevención y tecnología avanzada. Porque cuidar tu sonrisa debería ser una experiencia que quieras repetir.</p>
+        <div class="af__copy">
+          <p class="af__intro rv">Descubre una nueva experiencia para cuidar tu sonrisa. La higiene dental profesional ha evolucionado, y ahora puedes vivirla en nuestra clínica.</p>
+          <div class="af__acciones rv">
+            <a class="btn btn--primary" id="gbtWa" href="#agenda">
+              <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Quiero agendar mi experiencia GBT
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="wrap">
-      <p class="af__lead rv">Incorporamos el protocolo Guided Biofilm Therapy de EMS, que combina prevención, tecnología AIRFLOW® y atención personalizada para cuidar tu sonrisa.</p>
+      <div class="af__bajada">
+        <p class="af__lead rv">Incorporamos el protocolo Guided Biofilm Therapy de EMS, que combina prevención, tecnología AIRFLOW® y atención personalizada para cuidar tu sonrisa.</p>
+        <p class="body rv">Presentamos Guided Biofilm Therapy (GBT), un protocolo de higiene dental profesional de EMS que integra evaluación, prevención y tecnología avanzada. Porque cuidar tu sonrisa debería ser una experiencia que quieras repetir.</p>
+      </div>
 
       <div class="af__ficha">
         <dl class="af__datos rv">
@@ -691,7 +705,7 @@
       </div>
 
       <div class="af__cta rv">
-        <a class="btn btn--primary" id="gbtWa" href="#agenda">
+        <a class="btn btn--primary" id="gbtWa2" href="#agenda">
           <svg aria-hidden="true"><use href="#i-whatsapp-logo"></use></svg>Quiero agendar mi experiencia GBT
         </a>
       </div>
@@ -944,6 +958,6 @@
 </a>
 
 <script src="/js/config.js?v=b812b3fa"></script>
-<script src="/js/main.js?v=e53f1e49"></script>
+<script src="/js/main.js?v=6182426d"></script>
 </body>
 </html>

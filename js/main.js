@@ -81,8 +81,11 @@
     var fw  = $("#footWa");  if (fw)  { fw.href = base; fw.target = "_blank"; fw.rel = "noopener"; }
     // Ficha de contacto del cierre (lámina 12): muestra el número real.
     // Sección GBT: abre WhatsApp con el mensaje ya escrito.
-    var gw  = $("#gbtWa");
-    if (gw) { gw.href = wa("Hola, quiero agendar mi experiencia GBT (Guided Biofilm Therapy) en Dear Blanc."); gw.target = "_blank"; gw.rel = "noopener"; }
+    // Dos botones: el de la portada de la sección y el del cierre de la ficha.
+    ["#gbtWa", "#gbtWa2"].forEach(function (id) {
+      var gw = $(id);
+      if (gw) { gw.href = wa("Hola, quiero agendar mi experiencia GBT (Guided Biofilm Therapy) en Dear Blanc."); gw.target = "_blank"; gw.rel = "noopener"; }
+    });
     var cw  = $("#closeWa");
     if (cw) {
       cw.href = base; cw.target = "_blank"; cw.rel = "noopener";
@@ -248,7 +251,7 @@
      rAF, y solo mientras la banda está a la vista. Sin paralaje si se
      pidió menos movimiento. */
   (function () {
-    var banda = $(".af__stage"), img = $(".af__hero img");
+    var banda = $(".af__stage"), img = $(".af__para");
     if (reduce || !banda || !img || !("IntersectionObserver" in window)) return;
     var visible = false, pendiente = false;
     function mover() {
