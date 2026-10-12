@@ -82,7 +82,7 @@
     // Ficha de contacto del cierre (lámina 12): muestra el número real.
     // Sección GBT: abre WhatsApp con el mensaje ya escrito.
     // Dos botones: el de la portada de la sección y el del cierre de la ficha.
-    ["#gbtWa", "#gbtWa2"].forEach(function (id) {
+    ["#gbtWa"].forEach(function (id) {
       var gw = $(id);
       if (gw) { gw.href = wa("Hola, quiero agendar mi experiencia GBT (Guided Biofilm Therapy) en Dear Blanc."); gw.target = "_blank"; gw.rel = "noopener"; }
     });
