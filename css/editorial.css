@@ -2081,3 +2081,27 @@ h3 { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.3; }
   .af__bene .disc { width: 46px; height: 46px; }
   .af__bene .disc svg { width: 17px; height: 17px; }
 }
+
+
+/* ==========================================================================
+   Calificación de Google en la portada
+   Una línea discreta bajo la frase: la G de colores es lo único que no va
+   en la paleta, porque sin ella no se reconoce como Google.
+   ========================================================================== */
+.g-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.1rem;
+  min-height: 44px;
+  font-size: .8125rem;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.g-rating__g { width: 18px; height: 18px; flex: none; }
+.g-rating__stars { color: #E8A93B; letter-spacing: .08em; font-size: .9375rem; line-height: 1; }
+.g-rating__txt { white-space: nowrap; }
+.g-rating:hover .g-rating__txt { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+@media (min-width: 900px) {
+  .g-rating { margin-top: .9rem; }
+}

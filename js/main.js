@@ -107,6 +107,18 @@
     else { el.remove(); }
   });
 
+  /* ---------- Calificación de Google ---------- */
+  var gr = $("#googleRating");
+  if (gr && C.google) {
+    var g = C.google;
+    gr.href = g.url || "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Dear Blanc Dental Studio Metepec");
+    var nota = Number(g.calificacion || 5).toFixed(1);
+    var gn = gr.querySelector("[data-g-nota]"); if (gn) gn.textContent = nota;
+    var gt = gr.querySelector("[data-g-total]");
+    if (gt && g.total) gt.textContent = " · " + g.total + " reseñas";
+    gr.setAttribute("aria-label", "Calificación de " + nota + " de 5 estrellas en Google" + (g.total ? ", " + g.total + " reseñas" : "") + ". Ver reseñas");
+  }
+
   /* ---------- Google Maps ---------- */
   var maps = $("#mapsLink"); if (maps && C.maps) maps.href = C.maps;
 

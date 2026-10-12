@@ -13,6 +13,16 @@ window.DB = {
 
   maps: "https://www.google.com/maps?q=Sanatorio+Venecia+Tecnol%C3%B3gico+Metepec",
 
+  /* Calificación de Google que se muestra en la portada. `total` es el
+     número de reseñas: mientras esté vacío no se muestra. `url` es el link
+     del perfil de Google Maps de la clínica (Compartir > Copiar vínculo);
+     mientras esté vacío, la insignia abre la búsqueda de la clínica. */
+  google: {
+    calificacion: 5,
+    total: "",
+    url: ""
+  },
+
   social: {
     instagram: "https://www.instagram.com/dearblancdentalstudio",
     tiktok: "https://www.tiktok.com/@dearblancdentalstudio",
