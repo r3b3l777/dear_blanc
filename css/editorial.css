@@ -1096,6 +1096,7 @@ h3 {
 }
 .team__meta h3 { margin: 0; font-size: 1.125rem; }
 .team__meta p { margin: .3rem 0 0; font-size: .875rem; color: var(--ink-3); }
+.team__meta .team__ced { margin-top: .2rem; font-size: .75rem; letter-spacing: .02em; }
 
 .team__nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
 .team__arrow {

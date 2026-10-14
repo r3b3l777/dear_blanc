@@ -482,7 +482,8 @@
             ? '<img src="' + p.foto + '" alt="' + p.nombre + '" loading="lazy" decoding="async">'
             : '<span class="team__ini" aria-hidden="true">' + iniciales(p.nombre) + '</span>') +
         '</div>' +
-        '<div class="team__meta"><h3>' + p.nombre + '</h3><p>' + p.area + '</p></div>';
+        '<div class="team__meta"><h3>' + p.nombre + '</h3><p>' + p.area + '</p>' +
+          (p.cedula ? '<p class="team__ced">Cédula Prof. ' + p.cedula + '</p>' : '') + '</div>';
       stage.appendChild(card);
 
       var d = document.createElement("button");

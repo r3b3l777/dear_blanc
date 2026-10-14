@@ -116,11 +116,13 @@ window.DB = {
   },
 
   /* Especialistas. Mientras `foto` esté vacío se pinta un avatar con las
-     iniciales: la sección funciona igual y no se inventa una cara. */
+     iniciales: la sección funciona igual y no se inventa una cara.
+     `cedula` es la cédula profesional; si está, se muestra bajo el área. */
   equipo: [
+    { nombre: "Jorge Enrique Heres Reyes", area: "Esp. en Endodoncia", cedula: "13903465", foto: "/assets/img/equipo/endodoncia-jorge-heres.webp" },
+    { nombre: "Esp. en Periodoncia", area: "Salud de encías", cedula: "6450478", foto: "/assets/img/equipo/periodoncia.webp" },
     { nombre: "Dirección clínica",  area: "Estética y rehabilitación", foto: "" },
     { nombre: "Rehabilitación oral",area: "Implantes y prótesis",      foto: "" },
-    { nombre: "Periodoncia",        area: "Salud de encías",           foto: "" },
     { nombre: "Ortodoncia",         area: "Alineadores y brackets",    foto: "" }
   ]
 };
