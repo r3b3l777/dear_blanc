@@ -120,7 +120,7 @@ window.DB = {
      `cedula` es la cédula profesional; si está, se muestra bajo el área. */
   equipo: [
     { nombre: "Jorge Enrique Heres Reyes", area: "Esp. en Endodoncia", cedula: "13903465", foto: "/assets/img/equipo/endodoncia-jorge-heres.webp" },
-    { nombre: "Esp. en Periodoncia", area: "Salud de encías", cedula: "6450478", foto: "/assets/img/equipo/periodoncia.webp" },
+    { nombre: "Esp. en Periodoncia", area: "Salud de encías", cedula: "6450478", foto: "/assets/img/equipo/periodoncia.webp?v=2" },
     { nombre: "Dirección clínica",  area: "Estética y rehabilitación", foto: "" },
     { nombre: "Rehabilitación oral",area: "Implantes y prótesis",      foto: "" },
     { nombre: "Ortodoncia",         area: "Alineadores y brackets",    foto: "" }
