@@ -882,6 +882,23 @@ h3 {
   position: absolute; inset: 0; overflow: hidden;
   border: 1px solid var(--line);
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  /* Cada cara es su propio contexto de apilado. Sin esto, la foto, el velo
+     y el nombre del frente (que llevan z-index) escapaban del ocultamiento
+     de la cara trasera en Safari y Chrome móvil, y se veían en espejo
+     encima del reverso. */
+  isolation: isolate;
+}
+/* Además, la cara que no toca se oculta de verdad a la mitad del giro
+   (el giro dura 1.05 s), en vez de confiar solo en backface-visibility. */
+.svc__front { transform: rotateY(0deg); visibility: visible; transition: visibility 0s linear .5s; }
+.svc__back  { visibility: hidden; transition: visibility 0s linear .5s; }
+.svc[data-flip] .svc__front { visibility: hidden; }
+.svc[data-flip] .svc__back  { visibility: visible; }
+@media (hover: hover) and (pointer: fine) {
+  .svcs:not([data-barriendo]) .svc:hover .svc__front,
+  .svcs:not([data-barriendo]) .svc:focus-within .svc__front { visibility: hidden; }
+  .svcs:not([data-barriendo]) .svc:hover .svc__back,
+  .svcs:not([data-barriendo]) .svc:focus-within .svc__back { visibility: visible; }
 }
 
 /* ---------- Cara delantera ---------- */
@@ -1136,7 +1153,7 @@ h3 {
   .team__card { transition: none; }
   /* La tarjeta sigue teniendo dos caras, pero el giro es instantáneo: la
      descripción tiene que seguir siendo alcanzable sin animación. */
-  .svc__flip { transition: none; }
+  .svc__flip, .svc__front, .svc__back { transition: none; }
 }
 
 /* A partir de 64em las pestañas se acomodan en vertical (una lista al lado
